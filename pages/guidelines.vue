@@ -4,6 +4,8 @@
   <div class="container-fluid bg-guidelines">
     <div class="row">
       <div class="col-12">
+        <q-btn color="primary_0" label="Primary123" />
+
         <h2>
           <span>01</span>
           <span class="text-color-primary">COLOR</span>
@@ -84,5 +86,8 @@ h2 {
     margin-left: 10px;
     color: $gray_5;
   }
+}
+.q-btn {
+  background-color: $primary_0;
 }
 </style>
