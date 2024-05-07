@@ -21,6 +21,8 @@
 * Bootstrap 5
 * quasar
 * sass
+* eslint
+`npx eslint pages/xxx.vue`
 
 ---
 

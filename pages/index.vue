@@ -1,12 +1,11 @@
-<script setup>
-const { data } = await useFetch(`${process.env.API_URL}/rooms`);
-console.log(data);
-</script>
+<script setup></script>
 
 <template>
-  <div>Page: index</div>
-  <NuxtLink to="/admin"> admin </NuxtLink>
-  <NuxtLink to="/guidelines"> Guidelines </NuxtLink>
+  <div>
+    <h1>Page: index</h1>
+    <NuxtLink to="/admin"> admin </NuxtLink>
+    <NuxtLink to="/guidelines"> Guidelines </NuxtLink>
+  </div>
 </template>
 
 <style scoped></style>
