@@ -19,14 +19,14 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  layout: 'template/base-layout', // 注意小写和文件名一致性
+  layout: 'template/base-layout',  
+ 
   setup() {
     const username = ref('');
     const password = ref('');
 
     function onSubmit() {
       console.log('Username:', username.value, 'Password:', password.value);
-      // 在此處理登入邏輯
     }
 
     return { username, password, onSubmit };
@@ -35,5 +35,4 @@ export default defineComponent({
 </script>
 
 <style>
-/* 在此添加 CSS 樣式 */
 </style>

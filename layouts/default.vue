@@ -1,33 +1,17 @@
-<!-- layouts/BaseLayout.vue -->
+<script setup>
+import "virtual:svg-icons-register";
+</script>
+
 <template>
-  <q-layout view="hHh lpR fFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title>
-          MyApp
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
+  <NuxtLoadingIndicator class="color-primary" :height="10" :throttle="0">
+    <h2>Loading...</h2>
+  </NuxtLoadingIndicator>
 
-    <q-drawer v-model="drawerOpen" show-if-above>
-      <!-- Drawer contents here -->
-    </q-drawer>
-
-    <q-page-container>
-      <slot />
-    </q-page-container>
-
-    <q-footer elevated>
-      <q-toolbar>
-        <q-toolbar-title>
-          Footer
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-footer>
-  </q-layout>
+  <div>
+    <Header />
+    <slot />
+    <Footer />
+  </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-const drawerOpen = ref(false);
-</script>
+<style scoped></style>
