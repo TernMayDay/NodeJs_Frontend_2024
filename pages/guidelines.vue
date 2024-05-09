@@ -7,6 +7,8 @@ const { data } = await useFetch('/api/guidelines')
     <!-- Color -->
     <div class="row pb-4">
       <div class="col-12">
+        <q-btn color="primary_0" label="Primary123" />
+
         <h2>
           <span>01</span>
           <span class="text-color-primary">COLOR</span>

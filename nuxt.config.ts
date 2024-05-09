@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', "nuxt-quasar-ui"],
   vite: {
     define: {
       'process.env': process.env
