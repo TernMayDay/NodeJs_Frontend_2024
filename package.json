@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "VITE_CJS_TRACE=true nuxt dev",
+    "dev": "VITE_CJS_IGNORE_WARNING=true nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
