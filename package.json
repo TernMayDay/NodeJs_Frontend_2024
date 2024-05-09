@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "VITE_CJS_TRACE=true nuxt dev",
+    "dev": "VITE_CJS_IGNORE_WARNING=true nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -13,9 +13,13 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "@popperjs/core": "^2.11.8",
+    "@vee-validate/nuxt": "^4.12.7",
     "bootstrap": "^5.3.3",
     "dayjs": "^1.11.11",
+    "normalize.css": "^8.0.1",
     "nuxt": "^3.11.2",
+    "nuxt-sweetalert2": "^1.0.0",
+    "nuxt-swiper": "^1.2.2",
     "nuxt-quasar-ui": "^2.1.1",
     "pinia": "^2.1.7",
     "quasar": "^2.15.4",

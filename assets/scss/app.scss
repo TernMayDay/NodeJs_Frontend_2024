@@ -1,10 +1,6 @@
 /** functions */
 @import "/node_modules/bootstrap/scss/functions";
 
-/** 自訂 color variables */
-@import "./variables";
-@import "./color";
-
 /** variables, mixins, root */
 @import "/node_modules/bootstrap/scss/variables";
 @import "/node_modules/bootstrap/scss/variables-dark";
@@ -29,3 +25,284 @@
 @import "/node_modules/bootstrap/scss/helpers";
 
 @import "/node_modules/bootstrap/scss/utilities/api";
+
+/** 自訂 color variables function*/
+@import "./color";
+@import "./variables";
+@import "./function";
+@import "./mixins";
+
+body {
+  background-color: $gray_2;
+  @include font( 1, $text-weight-regular, $font-size-base, 1.5, 2 );
+}
+
+// font-1 Noto Sans TC
+
+.text-h1{
+  @include font( 1, $text-weight-bold, $h1-font-size, 1.2, 4 );
+}
+
+.text-h2{
+  @include font( 1, $text-weight-bold, $h2-font-size, 1.2, 4 );
+}
+
+.text-h3{
+  @include font( 1, $text-weight-bold, $h3-font-size, 1.2, 2 );
+}
+
+.text-h4{
+  @include font( 1, $text-weight-medium, $h4-font-size, 1.2, 2 );
+}
+
+.text-btn1{
+  @include font( 1, $text-weight-medium, $font-size-base, 1.5, 2 );
+}
+
+.text-btn2{
+  @include font( 1, $text-weight-medium, $s1-font-size, 1.5, 2 );
+}
+
+.text-base{
+  @include font( 1, $text-weight-regular, $font-size-base, 1.5, 2 );
+}
+
+.text-s1{
+  @include font( 1, $text-weight-regular, $s1-font-size, 1.5, 1 );
+}
+
+.text-sm2{
+  @include font( 1, $text-weight-regular, $s2-font-size, 1.5, 1 );
+}
+
+
+// font-2 Roboto Condensed Italic
+.text-eng1{
+  @include font( 2, $text-weight-light, $eng1-font-size, 1.2, 0 );
+}
+
+.text-eng2{
+  @include font( 2, $text-weight-light, $eng2-font-size, 1.2, 0 );
+}
+
+.text-eng3{
+  @include font( 2, $text-weight-light, $eng3-font-size, 1.2, 0 );
+}
+
+// 03 BUTTONS
+.live-btn{
+  width: rem(40px);
+  height: rem(40px);
+  border-radius: rem(40px);
+  background: $gray_3;
+  border: transparent;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+
+  &:hover,
+  &:active,
+  &.active {
+    background: linear-gradient(45deg, $primary_0, $primary_1);
+
+    &::before{
+      content: '';
+      display: flex;
+      position: absolute;
+      background: $gray_1;
+      width: rem(38px);
+      height: rem(38px);
+      border-radius: rem(40px);
+    }
+
+    & .icon-like{
+      width: rem(16px);
+      height: rem(16px);
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23000' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='4' d='M15 8C8.925 8 4 12.925 4 19c0 11 13 21 20 23.326C31 40 44 30 44 19c0-6.075-4.925-11-11-11c-3.72 0-7.01 1.847-9 4.674A10.987 10.987 0 0 0 15 8'/%3E%3C/svg%3E");
+        background: linear-gradient(45deg,$primary_0, $primary_1);
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+  }
+
+  & .icon-like {
+    display: inline-block;
+    width: rem(16px);
+    height: rem(16px);
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='4' d='M15 8C8.925 8 4 12.925 4 19c0 11 13 21 20 23.326C31 40 44 30 44 19c0-6.075-4.925-11-11-11c-3.72 0-7.01 1.847-9 4.674A10.987 10.987 0 0 0 15 8'/%3E%3C/svg%3E");
+    background-color: white;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  &[disabled]{
+    background: $gray_3;
+
+    & .icon-like {
+      background-color: $gray_5;
+    }
+  }
+}
+
+.search-btn {
+  background: $gray_3;
+  color: white;
+  height: rem(40px);
+  border-radius: rem(40px);
+  padding: rem(0px) rem(20px);
+  border: none; 
+  align-items: center;
+  display: inline-flex;
+
+  &:hover,
+  &:active,
+  &.active {
+    color: white;
+    background: $secondary;
+  }
+
+  & .icon-search {
+      display: inline-block;
+      width: rem(24px);
+      height: rem(24px);
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8.5' cy='8.5' r='5'/%3E%3Cpath d='M17.571 17.5L12 12'/%3E%3C/g%3E%3C/svg%3E");
+      background-color: white;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      margin-right: rem(4px);
+      margin-left: rem(-4px);
+  }
+
+  &[disabled]{
+    background: $gray_3;
+    color: $gray_5;
+
+    & .icon-search {
+      display: inline-block;
+      width: rem(24px);
+      height: rem(24px);
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8.5' cy='8.5' r='5'/%3E%3Cpath d='M17.571 17.5L12 12'/%3E%3C/g%3E%3C/svg%3E");
+      background-color: $gray_5;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      margin-right: rem(4px);
+      margin-left: rem(-4px);
+  }
+
+  }
+}
+
+.check-btn {
+  background: $gray_3;
+  color: white;
+  height: rem(40px);
+  border-radius: rem(40px);
+  padding: rem(0px) rem(20px);
+  border: none; 
+
+  &:hover,
+  &:active,
+  &.active {
+    color: $gray_1;
+    background: linear-gradient(45deg, $primary_0, $primary_1);
+  }
+  &[disabled]{
+    background: $gray_3;
+    color: $gray_5;
+  }
+}
+
+.login-btn {
+  background: $gray_1;
+  height: rem(40px);
+  border-radius: rem(40px);
+  padding: rem(0px) rem(20px);
+  border: none; 
+
+  & > span{
+    background: linear-gradient(45deg, $primary_0, $primary_1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &:hover,
+  &:active,
+  &.active {
+    background: linear-gradient(45deg, $primary_0, $primary_1);
+    & > span {
+      color: $gray_1;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+    }
+  }
+
+  &[disabled]{
+    background: $gray_3;
+  }
+  &[disabled] span{
+    color: $gray_5;
+    background: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+  }
+
+}
+
+.arrow-btn{
+  border: none; 
+  &:hover,
+  &:active,
+  &.active {
+   & .icon-arrow {
+      display: inline-block;
+      width: rem(40px);
+      height: rem(40px);
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m9.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675t-.15-.75t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z'/%3E%3C/svg%3E");
+      background-color: white;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%; 
+  }
+  }
+
+  & .icon-arrow {
+      display: inline-block;
+      width: rem(40px);
+      height: rem(40px);
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m9.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675t-.15-.75t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z'/%3E%3C/svg%3E");
+      background-color: $gray_4;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%; 
+  }
+  
+}
+
+.arrow-btn--left{
+  rotate: 0deg;
+}
+.arrow-btn--right{
+  rotate: 180deg;
+}

@@ -12,10 +12,13 @@
 * [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
 選用
-* [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
+* [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
 
 ## 使用套件
+* [nuxt-swiper](https://nuxt.com/modules/swiper)
+＊[vee-validate](https://nuxt.com/modules/vee-validate)
+* [nuxt-sweetalert2](https://nuxt.com/modules/sweetalert2)
 * dayjs
 * vite-plugin-svg-icons
 * Bootstrap 5

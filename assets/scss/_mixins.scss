@@ -1,0 +1,21 @@
+@mixin font(
+   $family,
+   $weight, 
+   $size, 
+   $lineHeight, 
+   $letterSpacing 
+){
+  @if $family == 1 {
+    font-family: "Noto Sans TC", sans-serif;
+  } @else if $family == 2 {
+    font-family: "Roboto Condensed", sans-serif;
+    font-style: italic;
+  } @else {
+    font-family: "Arial", sans-serif; 
+  }
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $lineHeight;
+  letter-spacing: $letterSpacing + px;
+}
+

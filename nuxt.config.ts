@@ -3,7 +3,7 @@ import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 export default defineNuxtConfig({
-  css: ['@/assets/scss/app.scss'],
+  css: ['normalize.css', '@/assets/scss/app.scss'],
   postcss: {
     plugins: {
       autoprefixer: true
@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
-  modules: ['@pinia/nuxt', "nuxt-quasar-ui"],
+  modules: ['@pinia/nuxt', 'nuxt-quasar-ui'],
   vite: {
     define: {
       'process.env': process.env
@@ -23,6 +23,8 @@ export default defineNuxtConfig({
           additionalData: `
             @import "@/assets/scss/_color.scss";
             @import "@/assets/scss/_variables.scss";
+            @import "@/assets/scss/_mixins.scss";
+            @import "@/assets/scss/_function.scss";
           `
         }
       }
