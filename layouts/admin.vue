@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import 'virtual:svg-icons-register'
 </script>
 
@@ -7,10 +7,8 @@ import 'virtual:svg-icons-register'
     <NuxtLoadingIndicator class="color-primary" :height="10" :throttle="0">
       <h2>Loading...</h2>
     </NuxtLoadingIndicator>
-
-    <Header />
+    <AdminHeader />
     <slot />
-    <Footer />
   </div>
 </template>
 

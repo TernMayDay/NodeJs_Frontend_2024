@@ -1,0 +1,19 @@
+@function em($pixels, $context: $font-size-basic) {
+  @if ($pixels==unset) {
+    @return unset;
+  }
+
+  @else {
+    @return calc($pixels / $context) * 1em;
+  }
+}
+
+@function rem($pixels, $context: $font-size-basic) {
+  @if ($pixels==unset) {
+    @return unset;
+  }
+
+  @else {
+    @return calc($pixels / $context) * 1rem;
+  }
+}

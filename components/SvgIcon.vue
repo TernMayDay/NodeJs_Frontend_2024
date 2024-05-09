@@ -1,18 +1,18 @@
-<script setup>
+<script lang="ts" setup>
 const props = defineProps({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   color: {
     type: String,
-    default: "#999",
-  },
-});
+    default: '#999'
+  }
+})
 
 const symbolId = computed(() => {
-  return props.name.includes("/") ? `#${props.name}` : `#/${props.name}`;
-});
+  return props.name.includes('/') ? `#${props.name}` : `#/${props.name}`
+})
 </script>
 <template>
   <svg aria-hidden="true">

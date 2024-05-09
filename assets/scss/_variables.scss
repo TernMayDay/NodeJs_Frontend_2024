@@ -4,7 +4,9 @@
 // font-family: "Noto Sans TC", sans-serif;
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 
+
 // 字體大小
+$font-size-basic: 16px;
 $font-size-base: 1rem;
 $h1-font-size: $font-size-base * 3.5;
 $h2-font-size: $font-size-base * 2.45;
@@ -17,3 +19,11 @@ $s2-font-size: $font-size-base * 0.75;
 $eng1-font-size: $font-size-base * 3;
 $eng2-font-size: $font-size-base * 2;
 $eng3-font-size: $font-size-base * 1.5;
+
+// 字體粗細
+$text-weight-bold: 700;
+$text-weight-medium: 500;
+$text-weight-light: 300;
+$text-weight-regular: normal;
+
+

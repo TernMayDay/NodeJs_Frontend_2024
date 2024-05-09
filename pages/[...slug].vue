@@ -5,6 +5,8 @@ setResponseStatus(event, 404)
 </script>
 
 <template>
-  <h1>404 Not Found</h1>
-  <p>{{ route.params.slug }}</p>
+  <div>
+    <h1>404 Not Found</h1>
+    <p>{{ route.params.slug }}</p>
+  </div>
 </template>
