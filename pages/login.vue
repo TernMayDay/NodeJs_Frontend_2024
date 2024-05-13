@@ -19,8 +19,7 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  layout: 'template/base-layout',  
- 
+
   setup() {
     const username = ref('');
     const password = ref('');
@@ -32,7 +31,9 @@ export default defineComponent({
     return { username, password, onSubmit };
   }
 });
+definePageMeta({
+  layout: 'template-base-layout',
+});
 </script>
 
-<style>
-</style>
+<style></style>
