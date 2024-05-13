@@ -6,7 +6,7 @@
       </q-card-section>
       <q-card-section>
         <q-form @submit.prevent="onSubmit">
-          <q-input filled v-model="email" label="email" />
+          <q-input filled v-model="email" label="Email" />
           <q-input filled v-model="password" label="密碼" type="password" />
           <q-btn label="登入" type="submit" color="primary" />
         </q-form>
@@ -24,6 +24,22 @@ import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useApi } from '~/composables/useApi';
 
+// Define the structure of the user data and the login response
+
+interface LoginResponse {
+  token: string;
+  data: {
+    user: {
+      _id: string;
+      email: string;
+      gender: string;
+      phone: string;
+      nickname: string;
+      address: string;
+    };
+  };
+}
+
 export default defineComponent({
   setup() {
     const $q = useQuasar();
@@ -36,7 +52,8 @@ export default defineComponent({
     async function onSubmit() {
       error.value = null;
 
-      const { data, error: loginError } = await createData<{ token: string }>('user/login', {
+      // Specify the expected data structure using the LoginResponse interface
+      const { data, error: loginError } = await createData<LoginResponse>('user/login', {
         email: email.value,
         password: password.value,
       });
@@ -49,12 +66,19 @@ export default defineComponent({
           message: '登入失敗，請稍後再試。',
           icon: 'report_problem',
         });
-        error.value = loginError;
+        error.value = '登入失敗，請稍後再試。';
         return;
       }
-
-      if (data.token) {
+      console.log(data)
+      if (data && data.token) {
         localStorage.setItem('authToken', data.token);
+
+        // Save the user details in local storage
+        if (data.data && data.data.user) {
+          localStorage.setItem('userData', JSON.stringify(data.data.user));
+          localStorage.setItem('userId', data.data.user._id);
+        }
+
         router.push('/');
       } else {
         error.value = '登入失敗，請檢查您的用戶名或密碼。';
