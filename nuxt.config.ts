@@ -1,9 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 export default defineNuxtConfig({
   css: ['normalize.css', '@/assets/scss/app.scss'],
+  alias: {
+    icons: fileURLToPath(new URL('./assets/icons', import.meta.url)),
+    images: fileURLToPath(new URL('./assets/images', import.meta.url))
+  },
   postcss: {
     plugins: {
       autoprefixer: true
@@ -13,6 +18,13 @@ export default defineNuxtConfig({
     dirs: ['stores']
   },
   modules: ['@pinia/nuxt', 'nuxt-quasar-ui'],
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        activeClass: 'active'
+      }
+    }
+  },
   vite: {
     define: {
       'process.env': process.env
@@ -21,10 +33,7 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData: `
-            @import "@/assets/scss/_color.scss";
             @import "@/assets/scss/_variables.scss";
-            @import "@/assets/scss/_mixins.scss";
-            @import "@/assets/scss/_function.scss";
           `
         }
       }
