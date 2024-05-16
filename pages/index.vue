@@ -7,6 +7,7 @@
     <NuxtLink to="/guidelines"> Guidelines </NuxtLink>
     <NuxtLink to="/sample"> sample </NuxtLink>
     <NuxtLink to="/storeSample"> storeSample </NuxtLink>
+    <NuxtLink to="/login"> login </NuxtLink>
   </div>
 </template>
 

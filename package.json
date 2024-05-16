@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "VITE_CJS_IGNORE_WARNING=true nuxt dev",
+    "dev:nuxt": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -14,6 +15,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@popperjs/core": "^2.11.8",
     "@types/node": "^20.12.12",
+    "@quasar/extras": "^1.16.11",
     "@vee-validate/nuxt": "^4.12.7",
     "bootstrap": "^5.3.3",
     "dayjs": "^1.11.11",
