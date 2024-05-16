@@ -9,10 +9,6 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="drawerOpen" show-if-above>
-      <!-- Drawer contents here -->
-    </q-drawer>
-
     <q-page-container>
       <slot />
     </q-page-container>

@@ -24,6 +24,13 @@ export default defineNuxtConfig({
         activeClass: 'active'
       }
     }
+    quasar: {
+    config: {
+      // Add Quasar configurations here
+      notify: {}, // This ensures notify is correctly configured
+    },
+    // Specify Quasar plugins you want to include
+    plugins: ['Notify'],
   },
   vite: {
     define: {
@@ -45,5 +52,11 @@ export default defineNuxtConfig({
         customDomId: '__svg__icons__dom__'
       })
     ]
-  }
+  },
+    // Public runtime configuration
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_BASE_URL || 'http://localhost:3000/api', // Adjust accordingly
+    },
+  },
 })
