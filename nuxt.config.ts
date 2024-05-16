@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
-  modules: ['@pinia/nuxt', 'nuxt-quasar-ui'],
+  modules: ['@pinia/nuxt', 'nuxt-quasar-ui', 'nuxt-lodash'],
   vite: {
     define: {
       'process.env': process.env
@@ -36,5 +36,13 @@ export default defineNuxtConfig({
         customDomId: '__svg__icons__dom__'
       })
     ]
+  },
+  typescript: {
+    typeCheck: true
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: ''
+    }
   }
 })

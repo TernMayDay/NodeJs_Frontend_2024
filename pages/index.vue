@@ -5,7 +5,13 @@
     <h1>Page: index</h1>
     <NuxtLink to="/admin"> admin </NuxtLink>
     <NuxtLink to="/guidelines"> Guidelines </NuxtLink>
+    <NuxtLink to="/sample"> sample </NuxtLink>
+    <NuxtLink to="/storeSample"> storeSample </NuxtLink>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+a {
+  padding: 0 20px;
+}
+</style>
