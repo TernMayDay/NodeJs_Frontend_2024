@@ -13,6 +13,14 @@ export default defineNuxtConfig({
     dirs: ['stores']
   },
   modules: ['@pinia/nuxt', 'nuxt-quasar-ui', 'nuxt-lodash'],
+  quasar: {
+    config: {
+      // Add Quasar configurations here
+      notify: {}, // This ensures notify is correctly configured
+    },
+    // Specify Quasar plugins you want to include
+    plugins: ['Notify'],
+  },
   vite: {
     define: {
       'process.env': process.env

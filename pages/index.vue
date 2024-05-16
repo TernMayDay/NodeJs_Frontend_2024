@@ -8,6 +8,8 @@
     <NuxtLink to="/sample"> sample </NuxtLink>
     <NuxtLink to="/storeSample"> storeSample </NuxtLink>
     <NuxtLink to="/login"> login </NuxtLink>
+    <NuxtLink to="/register"> register </NuxtLink>
+    <NuxtLink to="/profile"> profile </NuxtLink>
   </div>
 </template>
 
