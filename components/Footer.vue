@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>Component: Footer</div>
+  <div style="color: white">Component: Footer</div>
 </template>
 
 <style scoped></style>
