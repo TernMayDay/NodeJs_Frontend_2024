@@ -25,6 +25,7 @@
 * vite-plugin-svg-icons
 * Bootstrap 5
 * quasar
+* ohmyfetch
 * sass
 * eslint
 `npx eslint pages/xxx.vue`
