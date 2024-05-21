@@ -20,6 +20,7 @@
 ＊[vee-validate](https://nuxt.com/modules/vee-validate)
 * [sweetalert2](https://sweetalert2.github.io)
 * nuxt-lodash
+* lodash
 * dayjs
 * vite-plugin-svg-icons
 * Bootstrap 5

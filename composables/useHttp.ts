@@ -1,5 +1,6 @@
 import type { FetchResponse, SearchParameters } from 'ofetch'
 import Swal from 'sweetalert2'
+import cloneDeep from 'lodash/cloneDeep'
 import { useUserStore } from '~/stores/User'
 
 export interface ResOptions<T> {
@@ -42,7 +43,7 @@ function handleError<T>(response: FetchResponse<ResOptions<T>> & FetchResponse<R
 function paramsSerializer(params?: SearchParameters) {
   if (!params) return
 
-  const query = useCloneDeep(params)
+  const query = cloneDeep(params)
   Object.entries(query).forEach(([key, val]) => {
     if (typeof val === 'object' && Array.isArray(val) && val !== null) {
       query[`${key}[]`] = toRaw(val).map((v: any) => JSON.stringify(v))

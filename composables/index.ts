@@ -1,3 +1,3 @@
 import api from '@/apis/index'
 
-export const useApi = () => api
+export const runApi = () => api

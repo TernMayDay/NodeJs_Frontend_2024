@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import type { Plugin } from 'vite'
 
 export default defineNuxtConfig({
   css: ['normalize.css', '@/assets/scss/app.scss'],
@@ -16,10 +17,10 @@ export default defineNuxtConfig({
   quasar: {
     config: {
       // Add Quasar configurations here
-      notify: {}, // This ensures notify is correctly configured
+      notify: {} // This ensures notify is correctly configured
     },
     // Specify Quasar plugins you want to include
-    plugins: ['Notify'],
+    plugins: ['Notify']
   },
   vite: {
     define: {
@@ -42,7 +43,7 @@ export default defineNuxtConfig({
         iconDirs: [path.resolve(process.cwd(), 'assets/icons')],
         symbolId: '[dir]/[name]',
         customDomId: '__svg__icons__dom__'
-      })
+      }) as Plugin
     ]
   },
   typescript: {
