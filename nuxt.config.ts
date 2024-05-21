@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import type { Plugin } from 'vite'
 
 export default defineNuxtConfig({
   css: ['normalize.css', '@/assets/scss/app.scss'],
@@ -12,14 +13,14 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
-  modules: ['@pinia/nuxt', 'nuxt-quasar-ui'],
-    quasar: {
+  modules: ['@pinia/nuxt', 'nuxt-quasar-ui', 'nuxt-lodash'],
+  quasar: {
     config: {
       // Add Quasar configurations here
-      notify: {}, // This ensures notify is correctly configured
+      notify: {} // This ensures notify is correctly configured
     },
     // Specify Quasar plugins you want to include
-    plugins: ['Notify'],
+    plugins: ['Notify']
   },
   vite: {
     define: {
@@ -42,13 +43,15 @@ export default defineNuxtConfig({
         iconDirs: [path.resolve(process.cwd(), 'assets/icons')],
         symbolId: '[dir]/[name]',
         customDomId: '__svg__icons__dom__'
-      })
+      }) as Plugin
     ]
   },
-    // Public runtime configuration
+  typescript: {
+    typeCheck: true
+  },
   runtimeConfig: {
     public: {
-      apiBase: process.env.API_BASE_URL || 'http://localhost:3000/api', // Adjust accordingly
-    },
-  },
+      apiBase: ''
+    }
+  }
 })

@@ -1,10 +1,10 @@
-import dayjs from 'dayjs'
+import dayjs, { locale } from 'dayjs'
 import localeZh from 'dayjs/locale/zh-cn'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.directive('timeformat1', {
+  nuxtApp.vueApp.directive('timeformat', {
     mounted(el, binding) {
-      dayjs.locale(localeZh)
+      locale(localeZh)
       const time = dayjs(binding.value).format('YYYY/MM/DD (dddd) hh:mm')
       el.innerText = time
     }
