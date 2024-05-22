@@ -37,6 +37,7 @@ interface RegisterForm {
   nickname: string;
   address: string;
   password: string;
+  role: string;
 }
 
 export default defineComponent({
@@ -52,6 +53,7 @@ export default defineComponent({
       nickname: '',
       address: '',
       password: '',
+      role: "fan"
     });
 
     const genderOptions = [
