@@ -76,7 +76,12 @@ export default defineComponent({
         return;
       }
 
-      const { data, error: updateError } = await updateData<Profile>(`user/${userId}`, profile.value, {
+      // Create a new object with only filled fields
+      const filteredProfile = Object.fromEntries(
+        Object.entries(profile.value).filter(([_, value]) => value !== '' && value !== null)
+      );
+
+      const { data, error: updateError } = await updateData<Profile>(`user/${userId}`, filteredProfile, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${authToken}` }
       });
