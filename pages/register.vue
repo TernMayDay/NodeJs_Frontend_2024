@@ -12,7 +12,7 @@
           <q-input filled v-model="form.phone" label="手機" mask="####-###-###" />
           <q-input filled v-model="form.nickname" label="暱稱" />
           <q-input filled v-model="form.address" label="地址" type="textarea" />
-          <q-input filled v-model="form.password" label="密碼" type="password" />
+          <q-input filled v-model="form.password" label="密碼" type="password" :rules="[passwordLengthRule]" />
           <q-btn label="註冊" type="submit" color="primary" class="full-width" />
         </q-form>
       </q-card-section>
@@ -45,7 +45,9 @@ export default defineComponent({
     const $q = useQuasar();
     const router = useRouter();
     const { createData } = useApi();
-
+    const passwordLengthRule = computed(() => {
+      return (val: string) => val.length >= 8 || 'Password must be at least 8 characters long';
+    });
     const form = ref<RegisterForm>({
       email: '',
       gender: '',
@@ -99,7 +101,7 @@ export default defineComponent({
       }
     }
 
-    return { form, genderOptions, onSubmit, error };
+    return { form, genderOptions, onSubmit, error, passwordLengthRule };
   },
 });
 definePageMeta({
