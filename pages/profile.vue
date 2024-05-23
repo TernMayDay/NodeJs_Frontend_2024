@@ -6,12 +6,11 @@
       </q-card-section>
       <q-card-section>
         <q-form @submit.prevent="updateProfile">
-          <q-input filled v-model="profile.email" label="Email" type="email" />
-          <q-input filled v-model="profile.gender" label="Gender" />
           <q-input filled v-model="profile.phone" label="Phone" />
           <q-input filled v-model="profile.nickname" label="Nickname" />
           <q-input filled v-model="profile.address" label="Address" />
-          <q-input filled v-model="profile.password" label="Password" type="password" />
+          <q-input bg-color="white" filled v-model="profile.password" label="Password" type="password"
+            :rules="[passwordLengthRule]" lazy-rules />
           <q-btn label="Update Profile" type="submit" color="primary" class="full-width" />
         </q-form>
       </q-card-section>
@@ -40,6 +39,7 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
     const { updateData } = useApi();
+    const router = useRouter();
     const profile = ref<Profile>({
       email: '',
       gender: '',
@@ -49,6 +49,10 @@ export default defineComponent({
       password: '',
     });
     const error = ref<string | null>(null);
+
+    const passwordLengthRule = computed(() => {
+      return (val: string) => val.length >= 8 || 'Password must be at least 8 characters long';
+    });
 
     onMounted(() => {
       loadProfile();
@@ -106,10 +110,11 @@ export default defineComponent({
         });
         // Update local storage with new user data
         localStorage.setItem('userData', JSON.stringify(profile.value));
+        router.push('/');
       }
     }
 
-    return { profile, error, updateProfile };
+    return { profile, error, updateProfile, passwordLengthRule };
   }
 });
 definePageMeta({
