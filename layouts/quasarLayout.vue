@@ -1,4 +1,3 @@
-<!-- layouts/BaseLayout.vue -->
 <template>
   <q-layout view="hHh lpR fFf">
     <q-header elevated>
@@ -23,7 +22,7 @@
   </q-layout>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { ref } from 'vue';
 const drawerOpen = ref(false);
-</script>
+</script> -->
