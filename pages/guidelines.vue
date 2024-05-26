@@ -3,7 +3,7 @@ const { data } = await useFetch('/api/guidelines')
 </script>
 
 <template>
-  <div class="container">
+  <div class="container py-10">
     <!-- Color -->
     <div class="row pb-5">
       <div class="col-12">
@@ -155,6 +155,11 @@ const { data } = await useFetch('/api/guidelines')
                 <span class="th-name">Default</span>
               </th>
               <th class="text-center">
+                <button type="button" class="btn tag-btn text-s1">
+                  <span>戴資穎</span>
+                </button>
+              </th>
+              <th class="text-center">
                 <button type="button" class="btn live-btn"><i class="icon-like"></i></button>
               </th>
               <th class="text-center">
@@ -178,6 +183,11 @@ const { data } = await useFetch('/api/guidelines')
                 <span class="th-name">Hover</span>
               </th>
               <th class="text-center">
+                <button type="button" class="btn tag-btn active text-s1">
+                  <span>戴資穎</span>
+                </button>
+              </th>
+              <th class="text-center">
                 <button type="button" class="btn live-btn active"><i class="icon-like"></i></button>
               </th>
               <th class="text-center">
@@ -199,6 +209,11 @@ const { data } = await useFetch('/api/guidelines')
             <tr>
               <th scope="row">
                 <span class="th-name">Disable</span>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn tag-btn text-s1" disabled>
+                  <span>戴資穎</span>
+                </button>
               </th>
               <th class="text-center">
                 <button type="button" class="btn live-btn" disabled>

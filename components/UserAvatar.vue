@@ -8,6 +8,11 @@ const props = defineProps({
   isHideNickname: {
     type: Boolean,
     default: true
+  },
+  // 隱藏等級
+  isHideRole: {
+    type: Boolean,
+    default: true
   }
 })
 </script>
@@ -21,9 +26,14 @@ const props = defineProps({
         :alt="user.nickname"
         class="object-fit rounded-circle"
       />
-      <div v-else class="icon user-bold"></div>
+      <div v-else class="icon icon-user-bold"></div>
     </button>
-    <span v-if="!props.isHideNickname" class="text-s2">{{ user.nickname }}</span>
+    <ul class="list-unstyled g-grid gap-1 text-start">
+      <li v-if="!props.isHideNickname" class="text-s2">{{ user.nickname }}</li>
+      <li v-if="!props.isHideRole && user.role !== 2" class="text-s2 text-gray5">
+        {{ user.role === 0 ? '平台管理者' : '主辦單位' }}
+      </li>
+    </ul>
   </div>
 </template>
 

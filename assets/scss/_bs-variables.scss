@@ -364,7 +364,7 @@ $enable-reduced-motion: true !default;
 $enable-smooth-scroll: true !default;
 $enable-grid-classes: true !default;
 $enable-container-classes: true !default;
-$enable-cssgrid: false !default;
+$enable-cssgrid: true !default;
 $enable-button-pointers: true !default;
 $enable-rfs: true !default;
 $enable-validation-icons: true !default;
@@ -402,13 +402,16 @@ $spacers: (
     2: $spacer * 0.5,
     3: $spacer * 0.75,
     4: $spacer,
+    '4-1': $spacer * 1.25,
     5: $spacer * 1.5,
     6: $spacer * 1.75,
     7: $spacer * 2,
     8: $spacer * 2.5,
     9: $spacer * 3,
     10: $spacer * 3.5,
-    11: $spacer * 4,
+    11: $spacer * 3.75,
+    12: $spacer * 4,
+    13: $spacer * 5
     ) !default;
 // scss-docs-end spacer-variables-maps
 
@@ -428,7 +431,7 @@ $position-values: (
 // Settings for the `<body>` element.
 
 $body-text-align: null !default;
-$body-color: $gray-900 !default;
+$body-color: $white !default; //$gray-900 !default;
 $body-bg: $white !default;
 
 $body-secondary-color: rgba($body-color, .75) !default;
@@ -443,10 +446,10 @@ $body-emphasis-color: $black !default;
 //
 // Style anchor elements.
 
-$link-color: $primary !default;
+$link-color: $white !default;
 $link-decoration: null !default; //underline !default;
 $link-shade-percentage: 20% !default;
-$link-hover-color: shift-color($link-color, $link-shade-percentage) !default;
+$link-hover-color: $secondary !default; // shift-color($link-color, $link-shade-percentage) !default;
 $link-hover-decoration: null !default;
 
 $stretched-link-pseudo-element: after !default;
@@ -555,7 +558,7 @@ $box-shadow-inset: inset 0 1px 2px rgba($black, .075) !default;
 // scss-docs-end box-shadow-variables
 
 $component-active-color: $white !default;
-$component-active-bg: $primary !default;
+$component-active-bg: $gray_4 !default; //$primary !default;
 
 // scss-docs-start focus-ring-variables
 $focus-ring-width: .25rem !default;
@@ -1218,7 +1221,7 @@ $navbar-toggler-padding-y: .25rem !default;
 $navbar-toggler-padding-x: .75rem !default;
 $navbar-toggler-font-size: $font-size-lg !default;
 $navbar-toggler-border-radius: $btn-border-radius !default;
-$navbar-toggler-focus-width: $btn-focus-width !default;
+$navbar-toggler-focus-width: 0 !default; //$btn-focus-width !default;
 $navbar-toggler-transition: box-shadow .15s ease-in-out !default;
 
 $navbar-light-color: rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;

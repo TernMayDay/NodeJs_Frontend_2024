@@ -1,121 +1,49 @@
 <script setup>
-import { useAuthStore } from '~/stores/AuthStore'
-
-const router = useRouter()
 const authStore = useAuthStore()
-const notificationStore = useNotificationStore()
 const { user } = storeToRefs(authStore)
-const { notifications } = storeToRefs(notificationStore)
+const navbarCollapseRef = ref(null)
+let navbarCollapse
+const isOpenSearchDropdown = ref(false)
 
-await notificationStore.getNotifications()
-
-/**
- * 所有/單筆 通知標示已讀
- * @param notification 通知
- */
-function changeIsRead(notification) {
-  if (notification?._id) {
-    const { _id, url } = notification
-    console.log('單筆 標示為已讀', _id, url)
-    if (url) {
-      router.push(url)
-    }
-  } else {
-    console.log('全部 標示為已讀')
-  }
-}
+onMounted(() => {
+  useCreateNavbarCollapse(navbarCollapseRef)
+  navbarCollapse = useNavbarCollapse()
+})
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark deco-bg-image">
-    <div class="container">
+  <nav class="navbar navbar-expand-xl navbar-dark sticky-top">
+    <div class="deco-bg-image"></div>
+    <div class="container-xl">
+      <button class="navbar-toggler border-0 p-0" type="button" @click="navbarCollapse.toggle()">
+        <span class="navbar-toggler-icon icon icon-menu bg-white"></span>
+      </button>
       <NuxtLink class="navbar-brand" to="/">
         <img src="~images/logo.svg" alt="SportsPass LOGO" class="logo" />
       </NuxtLink>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="navbarNavDropdown" class="collapse navbar-collapse">
-        <EventSearch />
-        <ul class="navbar-nav ms-auto gap-8 align-items-center">
-          <li class="nav-item">
-            <NuxtLink class="nav-link" to="/guidelines">guidelines</NuxtLink>
-          </li>
-          <li class="nav-item">
-            <NuxtLink class="nav-link" to="/events">找賽事</NuxtLink>
-          </li>
-          <li class="nav-item">
-            <NuxtLink class="nav-link" to="/member/myTicket">我的票券</NuxtLink>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              id="notificationNavbarDropdown"
-              class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-flex"
-              href="#"
+      <NotificationComponent class="d-xl-none" />
+      <div ref="navbarCollapseRef" class="collapse navbar-collapse py-4 py-xl-0">
+        <EventSearch v-model="isOpenSearchDropdown" />
+        <ul
+          class="navbar-nav ms-auto gap-2 gap-xl-8 align-items-center"
+          :class="{ 'd-none-down-xl': isOpenSearchDropdown }"
+        >
+          <!-- 未登入 -->
+          <li v-if="!user" class="nav-item order-last">
+            <NuxtLink
               role="button"
-              data-bs-toggle="dropdown"
-              data-bs-auto-close="outside"
-              aria-expanded="false"
+              to="/login"
+              class="btn login-btn text-btn1"
+              @click="navbarCollapse.hide()"
             >
-              <div class="icon icon-bell"></div>
-            </a>
-            <ul
-              class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
-              aria-labelledby="notificationNavbarDropdownLink"
-            >
-              <li class="d-flex align-items-center">
-                <h1 class="text-btn1 mb-0">通知</h1>
-                <div class="d-flex align-items-center gap-2 ms-auto">
-                  <button type="button" class="btn btn-link text-btn1" @click="changeIsRead()">
-                    <span class="text-color-gray5">全部標示為已讀</span>
-                  </button>
-                  <NuxtLink to="/member/mySubscription">
-                    <div class="icon setting-fill color-gary4"></div>
-                  </NuxtLink>
-                </div>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li class="notifications-block">
-                <div class="list-group list-group-flush gap-3">
-                  <button
-                    v-for="(notification, index) in notifications"
-                    :key="notification._id"
-                    type="button"
-                    class="list-group-item list-group-item-action d-flex align-items-start gap-2 border-0 py-0"
-                    @click="changeIsRead(notification)"
-                  >
-                    <div class="dots flex-shrink-0"></div>
-                    <div
-                      class="gap-1 pb-3"
-                      :class="{ 'border-bottom': index !== notifications.length - 1 }"
-                    >
-                      <h1 class="text-btn2 mb-0">{{ notification.title }}</h1>
-                      <span class="text-s2 text-gray5">{{ notification.createdAt }}</span>
-                    </div>
-                  </button>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <li v-if="!user" class="nav-item">
-            <NuxtLink role="button" to="/login" class="btn login-btn text-btn1">
               <span>登入</span>
             </NuxtLink>
           </li>
-          <li v-else class="nav-item dropdown">
+          <!-- 已登入 -->
+          <li v-else class="nav-item dropdown order-xl-last">
             <a
               id="userNavbarDropdown"
-              class="nav-link dropdown-toggle dropdown-toggle-hide-arrow"
+              class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-none d-xl-block"
               href="#"
               role="button"
               data-bs-toggle="dropdown"
@@ -128,24 +56,80 @@ function changeIsRead(notification) {
               aria-labelledby="userNavbarDropdownMenuLink"
             >
               <li>
-                <UserAvatar :is-hide-nickname="false" />
+                <UserAvatar :is-hide-nickname="false" :is-hide-role="false" />
               </li>
               <li>
                 <hr class="dropdown-divider" />
               </li>
               <li>
-                <NuxtLink class="dropdown-item" to="/member/editMyInfo">編輯我的資料</NuxtLink>
+                <NuxtLink
+                  class="dropdown-item"
+                  :to="`/${user.role === 2 ? 'member' : 'admin'}/editMyInfo`"
+                  @click="navbarCollapse.hide()"
+                  >編輯我的資料
+                </NuxtLink>
               </li>
-              <li>
-                <NuxtLink class="dropdown-item" to="/member/myTicket">我的票券</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink class="dropdown-item" to="/member/mySubscription">我的訂閱</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink class="dropdown-item" to="/member/myFavorite">我的最愛</NuxtLink>
-              </li>
-              <li class="pt-2">
+              <template v-if="user.role === 2">
+                <li>
+                  <NuxtLink
+                    class="dropdown-item"
+                    to="/member/myTicket"
+                    @click="navbarCollapse.hide()"
+                    >我的票券
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink
+                    class="dropdown-item"
+                    to="/member/mySubscription"
+                    @click="navbarCollapse.hide()"
+                    >我的訂閱
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink
+                    class="dropdown-item"
+                    to="/member/myFavorite"
+                    @click="navbarCollapse.hide()"
+                    >我的最愛
+                  </NuxtLink>
+                </li>
+              </template>
+              <template v-else>
+                <li>
+                  <NuxtLink
+                    class="dropdown-item"
+                    to="/admin/eventManagement"
+                    @click="navbarCollapse.hide()"
+                    >賽事管理
+                  </NuxtLink>
+                </li>
+                <li v-if="user.role === 1">
+                  <NuxtLink
+                    class="dropdown-item"
+                    to="/admin/fanManagement"
+                    @click="navbarCollapse.hide()"
+                    >粉絲管理
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink
+                    class="dropdown-item"
+                    to="/admin/revenueManagement"
+                    @click="navbarCollapse.hide()"
+                    >營收管理
+                  </NuxtLink>
+                </li>
+                <li v-if="user.role === 1">
+                  <NuxtLink
+                    class="dropdown-item"
+                    to="/admin/checkTickets"
+                    @click="navbarCollapse.hide()"
+                    >驗票功能
+                  </NuxtLink>
+                </li>
+              </template>
+              <li class="pt-2 d-none d-xl-block">
                 <button
                   type="button"
                   class="btn login-btn text-btn1 w-100"
@@ -156,6 +140,33 @@ function changeIsRead(notification) {
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <NuxtLink class="nav-link" to="/guidelines" @click="navbarCollapse.hide()">
+              guidelines</NuxtLink
+            >
+          </li>
+          <li class="nav-item">
+            <NuxtLink class="nav-link" to="/events" @click="navbarCollapse.hide()">找賽事</NuxtLink>
+          </li>
+          <li class="nav-item d-none d-xl-block">
+            <NuxtLink
+              class="nav-link"
+              :to="user.role === 2 ? '/member/myTicket' : '/admin/eventManagement'"
+              >{{ user.role === 2 ? '我的票券' : '後台管理' }}
+            </NuxtLink>
+          </li>
+          <li v-if="user" class="nav-item d-xl-none">
+            <button
+              type="button"
+              class="btn login-btn text-btn1 w-100"
+              @click="navbarCollapse.hide(), authStore.logOut()"
+            >
+              <span>登出</span>
+            </button>
+          </li>
+          <li class="nav-item d-none d-xl-block">
+            <NotificationComponent />
+          </li>
         </ul>
       </div>
     </div>
@@ -164,61 +175,110 @@ function changeIsRead(notification) {
 
 <style scoped lang="scss">
 .navbar {
+  z-index: 1;
+  background: $front-header-bg-mobile;
   height: $front-header-height-mobile;
+  padding-top: rem(20px);
+  padding-bottom: rem(4px);
 
-  @include media-breakpoint-up(md) {
-    padding-top: 76px;
-    padding-bottom: 28px;
+  @include media-breakpoint-up(xl) {
+    padding-top: rem(76px);
+    padding-bottom: rem(28px);
     height: $front-header-height;
+    background: $front-header-bg-gradient;
   }
 
   // 波紋背景圖
-  &.deco-bg-image {
+  .deco-bg-image {
+    position: absolute;
+    top: 0;
     background: url('@/assets/images/deco.svg') no-repeat;
-    background-position: center 0;
-    background-size: 100% 16px;
+    background-position: center bottom;
+    background-size: cover;
+    width: 100%;
+    height: 16px;
 
-    @include media-breakpoint-up(md) {
-      background-size: 100% 60px;
+    @include media-breakpoint-up(xl) {
+      height: 60px;
+    }
+  }
+
+  .navbar-toggler {
+    &[aria-expanded='true'] {
+      .navbar-toggler-icon {
+        --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m6.4 18.308l-.708-.708l5.6-5.6l-5.6-5.6l.708-.708l5.6 5.6l5.6-5.6l.708.708l-5.6 5.6l5.6 5.6l-.708.708l-5.6-5.6z'/%3E%3C/svg%3E");
+      }
+    }
+
+    .navbar-toggler-icon {
+      width: rem(40px);
+      height: rem(40px);
+    }
+  }
+
+  .navbar-brand {
+    @include media-breakpoint-down(xl) {
+      --bs-navbar-brand-margin-end: 0;
     }
   }
 
   .logo {
-    height: 40px;
+    height: 24px;
+
+    @include media-breakpoint-up(xl) {
+      height: 40px;
+    }
   }
 
   .nav-link {
     padding-left: 0;
     padding-right: 0;
+
+    @include media-breakpoint-down(xl) {
+      font-size: rem(14px);
+      padding-top: rem(12px);
+      padding-bottom: rem(12px);
+    }
   }
 
   .dropdown-menu {
-    --bs-dropdown-spacer: 1.5rem;
+    --bs-dropdown-spacer: 0.25rem;
 
-    // 下拉選單 - 會員相關連結
-    &[aria-labelledby='userNavbarDropdownMenuLink'] {
-      //--bs-dropdown-spacer: 1.5rem;
+    @include media-breakpoint-up(xl) {
+      --bs-dropdown-spacer: 1.5rem;
     }
 
-    // 下拉選單 - 通知列表
-    &[aria-labelledby='notificationNavbarDropdownLink'] {
-      --bs-dropdown-min-width: 264px;
-    }
-
-    // 通知區塊
-    .notifications-block {
-      max-height: 300px;
-      overflow-y: auto;
+    @include media-breakpoint-down(xl) {
+      &[aria-labelledby='userNavbarDropdownMenuLink'] {
+        text-align: center;
+        padding-top: rem(8px);
+        padding-bottom: rem(8px);
+        margin-top: rem(8px);
+        background-color: $gray_3;
+        display: block;
+        width: calc(100vw - $front-navbar-dropdown-py * 2);
+      }
     }
   }
 
-  // 通知用 圓點
-  .dots {
-    margin-top: 0.5rem;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: $primary_gradient;
+  .navbar-collapse {
+    @include media-breakpoint-down(xl) {
+      position: relative;
+      margin-inline: -$front-navbar-dropdown-py;
+      background-color: $dropdown-dark-bg;
+
+      .dropdown-item {
+        font-weight: 500;
+        padding-top: rem(12px);
+        padding-bottom: rem(12px);
+      }
+    }
+  }
+
+  .d-none-down-xl {
+    @include media-breakpoint-down(xl) {
+      display: none;
+    }
   }
 }
 </style>
