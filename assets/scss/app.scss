@@ -1,36 +1,14 @@
-/** functions */
-@import "/node_modules/bootstrap/scss/functions";
-
-/** variables, mixins, root */
-@import "/node_modules/bootstrap/scss/variables";
-@import "/node_modules/bootstrap/scss/variables-dark";
-@import "/node_modules/bootstrap/scss/maps";
-@import "/node_modules/bootstrap/scss/mixins";
-@import "/node_modules/bootstrap/scss/root";
-
-/**  utilities */
-@import "/node_modules/bootstrap/scss/utilities";
-
-/** 自訂 utilities */
-// @import "./utilities";
-
-/** bootstrap components */
-@import "/node_modules/bootstrap/scss/reboot";
-@import "/node_modules/bootstrap/scss/type";
-@import "/node_modules/bootstrap/scss/containers";
-@import "/node_modules/bootstrap/scss/grid";
-@import "/node_modules/bootstrap/scss/tables";
-@import "/node_modules/bootstrap/scss/forms";
-@import "/node_modules/bootstrap/scss/buttons";
-@import "/node_modules/bootstrap/scss/helpers";
-
-@import "/node_modules/bootstrap/scss/utilities/api";
-
-/** 自訂 color variables function*/
-@import "./color";
 @import "./variables";
-@import "./function";
-@import "./mixins";
+
+/** maps */
+@import "/node_modules/bootstrap/scss/maps";
+
+/** 自訂 color */
+@import "./helpers/color";
+
+/**  utilities, bootstrap */
+@import "/node_modules/bootstrap/scss/utilities";
+@import "/node_modules/bootstrap/scss/bootstrap";
 
 body {
   background-color: $gray_2;
@@ -71,7 +49,7 @@ body {
   @include font( 1, $text-weight-regular, $s1-font-size, 1.5, 1 );
 }
 
-.text-sm2{
+.text-s2{
   @include font( 1, $text-weight-regular, $s2-font-size, 1.5, 1 );
 }
 
@@ -155,7 +133,7 @@ body {
 .search-btn {
   background: $gray_3;
   color: white;
-  height: rem(40px);
+  height: rem(48px);
   border-radius: rem(40px);
   padding: rem(0px) rem(20px);
   border: none; 
@@ -181,8 +159,7 @@ body {
       mask-repeat: no-repeat;
       -webkit-mask-size: 100% 100%;
       mask-size: 100% 100%;
-      margin-right: rem(4px);
-      margin-left: rem(-4px);
+      margin-inline: rem(4px);
   }
 
   &[disabled]{
@@ -211,7 +188,7 @@ body {
 .check-btn {
   background: $gray_3;
   color: white;
-  height: rem(40px);
+  height: rem(48px);
   border-radius: rem(40px);
   padding: rem(0px) rem(20px);
   border: none; 
@@ -230,7 +207,7 @@ body {
 
 .login-btn {
   background: $gray_1;
-  height: rem(40px);
+  height: rem(48px);
   border-radius: rem(40px);
   padding: rem(0px) rem(20px);
   border: none; 
@@ -262,6 +239,77 @@ body {
     -webkit-text-fill-color: unset;
   }
 
+}
+
+.tag-btn {
+  background: $gray_4;
+  height: rem(29px);
+  border-radius: rem(40px);
+  padding: rem(4px) rem(12px);
+  border: none;
+  border-radius: rem(40px);
+
+  &>span {
+    background: linear-gradient(45deg, $primary_0, $primary_1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &:active,
+  &.active {
+    background: $gray_4;
+  }
+
+  &:hover {
+    background: linear-gradient(45deg, $primary_0, $primary_1);
+
+    &>span {
+      color: $gray_1;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+    }
+  }
+
+  &[disabled] {
+    background: $gray_4;
+  }
+
+  &[disabled] span {
+    color: $gray_5;
+    background: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+  }
+}
+
+.category-btn {
+  border-width: 0;
+  display: flex;
+  align-items: center;
+  gap: rem(8px);
+  padding: 0;
+  color: $white;
+
+  img {
+    object-fit: cover;
+    width: rem(40px);
+    height: rem(40px);
+    border-radius: 50%;
+    padding: rem(1px);
+    background: $gray_4;
+  }
+
+  &:hover {
+    img {
+      background: linear-gradient(45deg, $primary_0, $primary_1);
+    }
+
+    span {
+      background: linear-gradient(45deg, $primary_0, $primary_1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
 }
 
 .arrow-btn{
@@ -306,3 +354,173 @@ body {
 .arrow-btn--right{
   rotate: 180deg;
 }
+
+/*
+* ==========================================================================
+* 共用
+* ==========================================================================
+*/
+
+a:not(.dropdown-item) {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+// 防止圖片變形
+.object-fit {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+* ==========================================================================
+* icon
+* ==========================================================================
+*/
+
+.icon {
+  display: inline-block;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  width: 24px;
+  height: 24px;
+
+  &:not([class*="color-"]) {
+    background: $white;
+  }
+
+  &.icon-size-lg {
+    width: 32px;
+    height: 32px;
+  }
+
+  &.icon-bell {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M15.019 17h-6.04m6.04 0h3.614c1.876 0 1.559-1.86.61-2.804C15.825 10.801 20.68 3 11.999 3c-8.68 0-3.825 7.8-7.243 11.196c-.913.908-1.302 2.804.61 2.804H8.98m6.039 0c0 1.925-.648 4-3.02 4c-2.371 0-3.02-2.075-3.02-4'/%3E%3C/svg%3E");
+  }
+
+  &.icon-search {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8.5' cy='8.5' r='5'/%3E%3Cpath d='M17.571 17.5L12 12'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  &.icon-user-bold{
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='6' r='4' fill='%23000'/%3E%3Cpath fill='%23000' d='M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5'/%3E%3C/svg%3E");
+  }
+
+  &.icon-setting-fill {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M13.984 2.542c.087.169.109.386.152.82c.082.82.123 1.23.295 1.456a1 1 0 0 0 .929.384c.28-.037.6-.298 1.238-.82c.337-.277.506-.415.687-.473a1 1 0 0 1 .702.035c.175.076.33.23.637.538l.894.894c.308.308.462.462.538.637a1 1 0 0 1 .035.702c-.058.181-.196.35-.472.687c-.523.639-.784.958-.822 1.239a1 1 0 0 0 .385.928c.225.172.636.213 1.457.295c.433.043.65.065.82.152a1 1 0 0 1 .47.521c.071.177.071.395.071.831v1.264c0 .436 0 .654-.07.83a1 1 0 0 1-.472.522c-.169.087-.386.109-.82.152c-.82.082-1.23.123-1.456.295a1 1 0 0 0-.384.929c.038.28.299.6.821 1.238c.276.337.414.505.472.687a1 1 0 0 1-.035.702c-.076.175-.23.329-.538.637l-.894.893c-.308.309-.462.463-.637.538a1 1 0 0 1-.702.035c-.181-.058-.35-.196-.687-.472c-.639-.522-.958-.783-1.238-.82a1 1 0 0 0-.929.384c-.172.225-.213.635-.295 1.456c-.043.434-.065.651-.152.82a1 1 0 0 1-.521.472c-.177.07-.395.07-.831.07h-1.264c-.436 0-.654 0-.83-.07a1 1 0 0 1-.522-.472c-.087-.169-.109-.386-.152-.82c-.082-.82-.123-1.23-.295-1.456a1 1 0 0 0-.928-.384c-.281.037-.6.298-1.239.82c-.337.277-.506.415-.687.473a1 1 0 0 1-.702-.035c-.175-.076-.33-.23-.637-.538l-.894-.894c-.308-.308-.462-.462-.538-.637a1 1 0 0 1-.035-.702c.058-.181.196-.35.472-.687c.523-.639.784-.958.821-1.239a1 1 0 0 0-.384-.928c-.225-.172-.636-.213-1.457-.295c-.433-.043-.65-.065-.82-.152a1 1 0 0 1-.47-.521C2 13.286 2 13.068 2 12.632v-1.264c0-.436 0-.654.07-.83a1 1 0 0 1 .472-.522c.169-.087.386-.109.82-.152c.82-.082 1.231-.123 1.456-.295a1 1 0 0 0 .385-.928c-.038-.281-.3-.6-.822-1.24c-.276-.337-.414-.505-.472-.687a1 1 0 0 1 .035-.702c.076-.174.23-.329.538-.637l.894-.893c.308-.308.462-.463.637-.538a1 1 0 0 1 .702-.035c.181.058.35.196.687.472c.639.522.958.783 1.238.821a1 1 0 0 0 .93-.385c.17-.225.212-.635.294-1.456c.043-.433.065-.65.152-.82a1 1 0 0 1 .521-.471c.177-.07.395-.07.831-.07h1.264c.436 0 .654 0 .83.07a1 1 0 0 1 .522.472M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8' clip-rule='evenodd'/%3E%3C/svg%3E");
+  }
+
+  &.icon-iwwa-box {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%23000' d='M36.611 34.313H3.389c-2.084 0-2.867-1.762-2.989-2.692l-.004-11.79a.52.52 0 0 1 .034-.182L5.093 7.661a3.132 3.132 0 0 1 3.02-1.974h23.758a3.15 3.15 0 0 1 3.043 1.992l4.655 11.97a.52.52 0 0 1 .034.182v11.725c-.125.996-.907 2.757-2.992 2.757M1.396 19.925v11.631c.021.119.301 1.758 1.993 1.758h33.222c1.738 0 1.986-1.748 1.996-1.822l-.004-11.566l-4.628-11.9c-.025-.069-.502-1.337-2.087-1.337H8.131c-1.629 0-2.094 1.304-2.099 1.317z'/%3E%3Cpath fill='%23000' d='M27.166 22.618h-14.33a.502.502 0 0 1-.497-.553c.122-1.151-.032-2.005-.449-2.468c-.412-.458-1.044-.423-1.101-.419l-5.573.005a.5.5 0 0 1-.464-.683l3.489-8.814a.5.5 0 0 1 .465-.316h22.588a.5.5 0 0 1 .465.316l3.441 8.695a.5.5 0 0 1-.398.803h-5.524c-.077-.006-.115-.009-.171-.009c-.231 0-.666.055-.997.423c-.416.464-.571 1.316-.448 2.468a.496.496 0 0 1-.496.552m-13.792-1h13.253c-.048-1.186.2-2.089.739-2.688c.815-.906 1.984-.74 1.983-.741l4.697-.004l-3.093-7.815H9.046l-3.093 7.815h4.749c.015-.003.09-.009.192-.009c.397 0 1.149.098 1.74.754c.539.599.788 1.502.74 2.688'/%3E%3C/svg%3E");
+  }
+
+  &.icon-menu {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M4 17.27v-1h16v1zm0-4.77v-1h16v1zm0-4.77v-1h16v1z'/%3E%3C/svg%3E");
+  }
+
+  &.icon-close {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m6.4 18.308l-.708-.708l5.6-5.6l-5.6-5.6l.708-.708l5.6 5.6l5.6-5.6l.708.708l-5.6 5.6l5.6 5.6l-.708.708l-5.6-5.6z'/%3E%3C/svg%3E");
+  }
+}
+
+.icon,
+.icon[class*="color-"] {
+  &:hover {
+    background: $primary_gradient;
+  }
+
+  &.active {
+    background: $white;
+  }
+}
+
+
+
+/*
+* ==========================================================================
+* bootstrap
+* ==========================================================================
+*/
+
+.active:not(.tag-btn):not(.category-btn) {
+  pointer-events: none;
+  cursor: default;
+}
+
+.nav-link,
+.dropdown-item {
+  &:hover,
+  &.active {
+    background: $primary_gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+// 下拉選單
+.dropdown-toggle {
+  // 隱藏下拉選單的箭頭
+  &.dropdown-toggle-hide-arrow {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.dropdown-menu {
+  font-size: 0.875rem;
+  font-weight: $text-weight-medium;
+}
+
+// 按鈕
+.btn {
+  &.btn-link {
+    padding: 0;
+    border-width: 0;
+    text-decoration: unset;
+  }
+}
+
+// 導航列
+.navbar {
+  @include media-breakpoint-down(xl) {
+    // show 漸層底色
+    .show {
+      &.menu-dropdown-after-bg,
+      &.navbar-collapse {
+        border-radius: 0;
+    
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: calc(100vh - $front-header-height-mobile);
+          background: rgba($black, 0.7);
+          z-index: -1;
+        }
+      }
+
+      &.navbar-collapse {
+        &::after {
+          height: calc(100vh - $front-header-height-mobile + 4px) !important;
+        }
+      }
+
+      &.menu-dropdown-after-bg {
+        &::after {
+          top: 100%;
+          height: calc(100vh - $front-header-height-mobile - 100%);
+        }
+      }
+    }
+  }
+}
+

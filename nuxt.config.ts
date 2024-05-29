@@ -1,9 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import type { Plugin } from 'vite'
 
 export default defineNuxtConfig({
   css: ['normalize.css', '@/assets/scss/app.scss'],
+  alias: {
+    icons: fileURLToPath(new URL('./assets/icons', import.meta.url)),
+    images: fileURLToPath(new URL('./assets/images', import.meta.url))
+  },
   postcss: {
     plugins: {
       autoprefixer: true
@@ -13,13 +19,21 @@ export default defineNuxtConfig({
     dirs: ['stores']
   },
   modules: ['@pinia/nuxt', 'nuxt-quasar-ui'],
-    quasar: {
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        activeClass: 'active',
+        exactActiveClass: 'active'
+      }
+    }
+  },
+  quasar: {
     config: {
       // Add Quasar configurations here
-      notify: {}, // This ensures notify is correctly configured
+      notify: {} // This ensures notify is correctly configured
     },
     // Specify Quasar plugins you want to include
-    plugins: ['Notify'],
+    plugins: ['Notify']
   },
   vite: {
     define: {
@@ -29,10 +43,7 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData: `
-            @import "@/assets/scss/_color.scss";
             @import "@/assets/scss/_variables.scss";
-            @import "@/assets/scss/_mixins.scss";
-            @import "@/assets/scss/_function.scss";
           `
         }
       }
@@ -42,13 +53,15 @@ export default defineNuxtConfig({
         iconDirs: [path.resolve(process.cwd(), 'assets/icons')],
         symbolId: '[dir]/[name]',
         customDomId: '__svg__icons__dom__'
-      })
+      }) as Plugin
     ]
   },
-    // Public runtime configuration
+  typescript: {
+    typeCheck: true
+  },
   runtimeConfig: {
     public: {
-      apiBase: process.env.API_BASE_URL || 'http://localhost:3000/api', // Adjust accordingly
-    },
-  },
+      apiBase: ''
+    }
+  }
 })
