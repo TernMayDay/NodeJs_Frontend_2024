@@ -96,7 +96,7 @@ watch(searchInputVal, (newVal) => {
         <div id="searchInputIcon" class="icon icon-search"></div>
       </button>
     </div>
-    <div class="dropdown-menu dropdown-menu-dark py-0 px-3 px-lg-0" :class="{ show: props.modelValue }">
+    <div class="dropdown-menu dropdown-menu-dark py-0 px-3 px-lg-4" :class="{ show: props.modelValue }">
       <!-- 有關鍵字 -->
       <template v-if="searchInputVal">
         <template v-if="events.length">
