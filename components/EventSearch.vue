@@ -90,38 +90,23 @@ watch(searchInputVal, (newVal) => {
 <template>
   <div class="dropdown">
     <div class="input-container">
-      <input
-        id="searchInput"
-        v-model.lazy.trim="searchInputVal"
-        class="form-control"
-        type="search"
-        placeholder="搜尋運動項目、賽事名稱"
-        aria-label="Search"
-        autocomplete="off"
-        @focus="openSearchDropdown(true)"
-      />
+      <input id="searchInput" v-model.lazy.trim="searchInputVal" class="form-control" type="search"
+        placeholder="搜尋運動項目、賽事名稱" aria-label="Search" autocomplete="off" @focus="openSearchDropdown(true)" />
       <button id="searchInputBtn" type="button" class="btn btn-link text-btn1">
         <div id="searchInputIcon" class="icon icon-search"></div>
       </button>
     </div>
-    <div
-      class="dropdown-menu dropdown-menu-dark py-0 px-3 px-lg-0"
-      :class="{ show: props.modelValue }"
-    >
+    <div class="dropdown-menu dropdown-menu-dark py-0 px-3 px-lg-0" :class="{ show: props.modelValue }">
       <!-- 有關鍵字 -->
       <template v-if="searchInputVal">
         <template v-if="events.length">
           <div class="list-group list-group-flush overflow-y-auto">
-            <NuxtLink
-              v-for="event in events"
-              :key="event._id"
-              class="list-group-item event-list-item d-flex align-items-center gap-2"
-              :to="`/events/${event._id}`"
-            >
+            <NuxtLink v-for="event in events" :key="event._id"
+              class="list-group-item event-list-item d-flex align-items-center gap-2" :to="`/events/${event._id}`">
               <img :src="event.eventPic" :alt="event.eventName" class="rounded rounded-1" />
               <div class="d-grid gap-1">
-                <h6 class="text-btn2 mb-0">{{ event.eventName }}</h6>
-                <h4 class="text-s2 mb-0 text-gray5 category-hover">{{ event.categorysNameTC }}</h4>
+                <h6 class="text-btn2 mb-0 text-truncate">{{ event.eventName }}</h6>
+                <h4 class=" text-s2 mb-0 text-gray5 category-hover">{{ event.categorysNameTC }}</h4>
               </div>
             </NuxtLink>
           </div>
@@ -141,16 +126,12 @@ watch(searchInputVal, (newVal) => {
           <h1 class="text-btn1 mb-0">熱門賽事項目</h1>
           <ul class="list-unstyled grid gap-3">
             <li v-for="category in hotCategorys" :key="category._id" class="g-col-4">
-              <NuxtLink
-                role="button"
-                class="btn category-btn"
-                :to="{
+              <NuxtLink role="button" class="btn category-btn" :to="{
                   path: '/events',
                   query: {
                     q: category.nameTC
                   }
-                }"
-                ><img :src="category.photo" :alt="`${category.nameTC}(${category.nameEN})`" />
+                }"><img :src="category.photo" :alt="`${category.nameTC}(${category.nameEN})`" />
                 <span class="text-s2">{{ category.nameTC }}</span>
               </NuxtLink>
             </li>
