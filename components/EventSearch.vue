@@ -105,7 +105,7 @@ watch(searchInputVal, (newVal) => {
       </button>
     </div>
     <div
-      class="dropdown-menu dropdown-menu-dark py-0 px-3 px-xl-0"
+      class="dropdown-menu dropdown-menu-dark py-0 px-3 px-lg-0"
       :class="{ show: props.modelValue }"
     >
       <!-- 有關鍵字 -->
@@ -166,7 +166,7 @@ watch(searchInputVal, (newVal) => {
 .input-container {
   position: relative;
 
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(lg) {
     padding-inline: $front-navbar-dropdown-py;
   }
 
@@ -175,7 +175,7 @@ watch(searchInputVal, (newVal) => {
     height: 40px;
     font-size: 0.875rem;
 
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(lg) {
       width: 270px;
     }
   }
@@ -189,7 +189,7 @@ watch(searchInputVal, (newVal) => {
     right: rem(20px);
     transform: translateY(-50%);
 
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(lg) {
       right: $input-padding-x;
     }
   }
@@ -203,13 +203,13 @@ watch(searchInputVal, (newVal) => {
   flex-direction: column;
   overflow: hidden;
 
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(lg) {
     border-radius: 0;
     padding-left: 0;
     padding-right: 0;
   }
 
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(lg) {
     width: rem(540px);
   }
 

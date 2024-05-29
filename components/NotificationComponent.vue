@@ -34,7 +34,7 @@ function changeIsRead(notification) {
     <button
       id="notificationNavbarDropdownLink"
       type="button"
-      class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-flex p-2 p-xl-3"
+      class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-flex p-2 p-lg-3"
       :class="{ disabled: !notifications.length }"
       data-bs-toggle="dropdown"
       data-bs-auto-close="true"
@@ -98,7 +98,7 @@ function changeIsRead(notification) {
 
 <style scoped lang="scss">
 .dropdown-menu {
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(lg) {
     transform: translateX(-100vw);
     left: rem(52px);
   }
@@ -107,7 +107,7 @@ function changeIsRead(notification) {
   &[aria-labelledby='notificationNavbarDropdownLink'] {
     --bs-dropdown-min-width: 100vw;
 
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(lg) {
       --bs-dropdown-min-width: 264px;
     }
   }
@@ -127,7 +127,7 @@ function changeIsRead(notification) {
   margin-left: rem(-8px);
   -webkit-text-fill-color: $white;
 
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(lg) {
     margin-top: rem(12px);
     margin-left: rem(-12px);
   }

@@ -12,21 +12,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-xl navbar-dark sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="deco-bg-image"></div>
-    <div class="container-xl">
+    <div class="container-lg">
       <button class="navbar-toggler border-0 p-0" type="button" @click="navbarCollapse.toggle()">
         <span class="navbar-toggler-icon icon icon-menu bg-white"></span>
       </button>
       <NuxtLink class="navbar-brand" to="/">
         <img src="~images/logo.svg" alt="SportsPass LOGO" class="logo" />
       </NuxtLink>
-      <NotificationComponent class="d-xl-none" />
-      <div ref="navbarCollapseRef" class="collapse navbar-collapse py-4 py-xl-0">
+      <NotificationComponent class="d-lg-none" />
+      <div ref="navbarCollapseRef" class="collapse navbar-collapse py-4 py-lg-0">
         <EventSearch v-model="isOpenSearchDropdown" />
         <ul
-          class="navbar-nav ms-auto gap-2 gap-xl-8 align-items-center"
-          :class="{ 'd-none-down-xl': isOpenSearchDropdown }"
+          class="navbar-nav ms-auto gap-2 gap-lg-8 align-items-center"
+          :class="{ 'd-none-down-lg': isOpenSearchDropdown }"
         >
           <!-- 未登入 -->
           <li v-if="!user" class="nav-item order-last">
@@ -40,10 +40,10 @@ onMounted(() => {
             </NuxtLink>
           </li>
           <!-- 已登入 -->
-          <li v-else class="nav-item dropdown order-xl-last">
+          <li v-else class="nav-item dropdown order-lg-last">
             <a
               id="userNavbarDropdown"
-              class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-none d-xl-block"
+              class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-none d-lg-block"
               href="#"
               role="button"
               data-bs-toggle="dropdown"
@@ -129,7 +129,7 @@ onMounted(() => {
                   </NuxtLink>
                 </li>
               </template>
-              <li class="pt-2 d-none d-xl-block">
+              <li class="pt-2 d-none d-lg-block">
                 <button
                   type="button"
                   class="btn login-btn text-btn1 w-100"
@@ -148,14 +148,14 @@ onMounted(() => {
           <li class="nav-item">
             <NuxtLink class="nav-link" to="/events" @click="navbarCollapse.hide()">找賽事</NuxtLink>
           </li>
-          <li class="nav-item d-none d-xl-block">
+          <li class="nav-item d-none d-lg-block">
             <NuxtLink
               class="nav-link"
               :to="user.role === 2 ? '/member/myTicket' : '/admin/eventManagement'"
               >{{ user.role === 2 ? '我的票券' : '後台管理' }}
             </NuxtLink>
           </li>
-          <li v-if="user" class="nav-item d-xl-none">
+          <li v-if="user" class="nav-item d-lg-none">
             <button
               type="button"
               class="btn login-btn text-btn1 w-100"
@@ -164,7 +164,7 @@ onMounted(() => {
               <span>登出</span>
             </button>
           </li>
-          <li class="nav-item d-none d-xl-block">
+          <li class="nav-item d-none d-lg-block">
             <NotificationComponent />
           </li>
         </ul>
@@ -181,7 +181,7 @@ onMounted(() => {
   padding-top: rem(20px);
   padding-bottom: rem(4px);
 
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(lg) {
     padding-top: rem(76px);
     padding-bottom: rem(28px);
     height: $front-header-height;
@@ -198,7 +198,7 @@ onMounted(() => {
     width: 100%;
     height: 16px;
 
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(lg) {
       height: 60px;
     }
   }
@@ -217,7 +217,7 @@ onMounted(() => {
   }
 
   .navbar-brand {
-    @include media-breakpoint-down(xl) {
+    @include media-breakpoint-down(lg) {
       --bs-navbar-brand-margin-end: 0;
     }
   }
@@ -225,7 +225,7 @@ onMounted(() => {
   .logo {
     height: 24px;
 
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(lg) {
       height: 40px;
     }
   }
@@ -234,7 +234,7 @@ onMounted(() => {
     padding-left: 0;
     padding-right: 0;
 
-    @include media-breakpoint-down(xl) {
+    @include media-breakpoint-down(lg) {
       font-size: rem(14px);
       padding-top: rem(12px);
       padding-bottom: rem(12px);
@@ -244,11 +244,11 @@ onMounted(() => {
   .dropdown-menu {
     --bs-dropdown-spacer: 0.25rem;
 
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(lg) {
       --bs-dropdown-spacer: 1.5rem;
     }
 
-    @include media-breakpoint-down(xl) {
+    @include media-breakpoint-down(lg) {
       &[aria-labelledby='userNavbarDropdownMenuLink'] {
         text-align: center;
         padding-top: rem(8px);
@@ -262,7 +262,7 @@ onMounted(() => {
   }
 
   .navbar-collapse {
-    @include media-breakpoint-down(xl) {
+    @include media-breakpoint-down(lg) {
       position: relative;
       margin-inline: -$front-navbar-dropdown-py;
       background-color: $dropdown-dark-bg;
@@ -275,8 +275,8 @@ onMounted(() => {
     }
   }
 
-  .d-none-down-xl {
-    @include media-breakpoint-down(xl) {
+  .d-none-down-lg {
+    @include media-breakpoint-down(lg) {
       display: none;
     }
   }

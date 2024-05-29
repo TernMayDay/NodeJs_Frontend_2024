@@ -45,34 +45,6 @@ definePageMeta({
 })
 
 interface RegisterForm {
-<<<<<<< HEAD
-  email: string;
-  gender: string;
-  phone: string;
-  nickname: string;
-  address: string;
-  password: string;
-  role: string;
-}
-
-export default defineComponent({
-  setup() {
-    const $q = useQuasar();
-    const router = useRouter();
-    const { createData } = useApi();
-    const passwordLengthRule = computed(() => {
-      return (val: string) => val.length >= 8 || 'Password must be at least 8 characters long';
-    });
-    const form = ref<RegisterForm>({
-      email: '',
-      gender: '',
-      phone: '',
-      nickname: '',
-      address: '',
-      password: '',
-      role: "fan"
-    });
-=======
   email: string
   gender: string
   phone: string
@@ -85,7 +57,6 @@ export default defineComponent({
 const $q = useQuasar()
 const router = useRouter()
 const { createData } = useApi()
->>>>>>> 13368fc704df293b23cd5692560f0288a7830b08
 
 const form = ref<RegisterForm>({
   email: '',
@@ -125,14 +96,6 @@ async function onSubmit() {
       localStorage.setItem('authToken', data.authToken)
     }
 
-<<<<<<< HEAD
-    return { form, genderOptions, onSubmit, error, passwordLengthRule };
-  },
-});
-definePageMeta({
-  layout: 'template-base-layout',
-});
-=======
     // Redirect after registration
     router.push('/login')
   } catch (err: any) {
@@ -146,7 +109,6 @@ definePageMeta({
     })
   }
 }
->>>>>>> 13368fc704df293b23cd5692560f0288a7830b08
 </script>
 
 <style>

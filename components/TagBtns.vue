@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="d-flex flex-wrap align-items-center gap-2 gap-xl-3">
+  <div class="d-flex flex-wrap align-items-center gap-2 gap-lg-3">
     <NuxtLink
       v-for="tag in props.tags"
       :key="tag._id"

@@ -43,30 +43,6 @@ interface Profile {
   password: string;
 }
 
-<<<<<<< HEAD
-export default defineComponent({
-  setup() {
-    const $q = useQuasar();
-    const { updateData } = useApi();
-    const router = useRouter();
-    const profile = ref<Profile>({
-      email: '',
-      gender: '',
-      phone: '',
-      nickname: '',
-      address: '',
-      password: '',
-    });
-    const error = ref<string | null>(null);
-
-    const passwordLengthRule = computed(() => {
-      return (val: string) => val.length >= 8 || 'Password must be at least 8 characters long';
-    });
-
-    onMounted(() => {
-      loadProfile();
-    });
-=======
 const $q = useQuasar();
 const { updateData } = useApi();
 const profile = ref<Profile>({
@@ -78,7 +54,6 @@ const profile = ref<Profile>({
   password: '',
 });
 const error = ref<string | null>(null);
->>>>>>> 13368fc704df293b23cd5692560f0288a7830b08
 
 onMounted(() => {
   loadProfile();
@@ -101,44 +76,16 @@ async function updateProfile() {
   const userId = localStorage.getItem('userId');
   const authToken = localStorage.getItem('authToken');
 
-<<<<<<< HEAD
-      // Create a new object with only filled fields
-      const filteredProfile = Object.fromEntries(
-        Object.entries(profile.value).filter(([_, value]) => value !== '' && value !== null)
-      );
-
-      const { data, error: updateError } = await updateData<Profile>(`user/${userId}`, filteredProfile, {
-        method: 'PATCH',
-        headers: { Authorization: `Bearer ${authToken}` }
-      });
-=======
   if (!userId || !authToken) {
     error.value = "Missing user ID or authentication token.";
     return;
   }
->>>>>>> 13368fc704df293b23cd5692560f0288a7830b08
 
   const { data, error: updateError } = await updateData<Profile>(`user/${userId}`, profile.value, {
     method: 'PATCH',
     headers: { Authorization: `Bearer ${authToken}` }
   });
 
-<<<<<<< HEAD
-      if (data) {
-        $q.notify({
-          color: 'positive',
-          position: 'top',
-          message: 'Profile successfully updated.',
-          icon: 'check_circle',
-        });
-        // Update local storage with new user data
-        localStorage.setItem('userData', JSON.stringify(profile.value));
-        router.push('/');
-      }
-    }
-
-    return { profile, error, updateProfile, passwordLengthRule };
-=======
   if (updateError) {
     error.value = "Failed to update profile: " + updateError;
     $q.notify({
@@ -159,7 +106,6 @@ async function updateProfile() {
     });
     // Update local storage with new user data
     localStorage.setItem('userData', JSON.stringify(profile.value));
->>>>>>> 13368fc704df293b23cd5692560f0288a7830b08
   }
 }
 </script>
