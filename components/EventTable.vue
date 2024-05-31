@@ -13,7 +13,7 @@
       <tbody>
         <tr v-for="event in events" :key="event._id">
           <td>{{ event.eventName }}</td>
-          <td>{{ event.eventDate }}</td>
+          <td>{{ new Date(event.eventDate).toLocaleString() }}</td>
           <td>{{ event.eventIntro }}</td>
           <td>{{ event.status }}</td>
           <td>
@@ -30,7 +30,6 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps(['events']);
-
 const emit = defineEmits(['editEvent', 'deleteEvent']);
 </script>
 

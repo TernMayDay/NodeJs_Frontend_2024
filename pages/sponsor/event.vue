@@ -12,7 +12,7 @@ const isLoading = ref(true);
 
 const fetchEvents = async () => {
   try {
-    const response = await getSponsorEvents({ Id: '6648aeb4ad951f8670f97a77', page: 1, pageSize: 10 });
+    const response = await getSponsorEvents('664e8f0713276632c8bb4e0b', { page: 1, pageSize: 10 });
     console.log('Fetched events:', response); // 添加日志检查响应数据
     if (response.data && response.data.events) {
       events.value = response.data.events;
