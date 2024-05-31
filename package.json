@@ -17,6 +17,7 @@
     "@quasar/extras": "^1.16.11",
     "@vee-validate/nuxt": "^4.12.8",
     "bootstrap": "^5.3.3",
+    "bootstrap-vue": "^2.23.1",
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",

@@ -23,3 +23,4 @@ export function deleteRoom(params: roomId) {
 export function patchRoom(params: roomId, body: roomsParams) {
   return useHttp.patch<void>(`${Api.rooms}/${params}`, body)
 }
+
