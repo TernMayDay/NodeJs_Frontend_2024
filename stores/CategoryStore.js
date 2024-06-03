@@ -6,8 +6,10 @@ export const useCategoryStore = defineStore('categoryStore', () => {
    * @returns api 資料
    */
   const getCategorys = async (type, limit) => {
+    // eslint-disable-next-line no-console
     console.log(type, limit)
     const { data } = await useFetch('/api/categorys')
+    // eslint-disable-next-line no-console
     console.log(data.value)
     return data.value
   }

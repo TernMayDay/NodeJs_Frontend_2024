@@ -13,14 +13,14 @@ const searchInputVal = ref('')
 const events = ref([])
 let navbarCollapse
 
-const props = defineProps({
-  modelValue: Boolean,
-  // 是否在 banner
-  inBanner: {
-    type: Boolean,
-    default: false
-  }
-})
+// const props = defineProps({
+//   modelValue: Boolean,
+//   // 是否在 banner
+//   inBanner: {
+//     type: Boolean,
+//     default: false
+//   }
+// })
 
 const emit = defineEmits(['update:modelValue'])
 

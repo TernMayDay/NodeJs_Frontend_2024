@@ -1,4 +1,4 @@
-export default defineEventHandler((event) => {
+export default defineEventHandler(() => {
   return [
     {
       _id: '661f3dbbb3578e07ad38d345',

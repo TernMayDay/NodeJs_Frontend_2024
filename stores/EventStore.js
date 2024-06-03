@@ -16,8 +16,10 @@ export const useEventStore = defineStore('eventStore', () => {
    * @returns api 資料
    */
   const getEvents = async (categoryId, q, limit, p) => {
+    // eslint-disable-next-line no-console
     console.log('call api ----------------', categoryId, q, limit, p)
     const { data } = await useFetch('/api/events')
+    // eslint-disable-next-line no-console
     console.log(data.value)
     return data.value.filter(
       (item) =>

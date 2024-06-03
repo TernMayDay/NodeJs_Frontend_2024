@@ -18,6 +18,7 @@ export const useAuthStore = defineStore('authStore', () => {
    * 登出
    */
   const logOut = () => {
+    // eslint-disable-next-line no-console
     console.log('登出')
   }
 
