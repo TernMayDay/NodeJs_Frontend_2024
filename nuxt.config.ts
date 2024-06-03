@@ -5,6 +5,15 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import type { Plugin } from 'vite'
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: 'SportsPass 運動售票',
+      meta: [
+        // <meta name="viewport" content="width=device-width, initial-scale=1">
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ]
+    }
+  },
   css: ['normalize.css', '@/assets/scss/app.scss'],
   alias: {
     icons: fileURLToPath(new URL('./assets/icons', import.meta.url)),

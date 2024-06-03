@@ -89,6 +89,7 @@ function changeIsRead(notification) {
 
     @include media-breakpoint-up(lg) {
       --bs-dropdown-min-width: 264px;
+      --bs-dropdown-spacer: calc(var(--bs-header-dropdown-spacer) - 4px);
     }
   }
 
