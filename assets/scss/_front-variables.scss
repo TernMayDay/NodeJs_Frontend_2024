@@ -1,0 +1,10 @@
+/** 前台使用的 scss 變數 */
+$front-header-height: 144px;
+$front-header-height-mobile: 64px;
+$front-header-bg-gradient: linear-gradient(180deg, rgba($black, 0.6), rgba($black, 0));
+$front-header-bg-mobile: $gray_3;
+$front-navbar-dropdown-py: 0.75rem;
+
+:root {
+    --bs-header-dropdown-spacer: 1.75rem;
+}

@@ -6,8 +6,6 @@ definePageMeta({
 
 <template>
   <div>
-    <div>Page: admin</div>
-    <NuxtLink to="/admin/a"> A </NuxtLink>
     <NuxtPage />
   </div>
 </template>
