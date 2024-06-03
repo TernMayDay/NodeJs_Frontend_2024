@@ -8,7 +8,7 @@ await notificationStore.getNotifications()
 
 // 通知未讀數量
 const notificationNotIsReadNum = computed(() => {
-  const num = notifications.value.filter((notification) => !notifications.isRead).length
+  const num = notifications.value.filter((notification) => !notification.isRead).length
   return num >= 10 ? '9+' : num
 })
 
@@ -19,11 +19,13 @@ const notificationNotIsReadNum = computed(() => {
 function changeIsRead(notification) {
   if (notification?._id) {
     const { _id, url } = notification
+    // eslint-disable-next-line no-console
     console.log('單筆 標示為已讀', _id, url)
     if (url) {
       router.push(`${url}/${_id}`)
     }
   } else {
+    // eslint-disable-next-line no-console
     console.log('全部 標示為已讀')
   }
 }
@@ -31,22 +33,35 @@ function changeIsRead(notification) {
 
 <template>
   <div class="dropdown">
-    <button id="notificationNavbarDropdownLink" type="button"
+    <button
+      id="notificationNavbarDropdownLink"
+      type="button"
       class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-flex p-2 p-lg-3"
-      :class="{ disabled: !notifications.length }" data-bs-toggle="dropdown" data-bs-auto-close="true"
-      aria-expanded="false">
+      :class="{ disabled: !notifications.length }"
+      data-bs-toggle="dropdown"
+      data-bs-auto-close="true"
+      aria-expanded="false"
+    >
       <div class="icon icon-bell"></div>
-      <span v-if="notificationNotIsReadNum"
-        class="notification-badge position-absolute top-0 start-100 translate-middle badge bg-secondary rounded-circle text-s2 d-flex justify-content-center align-items-center">{{
-        notificationNotIsReadNum }}</span>
+      <span
+        v-if="notificationNotIsReadNum"
+        class="notification-badge position-absolute top-0 start-100 translate-middle badge bg-secondary rounded-circle text-s2 d-flex justify-content-center align-items-center"
+        >{{ notificationNotIsReadNum }}</span
+      >
     </button>
-    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end menu-dropdown-after-bg"
-      aria-labelledby="notificationNavbarDropdownLink">
+    <ul
+      class="dropdown-menu dropdown-menu-dark dropdown-menu-end menu-dropdown-after-bg"
+      aria-labelledby="notificationNavbarDropdownLink"
+    >
       <li class="d-flex align-items-center">
         <h1 class="text-btn1 mb-0">通知</h1>
         <div class="d-flex align-items-center gap-2 ms-auto">
-          <button :disabled="!notificationNotIsReadNum" type="button" class="btn btn-link text-btn1"
-            @click.stop="changeIsRead()">
+          <button
+            :disabled="!notificationNotIsReadNum"
+            type="button"
+            class="btn btn-link text-btn1"
+            @click.stop="changeIsRead()"
+          >
             <span class="text-color-gray5">全部標示為已讀</span>
           </button>
           <NuxtLink to="/member/mySubscription">
@@ -59,15 +74,22 @@ function changeIsRead(notification) {
       </li>
       <li class="notifications-block">
         <div class="list-group list-group-flush gap-3">
-          <button v-for="(notification, index) in notifications" :key="notification._id" type="button"
+          <button
+            v-for="(notification, index) in notifications"
+            :key="notification._id"
+            type="button"
             class="list-group-item list-group-item-action d-flex align-items-start gap-2 border-0 py-0"
-            @click="changeIsRead(notification)">
+            @click="changeIsRead(notification)"
+          >
             <div class="dots flex-shrink-0" :class="{ 'opacity-0': !notification.isRead }"></div>
-            <div class="gap-1" :class="{ 'border-bottom pb-3': index !== notifications.length - 1 }">
+            <div
+              class="gap-1"
+              :class="{ 'border-bottom pb-3': index !== notifications.length - 1 }"
+            >
               <h1 class="text-btn2 mb-0 text-truncate-row-2">{{ notification.title }}</h1>
               <span class="text-s2 text-gray5">{{
                 dayjs(notification.createdAt).format('YYYY.MM.DD HH:mm:ss')
-                }}</span>
+              }}</span>
             </div>
           </button>
         </div>
