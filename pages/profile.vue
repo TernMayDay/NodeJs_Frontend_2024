@@ -23,7 +23,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import { useQuasar } from 'quasar';
 import { useApi } from '~/composables/useApi';
 
 interface Profile {
@@ -119,6 +118,7 @@ export default defineComponent({
 });
 definePageMeta({
   layout: 'template-base-layout',
+  middleware: 'auth', // 指定使用auth middleware
 });
 </script>
 
