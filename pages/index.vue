@@ -8,6 +8,10 @@
     <NuxtLink to="/login"> login </NuxtLink>
     <NuxtLink to="/register"> register </NuxtLink>
     <NuxtLink to="/profile"> profile </NuxtLink>
+    <NuxtLink to="/admin/checkTickets"> checkTickets </NuxtLink>
+    <NuxtLink to="/admin/eventManagement"> eventManagement </NuxtLink>
+    <NuxtLink to="/admin/fansManagement"> fansManagement </NuxtLink>
+    <NuxtLink to="/admin/revenueManagement"> revenueManagement </NuxtLink>
   </div>
 </template>
 
