@@ -1,29 +1,21 @@
-// 02.TYPOGRAPHY
+/** functions */
+@import "/node_modules/bootstrap/scss/functions";
 
-// font-family: "Roboto Condensed", sans-serif;
-// font-family: "Noto Sans TC", sans-serif;
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
+/** 自訂 color variables*/
+@import "./global-variables";
+@import "./bs-variables";
 
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $customize-theme-colors);
 
-// 字體大小
-$font-size-basic: 16px;
-$font-size-base: 1rem;
-$h1-font-size: $font-size-base * 3.5;
-$h2-font-size: $font-size-base * 2.45;
-$h3-font-size: $font-size-base * 1.5;
-$h4-font-size: $font-size-base * 1.125;
+@import "./front-variables";
 
-$s1-font-size: $font-size-base * 0.875;
-$s2-font-size: $font-size-base * 0.75;
+/** variables, variables-dark, mixins */
+@import "/node_modules/bootstrap/scss/variables";
+@import "/node_modules/bootstrap/scss/variables-dark";
+@import "/node_modules/bootstrap/scss/mixins";
 
-$eng1-font-size: $font-size-base * 3;
-$eng2-font-size: $font-size-base * 2;
-$eng3-font-size: $font-size-base * 1.5;
-
-// 字體粗細
-$text-weight-bold: 700;
-$text-weight-medium: 500;
-$text-weight-light: 300;
-$text-weight-regular: normal;
-
-
+/** 自訂 function, mixins*/
+@import "./helpers/function";
+@import "./helpers/mixins";
+@import "./helpers/text";

@@ -3,58 +3,58 @@ const { data } = await useFetch('/api/guidelines')
 </script>
 
 <template>
-  <div class="container">
+  <div class="container py-10">
     <!-- Color -->
-    <div class="row pb-4">
+    <div class="row pb-5">
       <div class="col-12">
         <h2>
           <span>01</span>
           <span class="text-color-primary">COLOR</span>
         </h2>
       </div>
-      <div class="col-4 mb-3">
+      <div class="col-4 mb-4">
         <div class="color-box color-primary"></div>
         <div class="color-detail">
           <span>Primary</span>
           <span>/ #00FFA3 ~ #00Efff</span>
         </div>
       </div>
-      <div class="col-4 mb-3">
+      <div class="col-4 mb-4">
         <div class="color-box color-secondary"></div>
         <div class="color-detail">
           <span>Secondary</span>
           <span>/ #FC6A00</span>
         </div>
       </div>
-      <div class="col-4 mb-3">
+      <div class="col-4 mb-4">
         <div class="color-box color-gary1"></div>
         <div class="color-detail">
           <span>Gary1</span>
           <span>/ #050505</span>
         </div>
       </div>
-      <div class="col-4 mb-3 offset-8">
+      <div class="col-4 mb-4 offset-8">
         <div class="color-box color-gary2"></div>
         <div class="color-detail">
           <span>Gary2</span>
           <span>/ #1E1E1E</span>
         </div>
       </div>
-      <div class="col-4 mb-3 offset-8">
+      <div class="col-4 mb-4 offset-8">
         <div class="color-box color-gary3"></div>
         <div class="color-detail">
           <span>Gary3</span>
           <span>/ #282828</span>
         </div>
       </div>
-      <div class="col-4 mb-3 offset-8">
+      <div class="col-4 mb-4 offset-8">
         <div class="color-box color-gary4"></div>
         <div class="color-detail">
           <span>Gary4</span>
           <span>/ #373737</span>
         </div>
       </div>
-      <div class="col-4 mb-3 offset-8">
+      <div class="col-4 mb-4 offset-8">
         <div class="color-box color-gary5"></div>
         <div class="color-detail">
           <span>Gary5</span>
@@ -62,11 +62,11 @@ const { data } = await useFetch('/api/guidelines')
         </div>
       </div>
     </div>
-    <hr class="text-color-white pb-4" />
+    <hr class="text-color-white pb-5" />
     <!-- Font-1 -->
-    <div class="row mb-4">
-      <div class="col-12 pb-4">
-        <h2 class="mb-4">
+    <div class="row mb-5">
+      <div class="col-12 pb-5">
+        <h2 class="mb-5">
           <span>02</span>
           <span class="text-color-primary">TYPOGRAPHY</span>
         </h2>
@@ -98,7 +98,7 @@ const { data } = await useFetch('/api/guidelines')
       </div>
     </div>
     <!-- Font-2 -->
-    <div class="row pb-4">
+    <div class="row pb-5">
       <div class="col-12">
         <p class="text-s1 text-color-white">
           Font 2 / <span class="text-h3">Roboto Condensed Italic</span>
@@ -129,11 +129,11 @@ const { data } = await useFetch('/api/guidelines')
         </table>
       </div>
     </div>
-    <hr class="text-color-white pb-4" />
+    <hr class="text-color-white pb-5" />
     <!-- Button -->
-    <div class="row mb-4">
-      <div class="col-12 pb-4">
-        <h2 class="mb-4">
+    <div class="row mb-5">
+      <div class="col-12 pb-5">
+        <h2 class="mb-5">
           <span>03</span>
           <span class="text-color-primary">BUTTONS</span>
         </h2>
@@ -156,6 +156,11 @@ const { data } = await useFetch('/api/guidelines')
             <tr>
               <th scope="row">
                 <span class="th-name">Default</span>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn tag-btn text-s1">
+                  <span>戴資穎</span>
+                </button>
               </th>
               <th class="text-center">
                 <button type="button" class="btn live-btn"><i class="icon-like"></i></button>
@@ -201,6 +206,11 @@ const { data } = await useFetch('/api/guidelines')
                 <span class="th-name">Hover</span>
               </th>
               <th class="text-center">
+                <button type="button" class="btn tag-btn active text-s1">
+                  <span>戴資穎</span>
+                </button>
+              </th>
+              <th class="text-center">
                 <button type="button" class="btn live-btn active"><i class="icon-like"></i></button>
               </th>
               <th class="text-center">
@@ -242,6 +252,11 @@ const { data } = await useFetch('/api/guidelines')
             <tr>
               <th scope="row">
                 <span class="th-name">Disable</span>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn tag-btn text-s1" disabled>
+                  <span>戴資穎</span>
+                </button>
               </th>
               <th class="text-center">
                 <button type="button" class="btn live-btn" disabled>

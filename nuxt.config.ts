@@ -1,10 +1,24 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import type { Plugin } from 'vite'
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: 'SportsPass 運動售票',
+      meta: [
+        // <meta name="viewport" content="width=device-width, initial-scale=1">
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ]
+    }
+  },
   css: ['normalize.css', '@/assets/scss/app.scss'],
+  alias: {
+    icons: fileURLToPath(new URL('./assets/icons', import.meta.url)),
+    images: fileURLToPath(new URL('./assets/images', import.meta.url))
+  },
   postcss: {
     plugins: {
       autoprefixer: true
@@ -23,6 +37,14 @@ export default defineNuxtConfig({
       ErrorMessage: 'VeeErrorMessage'
     }
   },
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        activeClass: 'active',
+        exactActiveClass: 'active'
+      }
+    }
+  },
   quasar: {
     config: {
       // Add Quasar configurations here
@@ -39,10 +61,7 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData: `
-            @import "@/assets/scss/_color.scss";
             @import "@/assets/scss/_variables.scss";
-            @import "@/assets/scss/_mixins.scss";
-            @import "@/assets/scss/_function.scss";
           `
         }
       }

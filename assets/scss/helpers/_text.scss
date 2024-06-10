@@ -1,0 +1,21 @@
+/**
+* 文字截斷(可顯示行數 n 行)
+* .text-truncate-row-{$index}
+* {$index}：表示行數，值為 1~5
+*/
+
+%all-text-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.text-truncate-row- {
+    @for $index from 1 through 5 {
+        &#{$index} {
+            @extend %all-text-truncate;
+            -webkit-line-clamp: $index
+        }
+    }
+}
