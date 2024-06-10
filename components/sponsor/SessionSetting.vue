@@ -610,7 +610,7 @@ const saveAreaDetail = (index) => {
 
 /* 滑動動畫 */
 .slide-fade-enter-from {
-  transform: translateX(-100%);
+  transform: translateY(-100%);
 }
 .slide-fade-enter-active {
   transition: all 1.5s ease;
@@ -620,7 +620,7 @@ const saveAreaDetail = (index) => {
 }
 
 .slide-fade-leave-to {
-  transform: translateX(-100%);
+  transform: translateY(-100%);
   opacity: 0;
 }
 
