@@ -13,7 +13,16 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
-  modules: ['@pinia/nuxt', 'nuxt-quasar-ui', 'nuxt-lodash'],
+  modules: ['@pinia/nuxt', 'nuxt-quasar-ui', 'nuxt-lodash', '@vee-validate/nuxt'],
+  veeValidate: {
+    autoImports: true,
+    componentNames: {
+      Form: 'VeeForm',
+      Field: 'VeeField',
+      FieldArray: 'VeeFieldArray',
+      ErrorMessage: 'VeeErrorMessage'
+    }
+  },
   quasar: {
     config: {
       // Add Quasar configurations here

@@ -8,8 +8,8 @@
           </q-card-section>
           <q-card-section>
             <q-form @submit.prevent="onSubmit">
-              <q-input filled v-model="email" label="Email" />
-              <q-input filled v-model="password" label="密碼" type="password" />
+              <q-input v-model="email" filled label="Email" />
+              <q-input v-model="password" filled label="密碼" type="password" />
               <q-btn label="登入" type="submit" color="primary" />
             </q-form>
           </q-card-section>
@@ -23,12 +23,12 @@
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-  layout: 'quasar-layout'
-})
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useApi } from '~/composables/useApi'
+definePageMeta({
+  layout: 'quasar-layout'
+})
 
 // Define the structure of the user data and the login response
 
@@ -63,6 +63,7 @@ async function onSubmit() {
   })
 
   if (loginError) {
+    // eslint-disable-next-line no-console
     console.error('Login Error:', loginError)
     $q.notify({
       color: 'negative',
@@ -73,6 +74,7 @@ async function onSubmit() {
     error.value = '登入失敗，請稍後再試。'
     return
   }
+  // eslint-disable-next-line no-console
   console.log(data)
   if (data && data.token) {
     localStorage.setItem('authToken', data.token)

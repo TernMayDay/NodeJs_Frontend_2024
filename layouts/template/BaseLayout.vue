@@ -3,9 +3,7 @@
   <q-layout view="hHh lpR fFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>
-          MyApp
-        </q-toolbar-title>
+        <q-toolbar-title> MyApp </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
@@ -15,15 +13,12 @@
 
     <q-footer elevated>
       <q-toolbar>
-        <q-toolbar-title>
-          Footer
-        </q-toolbar-title>
+        <q-toolbar-title> Footer </q-toolbar-title>
       </q-toolbar>
     </q-footer>
   </q-layout>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const drawerOpen = ref(false);
+// const drawerOpen = ref(false)
 </script>
