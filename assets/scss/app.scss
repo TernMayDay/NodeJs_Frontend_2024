@@ -489,7 +489,7 @@ a:not(.dropdown-item) {
 
 // 導航列
 .navbar {
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(lg) {
     // show 漸層底色
     .show {
       &.menu-dropdown-after-bg,

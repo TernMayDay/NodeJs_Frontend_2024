@@ -19,12 +19,14 @@ const notificationNotIsReadNum = computed(() => {
 async function changeIsRead(notification) {
   if (notification?._id) {
     const { _id, url } = notification
+    // eslint-disable-next-line no-console
     console.log('單筆 標示為已讀', _id, url)
     if (url) {
       router.push(`${url}/${_id}`)
     }
     await notificationStore.changeNotificationIsRead(_id)
   } else {
+    // eslint-disable-next-line no-console
     console.log('全部 標示為已讀')
   }
 }
@@ -35,7 +37,8 @@ async function changeIsRead(notification) {
     <button
       id="notificationNavbarDropdownLink"
       type="button"
-      class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-flex p-2 p-xl-3"
+      class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-flex p-2 p-lg-3"
+      :class="{ disabled: !notifications.length }"
       data-bs-toggle="dropdown"
       data-bs-auto-close="true"
       aria-expanded="false"
@@ -84,7 +87,7 @@ async function changeIsRead(notification) {
               class="gap-1"
               :class="{ 'border-bottom pb-3': index !== notifications.length - 1 }"
             >
-              <h1 class="text-btn2 mb-0">{{ notification.title }}</h1>
+              <h1 class="text-btn2 mb-0 text-truncate-row-2">{{ notification.title }}</h1>
               <span class="text-s2 text-gray5">{{
                 dayjs(notification.createdAt).format('YYYY.MM.DD HH:mm:ss')
               }}</span>
@@ -99,7 +102,7 @@ async function changeIsRead(notification) {
 
 <style scoped lang="scss">
 .dropdown-menu {
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(lg) {
     transform: translateX(-100vw);
     left: rem(52px);
   }
@@ -108,8 +111,9 @@ async function changeIsRead(notification) {
   &[aria-labelledby='notificationNavbarDropdownLink'] {
     --bs-dropdown-min-width: 100vw;
 
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(lg) {
       --bs-dropdown-min-width: 264px;
+      --bs-dropdown-spacer: calc(var(--bs-header-dropdown-spacer) - 4px);
     }
   }
 
@@ -128,7 +132,7 @@ async function changeIsRead(notification) {
   margin-left: rem(-8px);
   -webkit-text-fill-color: $white;
 
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(lg) {
     margin-top: rem(12px);
     margin-left: rem(-12px);
   }

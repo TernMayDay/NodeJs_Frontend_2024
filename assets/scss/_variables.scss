@@ -18,3 +18,4 @@ $theme-colors: map-merge($theme-colors, $customize-theme-colors);
 /** 自訂 function, mixins*/
 @import "./helpers/function";
 @import "./helpers/mixins";
+@import "./helpers/text";
