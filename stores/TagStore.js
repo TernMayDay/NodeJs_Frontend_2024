@@ -13,9 +13,8 @@ export const useTagStore = defineStore('tagStore', () => {
   const getTags = async (type, limit, q) => {
     const data = await useHttp.get(`${apiRoom}/${type}`, { limit, q })
     const { tags } = data.data
-    top20Tags.value = tags.slice(0, 20).sort((a, b) => b.eventNum - a.eventNum)
     if (((type === 'all' && !limit) || (type === 'hot' && limit >= 20)) && !q) {
-      top9HotCategories.value = tags.sort((a, b) => b.eventNum - a.eventNum).slice(0, 20)
+      top20Tags.value = tags.sort((a, b) => b.eventNum - a.eventNum).slice(0, 20)
     }
     return tags
   }
