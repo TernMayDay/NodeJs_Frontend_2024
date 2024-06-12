@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 const props = defineProps({
   name: {
     type: String,
@@ -7,12 +7,6 @@ const props = defineProps({
   color: {
     type: String,
     default: '#999'
-  },
-  size: {
-    validator(value) {
-      return ['lg'].includes(value)
-    },
-    default: ''
   }
 })
 
@@ -21,19 +15,7 @@ const symbolId = computed(() => {
 })
 </script>
 <template>
-  <svg aria-hidden="true" :class="{ 'icon-size-lg': props.size === 'lg' }">
+  <svg aria-hidden="true">
     <use :href="symbolId" :fill="props.color" />
   </svg>
 </template>
-
-<style scoped lang="scss">
-svg {
-  width: 24px;
-  height: 24px;
-
-  &.icon-size-lg {
-    width: 32px;
-    height: 32px;
-  }
-}
-</style>
