@@ -1,3 +1,5 @@
+const apiRoom = '/tag'
+
 export const useTagStore = defineStore('tagStore', () => {
   const top20Tags = ref([])
   /**
@@ -7,12 +9,14 @@ export const useTagStore = defineStore('tagStore', () => {
    * @param { string } q 搜尋標籤名稱
    * @returns api 資料
    */
+
   const getTags = async (type, limit, q) => {
-    console.log(type, limit, q)
-    const { data } = await useFetch('/api/tags')
-    const { tags } = data.value
-    tags.sort((a, b) => b.eventNum - a.eventNum)
-    top20Tags.value = tags.slice(0, 20)
+    const data = await useHttp.get(`${apiRoom}/${type}`, { limit, q })
+    const { tags } = data.data
+    top20Tags.value = tags.slice(0, 20).sort((a, b) => b.eventNum - a.eventNum)
+    if (((type === 'all' && !limit) || (type === 'hot' && limit >= 20)) && !q) {
+      top9HotCategories.value = tags.sort((a, b) => b.eventNum - a.eventNum).slice(0, 20)
+    }
     return tags
   }
 

@@ -3,8 +3,8 @@ const route = useRoute()
 const router = useRouter()
 const tagStore = useTagStore()
 const categoryStore = useCategoryStore()
+const { top9HotCategories } = storeToRefs(categoryStore)
 const eventStore = useEventStore()
-const hotCategorys = ref([])
 const searchInputVal = ref('')
 const events = ref([])
 let navbarCollapse
@@ -22,13 +22,19 @@ onMounted(() => {
 /* 監聽 route 取得搜尋表單值 */
 watch(
   () => route.fullPath,
-  async (newFullPath) => {
+  async () => {
     const { query, path } = route
     const { q } = query
     searchInputVal.value = q && path === '/events' ? q : ''
 
     if (searchInputVal.value) {
-      events.value = await eventStore.getEvents('all', searchInputVal.value, 5)
+      const { events: reslt } = await eventStore.getEvents({
+        displayMode: 'all',
+        categoryId: 'all',
+        q: searchInputVal.value,
+        pageSize: 5
+      })
+      events.value = reslt
     }
   },
   { immediate: true }
@@ -38,7 +44,7 @@ watch(
 const hotTags = computed(() => tagStore.top20Tags.slice(0, 5))
 
 /* 熱門賽事項目 */
-hotCategorys.value = await categoryStore.getCategorys('hot', 9)
+await categoryStore.getCategories('hot', 9)
 
 /* 監聽 click 事件 */
 onMounted(() => {
@@ -140,7 +146,7 @@ watch(searchInputVal, (newVal) => {
         <li class="list-group-item d-grid gap-3 py-4">
           <h1 class="text-btn1 mb-0">熱門賽事項目</h1>
           <ul class="list-unstyled grid gap-3">
-            <li v-for="category in hotCategorys" :key="category._id" class="g-col-4">
+            <li v-for="category in top9HotCategories" :key="category._id" class="g-col-4">
               <NuxtLink
                 role="button"
                 class="btn category-btn"

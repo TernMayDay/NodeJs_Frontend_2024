@@ -8,7 +8,7 @@ await notificationStore.getNotifications()
 
 // 通知未讀數量
 const notificationNotIsReadNum = computed(() => {
-  const num = notifications.value.filter((notification) => !notifications.isRead).length
+  const num = notifications.value.filter((notification) => !notification.isRead).length
   return num >= 10 ? '9+' : num
 })
 
@@ -16,13 +16,14 @@ const notificationNotIsReadNum = computed(() => {
  * 所有/單筆 通知標示已讀
  * @param notification 通知
  */
-function changeIsRead(notification) {
+async function changeIsRead(notification) {
   if (notification?._id) {
     const { _id, url } = notification
     console.log('單筆 標示為已讀', _id, url)
     if (url) {
       router.push(`${url}/${_id}`)
     }
+    await notificationStore.changeNotificationIsRead(_id)
   } else {
     console.log('全部 標示為已讀')
   }
@@ -35,7 +36,6 @@ function changeIsRead(notification) {
       id="notificationNavbarDropdownLink"
       type="button"
       class="nav-link dropdown-toggle dropdown-toggle-hide-arrow d-flex p-2 p-xl-3"
-      :class="{ disabled: !notifications.length }"
       data-bs-toggle="dropdown"
       data-bs-auto-close="true"
       aria-expanded="false"
@@ -71,7 +71,7 @@ function changeIsRead(notification) {
         <hr class="dropdown-divider" />
       </li>
       <li class="notifications-block">
-        <div class="list-group list-group-flush gap-3">
+        <div v-if="notifications.length" class="list-group list-group-flush gap-3">
           <button
             v-for="(notification, index) in notifications"
             :key="notification._id"
@@ -91,6 +91,7 @@ function changeIsRead(notification) {
             </div>
           </button>
         </div>
+        <NoData v-else></NoData>
       </li>
     </ul>
   </div>
