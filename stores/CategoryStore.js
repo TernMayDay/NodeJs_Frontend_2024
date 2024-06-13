@@ -11,8 +11,12 @@ export const useCategoryStore = defineStore('categoryStore', () => {
   const getCategories = async (type, limit) => {
     const data = await useHttp.get(`${apiRoom}/${type}`, { limit })
     const { categories } = data.data
-    if ((type === 'all' && !limit) || (type === 'hot' && limit >= 9)) {
-      top9HotCategories.value = categories.sort((a, b) => b.eventNum - a.eventNum).slice(0, 9)
+    // 熱門賽事項目最小長度
+    const hotCategoriesMinLimit = 9
+    if ((type === 'all' && !limit) || (type === 'hot' && limit >= hotCategoriesMinLimit)) {
+      top9HotCategories.value = [...categories]
+        .sort((a, b) => b.eventNum - a.eventNum)
+        .slice(0, hotCategoriesMinLimit)
     }
     return categories
   }

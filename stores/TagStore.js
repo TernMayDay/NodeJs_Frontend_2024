@@ -13,9 +13,13 @@ export const useTagStore = defineStore('tagStore', () => {
   const getTags = async (type, limit, q) => {
     const data = await useHttp.get(`${apiRoom}/${type}`, { limit, q })
     const { tags } = data.data
-    if (((type === 'all' && !limit) || (type === 'hot' && limit >= 20)) && !q) {
-      top20Tags.value = tags.sort((a, b) => b.eventNum - a.eventNum).slice(0, 20)
+
+    // 熱門標籤最小長度
+    const hotTagsMinLimit = 20
+    if (((type === 'all' && !limit) || (type === 'hot' && limit >= hotTagsMinLimit)) && !q) {
+      top20Tags.value = [...tags].sort((a, b) => b.eventNum - a.eventNum).slice(0, hotTagsMinLimit)
     }
+
     return tags
   }
 
