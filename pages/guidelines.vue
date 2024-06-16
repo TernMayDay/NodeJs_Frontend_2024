@@ -142,7 +142,10 @@ const { data } = await useFetch('/api/guidelines')
         <table class="table align-middle table-borderless btn-table">
           <thead>
             <tr class="text-s1">
-              <th scope="col" width="45%">Basic / Dark bg</th>
+              <th scope="col">Basic / Dark bg</th>
+              <th scope="col" class="text-center"></th>
+              <th scope="col" class="text-center"></th>
+              <th scope="col" class="text-center"></th>
               <th scope="col" class="text-center"></th>
               <th scope="col" class="text-center"></th>
               <th scope="col" class="text-center"></th>
@@ -163,6 +166,16 @@ const { data } = await useFetch('/api/guidelines')
                 <button type="button" class="btn live-btn"><i class="icon-like"></i></button>
               </th>
               <th class="text-center">
+                <button type="button" class="btn tag-btn text-s1">
+                  <span>戴資穎</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn setting-btn text-btn1">
+                  <span>設定</span>
+                </button>
+              </th>
+              <th class="text-center">
                 <button type="button" class="btn check-btn text-btn1">
                   <span>立即訂票</span>
                 </button>
@@ -175,6 +188,16 @@ const { data } = await useFetch('/api/guidelines')
               <th class="text-center">
                 <button type="button" class="btn login-btn text-btn1">
                   <span>登入</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn qrcode-btn text-btn1">
+                  <span>QRCode入場</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn add_session-btn text-btn1">
+                  <i class="icon-add"></i><span>新增場次</span>
                 </button>
               </th>
             </tr>
@@ -191,6 +214,16 @@ const { data } = await useFetch('/api/guidelines')
                 <button type="button" class="btn live-btn active"><i class="icon-like"></i></button>
               </th>
               <th class="text-center">
+                <button type="button" class="btn tag-btn active text-s1">
+                  <span>戴資穎</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn setting-btn active text-btn1">
+                  <span>設定</span>
+                </button>
+              </th>
+              <th class="text-center">
                 <button type="button" class="btn check-btn active text-btn1">
                   <span>立即訂票</span>
                 </button>
@@ -203,6 +236,16 @@ const { data } = await useFetch('/api/guidelines')
               <th class="text-center">
                 <button type="button" class="btn login-btn active text-btn1">
                   <span>登入</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn qrcode-btn active text-btn1">
+                  <span>QRCode入場</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn add_session-btn active text-btn1">
+                  <i class="icon-add"></i><span>新增場次</span>
                 </button>
               </th>
             </tr>
@@ -221,6 +264,16 @@ const { data } = await useFetch('/api/guidelines')
                 </button>
               </th>
               <th class="text-center">
+                <button type="button" class="btn tag-btn text-s1" disabled>
+                  <span>戴資穎</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn setting-btn text-btn1" disabled>
+                  <span>設定</span>
+                </button>
+              </th>
+              <th class="text-center">
                 <button type="button" class="btn check-btn text-btn1" disabled>
                   <span>立即訂票</span>
                 </button>
@@ -233,6 +286,16 @@ const { data } = await useFetch('/api/guidelines')
               <th class="text-center">
                 <button type="button" class="btn login-btn text-btn1" disabled>
                   <span>登入</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn qrcode-btn text-btn1" disabled>
+                  <span>QRCode入場</span>
+                </button>
+              </th>
+              <th class="text-center">
+                <button type="button" class="btn add_session-btn text-btn1" disabled>
+                  <i class="icon-add"></i><span>新增場次</span>
                 </button>
               </th>
             </tr>

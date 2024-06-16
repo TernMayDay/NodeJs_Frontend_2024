@@ -99,6 +99,7 @@ async function onSubmit() {
     // Redirect after registration
     router.push('/login')
   } catch (err: any) {
+    // eslint-disable-next-line no-console
     console.error('Registration Error:', err)
     error.value = '註冊過程中出現錯誤。'
     $q.notify({

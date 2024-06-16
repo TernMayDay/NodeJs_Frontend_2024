@@ -56,5 +56,8 @@ $customize-theme-colors: map-merge($customize-theme-gradient-colors, $customize-
   &white {
     color: $white;
   }
+  &gary5 {
+    color: $gray_5;
+  }
 }
 

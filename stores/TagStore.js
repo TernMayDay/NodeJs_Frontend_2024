@@ -8,6 +8,7 @@ export const useTagStore = defineStore('tagStore', () => {
    * @returns api 資料
    */
   const getTags = async (type, limit, q) => {
+    // eslint-disable-next-line no-console
     console.log(type, limit, q)
     const { data } = await useFetch('/api/tags')
     const { tags } = data.value

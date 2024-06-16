@@ -27,7 +27,16 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
-  modules: ['@pinia/nuxt', 'nuxt-quasar-ui', 'nuxt-swiper'],
+  modules: ['@pinia/nuxt', 'nuxt-quasar-ui', 'nuxt-lodash', '@vee-validate/nuxt', 'nuxt-swiper'],
+  veeValidate: {
+    autoImports: true,
+    componentNames: {
+      Form: 'VeeForm',
+      Field: 'VeeField',
+      FieldArray: 'VeeFieldArray',
+      ErrorMessage: 'VeeErrorMessage'
+    }
+  },
   experimental: {
     defaults: {
       nuxtLink: {

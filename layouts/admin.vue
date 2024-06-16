@@ -8,6 +8,7 @@ import 'virtual:svg-icons-register'
       <h2>Loading...</h2>
     </NuxtLoadingIndicator>
     <AdminHeader />
+    <AdminSidebar />
     <slot />
   </div>
 </template>
