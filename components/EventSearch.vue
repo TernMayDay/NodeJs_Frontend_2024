@@ -4,8 +4,8 @@ const route = useRoute()
 const router = useRouter()
 const tagStore = useTagStore()
 const categoryStore = useCategoryStore()
+const { top9HotCategories } = storeToRefs(categoryStore)
 const eventStore = useEventStore()
-const hotCategorys = ref([])
 const searchDropdownRef = ref(null)
 const searchDropdownToggleRef = ref(null)
 const searchDropdown = ref(null)
@@ -73,7 +73,7 @@ watch(
 const hotTags = computed(() => tagStore.top20Tags.slice(0, 5))
 
 /* 熱門賽事項目 */
-hotCategorys.value = await categoryStore.getCategorys('hot', 9)
+await categoryStore.getCategories('hot', 9)
 
 /**
  * 發送資料至父層
@@ -169,7 +169,7 @@ watch(searchInputVal, (newVal) => {
         <li class="list-group-item d-grid gap-3 py-4">
           <h1 class="text-btn1 mb-0">熱門賽事項目</h1>
           <ul class="list-unstyled grid gap-3">
-            <li v-for="category in hotCategorys" :key="category._id" class="g-col-4">
+            <li v-for="category in top9HotCategories" :key="category._id" class="g-col-4">
               <NuxtLink
                 role="button"
                 class="btn category-btn"
