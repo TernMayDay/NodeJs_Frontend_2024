@@ -9,7 +9,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     console.log(type, limit)
     const { data } = await useFetch('/api/categorys')
     console.log(data.value)
-    return data.value
+    return data.value.slice(0, limit)
   }
 
   return {

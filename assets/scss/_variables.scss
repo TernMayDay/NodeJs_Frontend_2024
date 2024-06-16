@@ -5,6 +5,10 @@
 @import "./global-variables";
 @import "./bs-variables";
 
+$black_gradient_lightToDark: linear-gradient(180deg, rgba($black, 0) 50%, rgba($black, 0.6) 100%);
+$card-hover-bg: linear-gradient(90deg, $primary_0 0%, $primary_1 100%);
+$card-hover-text: $gray_1;
+
 // Merge the maps
 $theme-colors: map-merge($theme-colors, $customize-theme-colors);
 
@@ -19,3 +23,5 @@ $theme-colors: map-merge($theme-colors, $customize-theme-colors);
 @import "./helpers/function";
 @import "./helpers/mixins";
 @import "./helpers/text";
+
+@import "./customize-swiper";

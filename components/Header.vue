@@ -1,4 +1,5 @@
 <script setup>
+import { logo } from '~/data/imagePaths.js'
 const route = useRoute()
 const authStore = useAuthStore()
 const { user } = storeToRefs(authStore)
@@ -40,7 +41,7 @@ onUnmounted(() => {
 
 <template>
   <div class="position-relative" :class="{ 'banner-block d-flex flex-column': isIndexPage }">
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
       <div class="deco-bg-image"></div>
       <div class="container-lg">
         <button class="navbar-toggler border-0 p-0" type="button" @click="navbarCollapse.toggle()">
@@ -50,7 +51,7 @@ onUnmounted(() => {
           ></span>
         </button>
         <NuxtLink class="navbar-brand" to="/">
-          <img src="~images/logo.svg" alt="SportsPass LOGO" class="logo" />
+          <img :src="logo" alt="SportsPass LOGO" class="logo" />
         </NuxtLink>
         <NotificationComponent class="d-lg-none" />
         <div ref="navbarCollapseRef" class="collapse navbar-collapse py-4 py-lg-0">
@@ -252,7 +253,6 @@ onUnmounted(() => {
 }
 
 .navbar {
-  z-index: 1;
   background: $front-header-bg-mobile;
   height: $front-header-height-mobile;
   padding-top: rem(20px);

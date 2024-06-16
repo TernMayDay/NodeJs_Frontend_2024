@@ -13,7 +13,7 @@ const searchInputVal = ref('')
 const events = ref([])
 let navbarCollapse
 
-const props = defineProps({
+defineProps({
   modelValue: Boolean,
   // 是否在 banner
   inBanner: {
@@ -58,7 +58,12 @@ watch(
     searchInputVal.value = q && path === '/events' ? q : ''
 
     if (searchInputVal.value) {
-      events.value = await eventStore.getEvents('all', searchInputVal.value, 5)
+      const { events: reslt } = await eventStore.getEvents({
+        displayMode: 'list',
+        q: searchInputVal.value,
+        pageSize: 5
+      })
+      events.value = reslt
     }
   },
   { immediate: true }

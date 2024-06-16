@@ -27,7 +27,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
-  modules: ['@pinia/nuxt', 'nuxt-quasar-ui'],
+  modules: ['@pinia/nuxt', 'nuxt-quasar-ui', 'nuxt-swiper'],
   experimental: {
     defaults: {
       nuxtLink: {
@@ -43,6 +43,9 @@ export default defineNuxtConfig({
     },
     // Specify Quasar plugins you want to include
     plugins: ['Notify']
+  },
+  swiper: {
+    styleLang: 'scss'
   },
   vite: {
     define: {
@@ -70,7 +73,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: ''
+      apiBase: 'https://sportspass-backend.onrender.com/api/v1'
     }
   }
 })

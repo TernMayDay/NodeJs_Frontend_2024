@@ -1,6 +1,6 @@
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref({
-    _id: '663cc54961dd3c092489ca7f',
+    _id: '664b4ab9e08db863ee132793',
     account: 'player',
     email: 'player@gmail.com',
     password: '$2a$10$Hc3HBfCncyPiDMyzCqY/OuhNceAmjk93k/zloQJLe5vsOoPufIISe',
