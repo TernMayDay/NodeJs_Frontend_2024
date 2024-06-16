@@ -65,7 +65,7 @@ async function changeIsRead(notification) {
           >
             <span class="text-color-gray5">全部標示為已讀</span>
           </button>
-          <NuxtLink to="/member/mySubscription">
+          <NuxtLink to="/member/mySubscription" class="d-flex align-items-center">
             <div class="icon icon-setting-fill color-gary4"></div>
           </NuxtLink>
         </div>

@@ -5,10 +5,6 @@ defineProps({
   event: {
     type: Object,
     default: () => {}
-  },
-  index: {
-    type: Number,
-    default: null
   }
 })
 </script>
@@ -43,7 +39,7 @@ defineProps({
           #{{ tag }}
         </li>
       </ul>
-      <h5 class="card-title text-h4 mb-0 text-truncate-row-2">{{ index }}-{{ event.eventName }}</h5>
+      <h5 class="card-title text-h4 mb-0 text-truncate-row-2">{{ event.eventName }}</h5>
     </div>
     <div
       class="card-footer bg-transparent mt-2 mt-md-4 pt-2 pt-md-4 pb-0 px-0 d-flex justify-content-between align-items-center"

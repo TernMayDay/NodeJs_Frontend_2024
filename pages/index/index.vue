@@ -6,7 +6,6 @@ const userStore = useUserStore()
 const categoryStore = useCategoryStore()
 const eventStore = useEventStore()
 const whyUsList = ref([])
-const hotCategories = ref([])
 const events = ref({
   latest: [],
   hot: [],
@@ -25,9 +24,10 @@ const navTabs = ref([
 ])
 
 // eslint-disable-next-line no-console
-console.error('focus 須限定為使用者本人之訂閱，500 api ERROR')
+console.error('focus 須限定為使用者本人之訂閱，沒有焦點賽事資料')
 await userStore.getUserProfile()
 const fetchAllEvents = async () => {
+  // eslint-disable-next-line no-console
   console.log(events.value)
   for (const displayMode of Object.keys(events.value)) {
     // eslint-disable-next-line no-console
@@ -52,9 +52,8 @@ fetchAllEvents()
 whyUsList.value = await otherStore.getWhyUsList()
 
 /* 熱門賽事項目 */
-hotCategories.value = await categoryStore.getCategorys('hot', 5)
-// eslint-disable-next-line no-console
-console.log('熱門賽事項目', hotCategories.value)
+const hotCategories = computed(() => categoryStore.top9HotCategories.slice(0, 5))
+
 // 關注焦點
 const focusEvents = computed(() => {
   const data = userStore.userProfile.focusedEvents || []
@@ -120,11 +119,7 @@ const slideTo = (theme, currentSwiper, index) => {
         <IndexTitle en="Focus" tc="關注焦點" />
       </template>
       <template #eventCard="{ event, index, swiper }">
-        <TaggedEventCard
-          :event="event"
-          :index="index"
-          @mouseenter="slideTo('focus', swiper, index)"
-        />
+        <TaggedEventCard :event="event" @mouseenter="slideTo('focus', swiper, index)" />
       </template>
     </SwiperCards>
     <!-- 最新 / 熱門 -->

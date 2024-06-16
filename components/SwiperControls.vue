@@ -11,7 +11,6 @@ defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 onMounted(() => {
-  console.log(swiper.value)
   emit('update:modelValue', swiper)
 })
 </script>
