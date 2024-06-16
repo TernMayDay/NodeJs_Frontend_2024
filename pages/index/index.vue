@@ -29,22 +29,25 @@ await userStore.getUserProfile()
 const fetchAllEvents = async () => {
   // eslint-disable-next-line no-console
   console.log(events.value)
-  for (const displayMode of Object.keys(events.value)) {
+  const apis = []
+  const eventKeys = Object.keys(events.value)
+  eventKeys.forEach((displayMode) => {
     // eslint-disable-next-line no-console
     console.error('api displayMode 無效', displayMode)
-    const data = await eventStore.getEvents({
-      displayMode: 'list',
-      pageSize: displayMode === 'upcoming' ? 9 : 4
-    })
+    apis.push(
+      eventStore.getEvents({
+        displayMode: 'list',
+        pageSize: displayMode === 'upcoming' ? 9 : 4
+      })
+    )
+  })
 
-    const { events: result } = data
-    if (displayMode === 'hot') {
-      result.reverse()
-    }
-    events.value[displayMode] = result
-    // eslint-disable-next-line no-console
-    console.log('fetchAllEvents', events.value)
-  }
+  const result = await Promise.all(apis)
+  // eslint-disable-next-line no-console
+  console.log(eventKeys, result)
+  eventKeys.forEach((displayMode, index) => {
+    events.value[displayMode] = result[index]
+  })
 }
 fetchAllEvents()
 
