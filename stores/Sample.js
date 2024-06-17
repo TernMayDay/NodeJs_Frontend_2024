@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 export const useTestStore = defineStore('test', () => {
-  const { api } = runApi()
+  const api = runApi()
   const roomInfo = ref([])
 
   // 取得

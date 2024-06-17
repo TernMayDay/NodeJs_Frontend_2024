@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { roomsParams, roomId } from '@/apis/typs'
-const { api } = runApi()
+const api = runApi()
 
 // get
 const { data, refresh } = await useAsyncData('rooms', () => api.getRooms())

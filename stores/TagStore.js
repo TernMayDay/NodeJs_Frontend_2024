@@ -1,4 +1,7 @@
+import { defineStore } from 'pinia'
+const api = runApi()
 export const useTagStore = defineStore('tagStore', () => {
+  const tagAll = ref([])
   const top20Tags = ref([])
   /**
    * 取得所有/熱門標籤
@@ -17,8 +20,22 @@ export const useTagStore = defineStore('tagStore', () => {
     return tags
   }
 
+  const getTagAll = async () => {
+    const response = await api.getTagAll()
+    tagAll.value = response.data.tags
+    return response.data.tags
+  }
+
+  const createdTag = async (name) => {
+    const response = await api.postAddTag({ name })
+    return response.data.tag
+  }
+
   return {
     top20Tags,
-    getTags
+    getTags,
+    getTagAll,
+    tagAll,
+    createdTag
   }
 })
