@@ -10,6 +10,8 @@
 @import "/node_modules/bootstrap/scss/utilities";
 @import "/node_modules/bootstrap/scss/bootstrap";
 
+// @import "./customize-swiper";
+
 body {
   background-color: $gray_2;
   @include font( 1, $text-weight-regular, $font-size-base, 1.5, 2 );
@@ -531,13 +533,18 @@ body {
 
 .arrow-btn{
   border: none; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
   &:hover,
   &:active,
   &.active {
    & .icon-arrow {
       display: inline-block;
-      width: rem(40px);
-      height: rem(40px);
+      width: rem($icon-arrow-size);
+      height: rem($icon-arrow-size);
       --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m9.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675t-.15-.75t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z'/%3E%3C/svg%3E");
       background-color: white;
       -webkit-mask-image: var(--svg);
@@ -579,9 +586,20 @@ body {
 */
 
 a:not(.dropdown-item) {
-  display: flex;
-  align-items: center;
   text-decoration: none;
+
+  &[role="button"] {
+    display: flex;
+    align-items: center;
+  }
+
+  &:hover {
+    // 賽事項目 badge
+    .badge-category {
+      background-color: $secondary;
+      color: $white;
+    }
+  }
 }
 
 // 防止圖片變形
@@ -610,6 +628,11 @@ a:not(.dropdown-item) {
 
   &:not([class*="color-"]) {
     background: $white;
+  }
+
+  &.icon-size-sm {
+    width: 16px;
+    height: 16px;
   }
 
   &.icon-size-lg {
@@ -644,6 +667,10 @@ a:not(.dropdown-item) {
   &.icon-close {
     --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m6.4 18.308l-.708-.708l5.6-5.6l-5.6-5.6l.708-.708l5.6 5.6l5.6-5.6l.708.708l-5.6 5.6l5.6 5.6l-.708.708l-5.6-5.6z'/%3E%3C/svg%3E");
   }
+
+  &.icon-location {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 11.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7'/%3E%3C/svg%3E");
+  }
 }
 
 .icon,
@@ -665,12 +692,13 @@ a:not(.dropdown-item) {
 * ==========================================================================
 */
 
-.active:not(.tag-btn):not(.category-btn) {
+.active:not(.tag-btn):not(.category-btn):not(.live-btn) {
   pointer-events: none;
   cursor: default;
 }
 
-.nav-link,
+.nav-item > .nav-link,
+.dropdown > .nav-link,
 .dropdown-item {
   &:hover,
   &.active {
@@ -741,3 +769,143 @@ a:not(.dropdown-item) {
   }
 }
 
+// 標籤 badge
+.badge {
+  // 賽事項目
+  &.badge-category {
+    --bs-badge-padding-x: 0.75rem;
+    --bs-badge-padding-y: 0.25rem;
+    background-color: $gray_1;
+    color: $secondary;
+  }
+}
+
+// nav 導覽與頁籤
+.nav {
+  // 自訂下底線 nav
+  &.nav-border-bottom {
+    align-items: flex-start;
+    gap: rem(24px);
+
+    @include media-breakpoint-down(md) {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .nav-link {
+      padding: 0;
+
+      &.active {
+        color: $white;
+
+        // 底線
+        &::after {
+          margin-top: rem(12px);
+          content: '';
+          display: block;
+          height: 1px;
+          background: linear-gradient(90deg, $primary_0 0%, $primary_1 100%);
+        }
+      }
+    }
+  }
+}
+
+/*
+* ==========================================================================
+* swiper
+* ==========================================================================
+*/
+
+// 沒有左右間距
+.swiper-cards-container {
+  @include media-breakpoint-down(md) {
+    --bs-gutter-x: 0;
+  }
+}
+
+// 熱門賽事項目
+$hot-categories-swiper-num: 5;
+$hot-categories-swiper-slide-width: calc((100% - ($swiper-card-space-between-desktop * ($hot-categories-swiper-num - 1))) / $hot-categories-swiper-num);
+.hot-categories-swiper {
+  .swiper-slide {
+    @include media-breakpoint-up(lg) {
+      width: $hot-categories-swiper-slide-width;
+      transition: width 0.3s ease;
+
+      &:hover {
+        width: calc($hot-categories-swiper-slide-width * 2);
+      }
+    }
+
+    &.swiper-slide-active {
+      @include media-breakpoint-down(lg) {
+        // 漸層邊框
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: $card-hover-bg;
+          z-index: -1;
+          border-radius: $card-border-radius;
+        }
+
+        img {
+          padding: rem(2px);
+          filter: grayscale(0%);
+        }
+      }
+    }
+
+    &:hover {
+      // 漸層邊框
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $card-hover-bg;
+        z-index: -1;
+        border-radius: $card-border-radius;
+      }
+
+      img {
+        padding: rem(2px);
+        filter: grayscale(0%);
+      }
+    }
+
+    .card {
+      height: rem(218px);
+
+      @include media-breakpoint-up(md) {
+        height: rem(320px);
+      }
+
+      img {
+        filter: grayscale(100%);
+      }
+
+      // 圖片漸層遮罩
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $black_gradient_lightToDark;
+      }
+
+      .card-img-overlay {
+        top: auto;
+        z-index: 1;
+      }
+    }
+  }
+}

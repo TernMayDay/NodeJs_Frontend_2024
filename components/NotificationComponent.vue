@@ -16,7 +16,7 @@ const notificationNotIsReadNum = computed(() => {
  * 所有/單筆 通知標示已讀
  * @param notification 通知
  */
-function changeIsRead(notification) {
+async function changeIsRead(notification) {
   if (notification?._id) {
     const { _id, url } = notification
     // eslint-disable-next-line no-console
@@ -24,6 +24,7 @@ function changeIsRead(notification) {
     if (url) {
       router.push(`${url}/${_id}`)
     }
+    await notificationStore.changeNotificationIsRead(_id)
   } else {
     // eslint-disable-next-line no-console
     console.log('全部 標示為已讀')
@@ -64,7 +65,7 @@ function changeIsRead(notification) {
           >
             <span class="text-color-gray5">全部標示為已讀</span>
           </button>
-          <NuxtLink to="/member/mySubscription">
+          <NuxtLink to="/member/mySubscription" class="d-flex align-items-center">
             <div class="icon icon-setting-fill color-gary4"></div>
           </NuxtLink>
         </div>
@@ -73,7 +74,7 @@ function changeIsRead(notification) {
         <hr class="dropdown-divider" />
       </li>
       <li class="notifications-block">
-        <div class="list-group list-group-flush gap-3">
+        <div v-if="notifications.length" class="list-group list-group-flush gap-3">
           <button
             v-for="(notification, index) in notifications"
             :key="notification._id"
@@ -93,6 +94,7 @@ function changeIsRead(notification) {
             </div>
           </button>
         </div>
+        <NoData v-else></NoData>
       </li>
     </ul>
   </div>

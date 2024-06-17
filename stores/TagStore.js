@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+
+const apiRoom = '/tag'
 const api = runApi()
 export const useTagStore = defineStore('tagStore', () => {
   const tagAll = ref([])
@@ -10,13 +12,17 @@ export const useTagStore = defineStore('tagStore', () => {
    * @param { string } q 搜尋標籤名稱
    * @returns api 資料
    */
+
   const getTags = async (type, limit, q) => {
-    // eslint-disable-next-line no-console
-    console.log(type, limit, q)
-    const { data } = await useFetch('/api/tags')
-    const { tags } = data.value
-    tags.sort((a, b) => b.eventNum - a.eventNum)
-    top20Tags.value = tags.slice(0, 20)
+    const data = await useHttp.get(`${apiRoom}/${type}`, { limit, q })
+    const { tags } = data.data
+
+    // 熱門標籤最小長度
+    const hotTagsMinLimit = 20
+    if (((type === 'all' && !limit) || (type === 'hot' && limit >= hotTagsMinLimit)) && !q) {
+      top20Tags.value = [...tags].sort((a, b) => b.eventNum - a.eventNum).slice(0, hotTagsMinLimit)
+    }
+
     return tags
   }
 

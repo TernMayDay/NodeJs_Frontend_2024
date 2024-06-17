@@ -1,4 +1,5 @@
 <script setup>
+import { logo } from '~/data/imagePaths.js'
 const tagStore = useTagStore()
 
 /* 取得 top20 熱門標籤 */
@@ -10,7 +11,7 @@ await tagStore.getTags('hot', 20)
     <div class="container-lg">
       <div class="d-grid d-lg-flex align-items-start gap-5 gap-lg-13 py-5 py-lg-11">
         <NuxtLink class="navbar-brand" to="/">
-          <img src="~images/logo.svg" alt="SportsPass LOGO" class="logo" />
+          <img :src="logo" alt="SportsPass LOGO" class="logo" />
         </NuxtLink>
         <ul class="list-group list-group-flush gap-3 gap-lg-4 w-100">
           <li class="list-group-item py-0">

@@ -411,7 +411,8 @@ $spacers: (
     10: $spacer * 3.5,
     11: $spacer * 3.75,
     12: $spacer * 4,
-    13: $spacer * 5
+    13: $spacer * 5,
+    14: $spacer * 7.5
     ) !default;
 // scss-docs-end spacer-variables-maps
 
@@ -542,7 +543,7 @@ $border-color-translucent: rgba($black, .175) !default;
 $border-radius: .375rem !default;
 $border-radius-sm: .25rem !default;
 $border-radius-lg: .5rem !default;
-$border-radius-xl: 1rem !default;
+$border-radius-xl: 1.25rem !default; // 1rem !default
 $border-radius-xxl: 2rem !default;
 $border-radius-pill: 50rem !default;
 // scss-docs-end border-radius-variables
@@ -1175,8 +1176,8 @@ $nav-link-padding-y: .5rem !default;
 $nav-link-padding-x: 1rem !default;
 $nav-link-font-size: null !default;
 $nav-link-font-weight: 500 !default; // null !default;
-$nav-link-color: var(--#{$prefix}link-color) !default;
-$nav-link-hover-color: var(--#{$prefix}link-hover-color) !default;
+$nav-link-color:  $gray_5 !default;// var(--#{$prefix}link-color) !default;
+$nav-link-hover-color: var(--#{$prefix}link-color) !default; //var(--#{$prefix}link-hover-color) !default;
 $nav-link-transition: color .15s ease-in-out,
     background-color .15s ease-in-out,
     border-color .15s ease-in-out !default;
@@ -1187,7 +1188,7 @@ $nav-tabs-border-color: var(--#{$prefix}border-color) !default;
 $nav-tabs-border-width: var(--#{$prefix}border-width) !default;
 $nav-tabs-border-radius: var(--#{$prefix}border-radius) !default;
 $nav-tabs-link-hover-border-color: var(--#{$prefix}secondary-bg) var(--#{$prefix}secondary-bg) $nav-tabs-border-color !default;
-$nav-tabs-link-active-color: var(--#{$prefix}emphasis-color) !default;
+$nav-tabs-link-active-color: $nav-link-hover-color !default; // var(--#{$prefix}emphasis-color) !default;
 $nav-tabs-link-active-bg: var(--#{$prefix}body-bg) !default;
 $nav-tabs-link-active-border-color: var(--#{$prefix}border-color) var(--#{$prefix}border-color) $nav-tabs-link-active-bg !default;
 
@@ -1365,11 +1366,11 @@ $card-spacer-x: $spacer !default;
 $card-title-spacer-y: $spacer * .5 !default;
 $card-title-color: null !default;
 $card-subtitle-color: null !default;
-$card-border-width: var(--#{$prefix}border-width) !default;
-$card-border-color: var(--#{$prefix}border-color-translucent) !default;
-$card-border-radius: var(--#{$prefix}border-radius) !default;
+$card-border-width: 0 !default; // var(--#{$prefix}border-width) !default;
+$card-border-color: var(--#{$prefix}border-color) !default; // var(--#{$prefix}border-color-translucent) !default;
+$card-border-radius: 0.5rem !default;// var(--#{$prefix}border-radius) !default;
 $card-box-shadow: null !default;
-$card-inner-border-radius: subtract($card-border-radius, $card-border-width) !default;
+$card-inner-border-radius: 0.5rem !default; //subtract($card-border-radius, $card-border-width) !default;
 $card-cap-padding-y: $card-spacer-y * .5 !default;
 $card-cap-padding-x: $card-spacer-x !default;
 $card-cap-bg: rgba(var(--#{$prefix}body-color-rgb), .03) !default;

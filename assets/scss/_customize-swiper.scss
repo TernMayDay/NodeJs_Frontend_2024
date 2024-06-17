@@ -1,0 +1,42 @@
+/** swiper */
+$swiper-theme-color: linear-gradient(90deg, $primary_0, $primary_1);
+$swiper-card-space-between-desktop: 24px;
+
+:root {
+    // navigation
+    --swiper-navigation-color: #373737;
+
+    // pagination
+    --swiper-pagination-bottom: 0;
+    --swiper-pagination-bullet-horizontal-gap: 8px;
+    --swiper-pagination-bullet-inactive-color: #373737;
+    --swiper-pagination-bullet-inactive-opacity: 1;
+}
+
+// navigation
+.swiper-button-prev,
+.swiper-button-next {
+    font-weight: 600;
+    --swiper-navigation-size: 40px;
+
+    &:hover {
+        --swiper-navigation-color: #fff;
+    }
+
+    &.swiper-button-disabled {
+        opacity: 1 !important;
+        cursor: default !important;
+    }
+}
+
+// pagination
+.swiper-pagination {
+    line-height: 0 !important;
+
+    .swiper-pagination-bullet-active {
+        --swiper-pagination-bullet-width: 24px;
+        border-radius: rem(20px) !important;
+        background: linear-gradient(90deg, $primary_0 0%, $primary_1 100%) !important;
+    }
+}
+
