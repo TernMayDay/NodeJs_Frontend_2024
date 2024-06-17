@@ -1,4 +1,11 @@
 <script setup>
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
+import { format } from 'date-fns'
+import { zhTW } from 'date-fns/locale'
+
+const imageStore = useImageStore()
+const { uploadImage } = imageStore
 const showArea = ref(false)
 const openIdx = ref(null)
 const props = defineProps({
@@ -20,9 +27,11 @@ const areaRowList = ref([])
 const addSession = () => {
   formData.value.push({
     sessionTime: '',
+    sessionTimeFormat: '選擇開賽時間',
     sessionName: '',
     sessionPlace: '',
-    sessionSalesPeriod: '',
+    sessionSalesPeriod: [],
+    sessionSalesPeriodFormat: '選擇售票時間',
     areaVenuePic: '',
     areaSetting: []
   })
@@ -66,9 +75,19 @@ const addAreaRow = () => {
 
 const emit = defineEmits(['update:modelValue'])
 
+const formatDateRange = (dateValue) => {
+  if (!dateValue || dateValue.length !== 2) {
+    return `${format(new Date(dateValue), 'yyyy/MM/dd (EEE) HH:mm', { locale: zhTW })}`
+  } else {
+    const [start, end] = dateValue
+    return `${format(new Date(start), 'yyyy/MM/dd (EEE) HH:mm', { locale: zhTW })} ~ ${format(new Date(end), 'yyyy/MM/dd (EEE) HH:mm', { locale: zhTW })}`
+  }
+}
+
 const updateField = (propsName, index, value) => {
   formData.value[index][propsName] = value
   emit('update:modelValue', formData.value)
+  // console.log('formData =>', formData.value)
 }
 
 const updateAreaField = (path, value) => {
@@ -86,10 +105,19 @@ const updateAreaField = (path, value) => {
   emit('update:modelValue', formData.value)
 }
 
-const handleFileChange = (propsName, index, event) => {
-  const file = event.target.files[0]
-  formData.value[index][propsName] = file
-  emit('update:modelValue', formData.value)
+const handleFileChange = async (propsName, index, event) => {
+  if (event.target.files && event.target.files[0]) {
+    const file = event.target.files[0]
+    const imgData = new FormData()
+    imgData.append('file', file)
+    try {
+      const result = await uploadImage(imgData)
+      updateField(propsName, index, result.fileLocation)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(`${propsName}：`, error)
+    }
+  }
 }
 
 const removeSession = (index) => {
@@ -138,6 +166,23 @@ const saveAreaDetail = (index) => {
   formData.value[openIdx.value].areaSetting[index] = { ...areaRowList.value[index] }
   emit('update:modelValue', formData.value)
 }
+
+// 日期
+const isOpen = ref(false)
+
+const toggleDatePicker = () => {
+  isOpen.value = !isOpen.value
+}
+
+const updateDate = (fieldName, index, dateValue) => {
+  updateField(fieldName, index, dateValue) // 更新至 props
+  formData.value[index][`${fieldName}Format`] = formatDateRange(dateValue)
+}
+const clearDate = (fieldName, index, msg) => {
+  formData.value[index][fieldName] = ''
+  formData.value[index][`${fieldName}Format`] = msg
+  emit('update:modelValue', formData.value)
+}
 </script>
 
 <template>
@@ -172,16 +217,33 @@ const saveAreaDetail = (index) => {
           <tr v-for="(session, index) in formData" :key="`session${index}`">
             <td>
               <label :for="`sessionTime${index}`" class="visually-hidden">場次時間</label>
-              <VeeField
-                :id="`sessionTime${index}`"
+              <VueDatePicker
                 v-model="session.sessionTime"
-                class="form-control"
-                :name="`場次時間${index}`"
-                as="input"
-                type="date"
-                :rules="'required'"
-                @update:model-value="updateField('sessionTime', index, $event)"
-              />
+                dark
+                single
+                date-style
+                :is-open="isOpen"
+                :append-to-body="true"
+                @focusout="isOpen = false"
+                @cleared="clearDate('sessionTime', index, '選擇開賽時間')"
+                @update:model-value="(value) => updateDate('sessionTime', index, value)"
+              >
+                <template #dp-input="{ onBlur, onKeypress, onPaste }">
+                  <VeeField
+                    :id="`sessionTime${index}`"
+                    v-model="session.sessionTimeFormat"
+                    class="form-control"
+                    :name="`場次時間${index}`"
+                    as="input"
+                    type="text"
+                    :rules="'required'"
+                    @focus="toggleDatePicker"
+                    @blur="onBlur"
+                    @keypress="onKeypress"
+                    @paste="onPaste"
+                  />
+                </template>
+              </VueDatePicker>
               <VeeErrorMessage class="text-s1 error-message" :name="`場次時間${index}`" />
             </td>
             <td>
@@ -216,16 +278,33 @@ const saveAreaDetail = (index) => {
             </td>
             <td>
               <label :for="`sessionSalesPeriod${index}`" class="visually-hidden">售票時間</label>
-              <VeeField
-                :id="`sessionSalesPeriod${index}`"
+              <VueDatePicker
                 v-model="session.sessionSalesPeriod"
-                class="form-control"
-                :name="`售票時間${index}`"
-                as="input"
-                type="date"
-                :rules="'required'"
-                @update:model-value="updateField('sessionSalesPeriod', index, $event)"
-              />
+                dark
+                range
+                date-style
+                :is-open="isOpen"
+                :append-to-body="true"
+                @focusout="isOpen = false"
+                @cleared="clearDate('sessionSalesPeriod', index, '選擇售票時間')"
+                @update:model-value="(value) => updateDate('sessionSalesPeriod', index, value)"
+              >
+                <template #dp-input="{ onBlur, onKeypress, onPaste }">
+                  <VeeField
+                    :id="`sessionSalesPeriod${index}`"
+                    v-model="session.sessionSalesPeriodFormat"
+                    class="form-control"
+                    :name="`售票時間${index}`"
+                    as="input"
+                    type="text"
+                    :rules="'required'"
+                    @focus="toggleDatePicker"
+                    @blur="onBlur"
+                    @keypress="onKeypress"
+                    @paste="onPaste"
+                  />
+                </template>
+              </VueDatePicker>
               <VeeErrorMessage class="text-s1 error-message" :name="`售票時間${index}`" />
             </td>
             <td>
@@ -261,7 +340,7 @@ const saveAreaDetail = (index) => {
             <VeeErrorMessage class="text-s1 error-message" :name="`上傳場地圖${openIdx}`" />
             <VeeField
               :id="`areaVenuePic${openIdx}`"
-              class="form-control form-upload"
+              class="form-control form-upload--icon"
               :name="`上傳場地圖${openIdx}`"
               as="input"
               type="file"
@@ -546,6 +625,9 @@ const saveAreaDetail = (index) => {
 </template>
 
 <style lang="scss" scoped>
+.table-responsive {
+  overflow-x: visible;
+}
 .session-setting {
   position: relative;
   color: white;
@@ -567,7 +649,6 @@ const saveAreaDetail = (index) => {
 
   & .form-control {
     background-color: $gray_1;
-    border: 1px solid $gray_1;
     color: white;
     height: 48px;
     line-height: 2;
@@ -591,7 +672,7 @@ const saveAreaDetail = (index) => {
     color: $secondary;
   }
 }
-.form-upload {
+.form-upload--icon {
   &:after {
     content: '';
     display: inline-flex;
@@ -644,9 +725,13 @@ const saveAreaDetail = (index) => {
   border-bottom: 1px solid $gray_4;
   height: 96px;
   color: white;
-  padding: 20px;
+  padding: 10px;
 }
 
+.table.session-table > :not(caption) > * > td:nth-child(5),
+.table.session-table > :not(caption) > * > td:nth-child(6) {
+  text-align: center;
+}
 .table.sub-area-table > :not(caption) > * > td {
   background: $gray_1;
   color: white;

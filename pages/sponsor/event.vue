@@ -2,11 +2,12 @@
 const formData = ref({
   eventSetting: {
     eventName: '',
-    eventDate: '',
+    eventDate: [],
     eventPic: '',
-    category: '',
+    categorysNameTC: '',
     coverPic: '',
-    tag: '',
+    tags: [],
+    tagOptions: [],
     smallBanner: '',
     releaseDate: ''
   },
@@ -18,10 +19,12 @@ const formData = ref({
 
 const onSubmit = (value) => {
   if (!value) return
+
+  // console.log(!value, value)
+
   // eslint-disable-next-line no-console
-  console.log(!value, value)
-  // eslint-disable-next-line no-console
-  console.log('formData 1234', formData.value)
+  console.log('formData =>', formData.value)
+  // Default storage is in memory
 }
 </script>
 

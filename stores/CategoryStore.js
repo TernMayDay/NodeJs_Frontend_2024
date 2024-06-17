@@ -1,6 +1,9 @@
+import { defineStore } from 'pinia'
+const api = runApi()
 const apiRoom = '/categories'
 
 export const useCategoryStore = defineStore('categoryStore', () => {
+  const categoriesAll = ref([])
   const top9HotCategories = ref([])
   /**
    * 取得所有/熱門賽事項目
@@ -21,8 +24,16 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     return categories
   }
 
+  const getCategoriesAll = async () => {
+    const response = await api.getCategoriesAll()
+    categoriesAll.value = response.data.categories
+    return response.data.categories
+  }
+
   return {
     top9HotCategories,
-    getCategories
+    getCategories,
+    getCategoriesAll,
+    categoriesAll
   }
 })
