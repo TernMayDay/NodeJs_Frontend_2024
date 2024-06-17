@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'no-undef': 'off',
     'prettier/prettier': 'error',
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    'linebreak-style': ['off']
   }
 }

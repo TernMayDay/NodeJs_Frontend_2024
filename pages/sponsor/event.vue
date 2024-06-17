@@ -6,7 +6,8 @@ const formData = ref({
     eventPic: '',
     category: '',
     coverPic: '',
-    tag: '',
+    tag: [],
+    tagOptions: [],
     smallBanner: '',
     releaseDate: ''
   },
@@ -21,7 +22,7 @@ const onSubmit = (value) => {
   // eslint-disable-next-line no-console
   console.log(!value, value)
   // eslint-disable-next-line no-console
-  console.log('formData 1234', formData.value)
+  console.log('formData =>', formData.value)
 }
 </script>
 
