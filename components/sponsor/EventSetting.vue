@@ -320,67 +320,6 @@ const clearDate = (fieldName, msg) => {
   </div>
 </template>
 
-<!-- <style lang="scss">
-.form-select--tag {
-  &.multiselect {
-    color: white;
-  }
-  & .multiselect__tags {
-    display: inline-block;
-    align-items: center;
-    width: 100%;
-    background: $gray_1;
-    align-items: center;
-    border: 1px solid $gray_4;
-    min-height: 48px;
-    padding: 12px 40px 10px 12px;
-
-    // padding-top: 8px;
-    // padding-bottom: 8px;
-    background: $gray_1
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='m12 13.171l4.95-4.95l1.414 1.415L12 16L5.636 9.636L7.05 8.222z'/%3E%3C/svg%3E")
-      no-repeat right 0.5rem top center;
-  }
-
-  & .multiselect__tag {
-    margin-bottom: 0px;
-  }
-  & .multiselect__select {
-    display: none;
-    height: 48px;
-  }
-
-  & .multiselect__input {
-    // min-height: 40px;
-    line-height: 48px;
-    background: $gray_1;
-    padding: 0;
-    margin: 0;
-    color: white;
-    @include font(1, $text-weight-regular, $font-size-base, 1.5, 2);
-    &::placeholder {
-      color: white;
-    }
-  }
-
-  & .multiselect__placeholder {
-    margin: auto 0;
-    color: white;
-    @include font(1, $text-weight-regular, $font-size-base, 1.5, 2);
-  }
-
-  // 展開
-  & .multiselect__content-wrapper {
-    background: $gray_3;
-    border: 1px solid $gray_4;
-    color: white;
-  }
-  // highlight
-  // & .multiselect__option--highlight {
-  // }
-}
-</style> -->
-
 <style lang="scss">
 .event-setting {
   & .date-style {
