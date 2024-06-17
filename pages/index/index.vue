@@ -46,7 +46,7 @@ const fetchAllEvents = async () => {
   // eslint-disable-next-line no-console
   console.log(eventKeys, result)
   eventKeys.forEach((displayMode, index) => {
-    events.value[displayMode] = result[index]
+    events.value[displayMode] = result[index].events
   })
 }
 fetchAllEvents()
