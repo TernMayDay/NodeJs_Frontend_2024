@@ -9,6 +9,7 @@ import { zhTW } from 'date-fns/locale'
 const imageStore = useImageStore()
 const tagStore = useTagStore()
 const { createdTag, getTagAll } = tagStore
+const { uploadImage } = imageStore
 const categoryStore = useCategoryStore()
 
 const props = defineProps({
@@ -24,12 +25,10 @@ const props = defineProps({
         default: () => []
       },
       eventPic: {
-        type: Object,
-        default: () => {
-          return {}
-        }
+        type: String,
+        default: ''
       },
-      category: {
+      categorysNameTC: {
         type: String,
         default: ''
       },
@@ -37,13 +36,21 @@ const props = defineProps({
         type: Object,
         default: () => {}
       },
-      tag: {
+      tags: {
         type: Array,
         default: () => []
       },
       tagOptions: {
         type: Array,
         default: () => []
+      },
+      smallBanner: {
+        type: String,
+        default: ''
+      },
+      releaseDate: {
+        type: String,
+        default: ''
       }
     })
   }
@@ -65,7 +72,7 @@ const handleFileChange = async (propsName, event) => {
     const imgData = new FormData()
     imgData.append('file', file)
     try {
-      const result = await imageStore.uploadImage(imgData)
+      const result = await uploadImage(imgData)
       updateField(propsName, result.fileLocation)
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -85,7 +92,7 @@ const { refresh: tagListRefresh } = await useAsyncData('tags', async () => {
 // 新增 tag
 const addTag = async (newTag) => {
   const tagData = await createdTag(newTag)
-  formData.value.tag.push({ ...tagData })
+  formData.value.tags.push({ ...tagData })
   formData.value.tagOptions.push({ ...tagData })
   emit('update:modelValue', formData.value)
 
@@ -94,14 +101,11 @@ const addTag = async (newTag) => {
 }
 
 // 取得所有 categories
-const { data: categoriesList, refresh: categoriesListRefresh } = await useAsyncData(
-  'categories',
-  async () => {
-    return await categoryStore.getCategoriesAll()
-  }
-)
+const { data: categoriesList } = await useAsyncData('categories', async () => {
+  return await categoryStore.getCategoriesAll()
+})
 
-// 更新日期
+// 更新 顯示的日期
 const staticDate = ref({
   eventDate: '請輸入日期',
   releaseDate: '請輸入上架日期'
@@ -202,15 +206,15 @@ const clearDate = (fieldName, msg) => {
 
       <!-- 分類 -->
       <div class="col-6 mb-3">
-        <label class="form-label text-s1 text-color-gary5" for="category">分類</label>
+        <label class="form-label text-s1 text-color-gary5" for="categorysNameTC">分類</label>
         <VeeField
-          id="category"
-          v-model="formData.category"
+          id="categorysNameTC"
+          v-model="formData.categorysNameTC"
           class="form-select"
           name="分類"
           as="select"
           :rules="'required'"
-          @update:model-value="updateField('category', $event)"
+          @update:model-value="updateField('categorysNameTC', $event)"
         >
           <option value="" select disabled>请選擇一個分類</option>
           <option
@@ -242,9 +246,10 @@ const clearDate = (fieldName, msg) => {
 
       <!-- Tag設定 -->
       <div class="col-6 mb-3">
-        <label class="form-label text-s1 text-color-gary5" for="tag">Tag設定</label>
+        <label class="form-label text-s1 text-color-gary5" for="tags">Tag設定</label>
         <VueMultiselect
-          v-model="formData.tag"
+          id="tags"
+          v-model="formData.tags"
           name="Tag設定"
           :options="formData.tagOptions"
           select-label="加入 tag"
@@ -259,6 +264,7 @@ const clearDate = (fieldName, msg) => {
           track-by="_id"
           :rules="'required'"
           @tag="addTag"
+          @update:model-value="updateField('tags', $event)"
         />
         <VeeErrorMessage class="text-s1 error-message" name="Tag設定" />
       </div>
@@ -314,7 +320,7 @@ const clearDate = (fieldName, msg) => {
   </div>
 </template>
 
-<style lang="scss">
+<!-- <style lang="scss">
 .form-select--tag {
   &.multiselect {
     color: white;
@@ -373,9 +379,9 @@ const clearDate = (fieldName, msg) => {
   // & .multiselect__option--highlight {
   // }
 }
-</style>
+</style> -->
 
-<style lang="scss" scoped>
+<style lang="scss">
 .event-setting {
   & .date-style {
     height: 48px;
@@ -418,38 +424,131 @@ const clearDate = (fieldName, msg) => {
   .error-message {
     color: $secondary;
   }
+
+  .form-upload--icon {
+    &:after {
+      content: '';
+      display: inline-flex;
+      position: absolute;
+      right: 10px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: 20px;
+      height: 20px;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%2300ffa3' stroke-linecap='round' stroke-width='1.5'%3E%3Cpath d='M17 9.002c2.175.012 3.353.109 4.121.877C22 10.758 22 12.172 22 15v1c0 2.829 0 4.243-.879 5.122C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.878C2 20.242 2 18.829 2 16v-1c0-2.828 0-4.242.879-5.121c.768-.768 1.946-.865 4.121-.877'/%3E%3Cpath stroke-linejoin='round' d='M12 15V2m0 0l3 3.5M12 2L9 5.5'/%3E%3C/g%3E%3C/svg%3E");
+    }
+  }
+  .form-date--icon {
+    &:after {
+      content: '';
+      display: inline-flex;
+      position: absolute;
+      right: 10px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: 18px;
+      height: 18px;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2300ffa3' d='M14.5 16h-13C.67 16 0 15.33 0 14.5v-12C0 1.67.67 1 1.5 1h13c.83 0 1.5.67 1.5 1.5v12c0 .83-.67 1.5-1.5 1.5M1.5 2c-.28 0-.5.22-.5.5v12c0 .28.22.5.5.5h13c.28 0 .5-.22.5-.5v-12c0-.28-.22-.5-.5-.5z'/%3E%3Cpath fill='%2300ffa3' d='M4.5 4c-.28 0-.5-.22-.5-.5v-3c0-.28.22-.5.5-.5s.5.22.5.5v3c0 .28-.22.5-.5.5m7 0c-.28 0-.5-.22-.5-.5v-3c0-.28.22-.5.5-.5s.5.22.5.5v3c0 .28-.22.5-.5.5m4 2H.5C.22 6 0 5.78 0 5.5S.22 5 .5 5h15c.28 0 .5.22.5.5s-.22.5-.5.5'/%3E%3C/svg%3E");
+    }
+  }
+
+  // tag
+  .form-select--tag {
+    &.multiselect {
+      color: white;
+    }
+    & .multiselect__tags {
+      display: inline-block;
+      align-items: center;
+      width: 100%;
+      background: $gray_1;
+      align-items: center;
+      border: 1px solid $gray_4;
+      min-height: 48px;
+      padding: 12px 40px 10px 12px;
+
+      // padding-top: 8px;
+      // padding-bottom: 8px;
+      background: $gray_1
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='m12 13.171l4.95-4.95l1.414 1.415L12 16L5.636 9.636L7.05 8.222z'/%3E%3C/svg%3E")
+        no-repeat right 0.5rem top center;
+    }
+
+    & .multiselect__tag {
+      margin-bottom: 0px;
+    }
+    & .multiselect__select {
+      display: none;
+      height: 48px;
+    }
+
+    & .multiselect__input {
+      // min-height: 40px;
+      line-height: 48px;
+      background: $gray_1;
+      padding: 0;
+      margin: 0;
+      color: white;
+      @include font(1, $text-weight-regular, $font-size-base, 1.5, 2);
+      &::placeholder {
+        color: white;
+      }
+    }
+
+    & .multiselect__placeholder {
+      margin: auto 0;
+      color: white;
+      @include font(1, $text-weight-regular, $font-size-base, 1.5, 2);
+    }
+
+    // 展開
+    & .multiselect__content-wrapper {
+      background: $gray_3;
+      border: 1px solid $gray_4;
+      color: white;
+    }
+    // highlight
+    // & .multiselect__option--highlight {
+    // }
+  }
 }
 
-.form-upload--icon {
-  &:after {
-    content: '';
-    display: inline-flex;
-    position: absolute;
-    right: 10px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    width: 20px;
-    height: 20px;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%2300ffa3' stroke-linecap='round' stroke-width='1.5'%3E%3Cpath d='M17 9.002c2.175.012 3.353.109 4.121.877C22 10.758 22 12.172 22 15v1c0 2.829 0 4.243-.879 5.122C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.878C2 20.242 2 18.829 2 16v-1c0-2.828 0-4.242.879-5.121c.768-.768 1.946-.865 4.121-.877'/%3E%3Cpath stroke-linejoin='round' d='M12 15V2m0 0l3 3.5M12 2L9 5.5'/%3E%3C/g%3E%3C/svg%3E");
-  }
-}
-.form-date--icon {
-  &:after {
-    content: '';
-    display: inline-flex;
-    position: absolute;
-    right: 10px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    width: 18px;
-    height: 18px;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2300ffa3' d='M14.5 16h-13C.67 16 0 15.33 0 14.5v-12C0 1.67.67 1 1.5 1h13c.83 0 1.5.67 1.5 1.5v12c0 .83-.67 1.5-1.5 1.5M1.5 2c-.28 0-.5.22-.5.5v12c0 .28.22.5.5.5h13c.28 0 .5-.22.5-.5v-12c0-.28-.22-.5-.5-.5z'/%3E%3Cpath fill='%2300ffa3' d='M4.5 4c-.28 0-.5-.22-.5-.5v-3c0-.28.22-.5.5-.5s.5.22.5.5v3c0 .28-.22.5-.5.5m7 0c-.28 0-.5-.22-.5-.5v-3c0-.28.22-.5.5-.5s.5.22.5.5v3c0 .28-.22.5-.5.5m4 2H.5C.22 6 0 5.78 0 5.5S.22 5 .5 5h15c.28 0 .5.22.5.5s-.22.5-.5.5'/%3E%3C/svg%3E");
-  }
-}
+// .form-upload--icon {
+//   &:after {
+//     content: '';
+//     display: inline-flex;
+//     position: absolute;
+//     right: 10px;
+//     top: 0;
+//     bottom: 0;
+//     margin: auto;
+//     width: 20px;
+//     height: 20px;
+//     background-repeat: no-repeat;
+//     background-size: 100% 100%;
+//     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%2300ffa3' stroke-linecap='round' stroke-width='1.5'%3E%3Cpath d='M17 9.002c2.175.012 3.353.109 4.121.877C22 10.758 22 12.172 22 15v1c0 2.829 0 4.243-.879 5.122C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.878C2 20.242 2 18.829 2 16v-1c0-2.828 0-4.242.879-5.121c.768-.768 1.946-.865 4.121-.877'/%3E%3Cpath stroke-linejoin='round' d='M12 15V2m0 0l3 3.5M12 2L9 5.5'/%3E%3C/g%3E%3C/svg%3E");
+//   }
+// }
+// .form-date--icon {
+//   &:after {
+//     content: '';
+//     display: inline-flex;
+//     position: absolute;
+//     right: 10px;
+//     top: 0;
+//     bottom: 0;
+//     margin: auto;
+//     width: 18px;
+//     height: 18px;
+//     background-repeat: no-repeat;
+//     background-size: 100% 100%;
+//     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2300ffa3' d='M14.5 16h-13C.67 16 0 15.33 0 14.5v-12C0 1.67.67 1 1.5 1h13c.83 0 1.5.67 1.5 1.5v12c0 .83-.67 1.5-1.5 1.5M1.5 2c-.28 0-.5.22-.5.5v12c0 .28.22.5.5.5h13c.28 0 .5-.22.5-.5v-12c0-.28-.22-.5-.5-.5z'/%3E%3Cpath fill='%2300ffa3' d='M4.5 4c-.28 0-.5-.22-.5-.5v-3c0-.28.22-.5.5-.5s.5.22.5.5v3c0 .28-.22.5-.5.5m7 0c-.28 0-.5-.22-.5-.5v-3c0-.28.22-.5.5-.5s.5.22.5.5v3c0 .28-.22.5-.5.5m4 2H.5C.22 6 0 5.78 0 5.5S.22 5 .5 5h15c.28 0 .5.22.5.5s-.22.5-.5.5'/%3E%3C/svg%3E");
+//   }
+// }
 </style>

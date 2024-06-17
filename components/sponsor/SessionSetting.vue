@@ -4,6 +4,8 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import { format } from 'date-fns'
 import { zhTW } from 'date-fns/locale'
 
+const imageStore = useImageStore()
+const { uploadImage } = imageStore
 const showArea = ref(false)
 const openIdx = ref(null)
 const props = defineProps({
@@ -28,7 +30,7 @@ const addSession = () => {
     sessionTimeFormat: '選擇開賽時間',
     sessionName: '',
     sessionPlace: '',
-    sessionSalesPeriod: '',
+    sessionSalesPeriod: [],
     sessionSalesPeriodFormat: '選擇售票時間',
     areaVenuePic: '',
     areaSetting: []
@@ -84,8 +86,8 @@ const formatDateRange = (dateValue) => {
 
 const updateField = (propsName, index, value) => {
   formData.value[index][propsName] = value
-  formData.value[index][`${propsName}Format`] = formatDateRange(value)
   emit('update:modelValue', formData.value)
+  // console.log('formData =>', formData.value)
 }
 
 const updateAreaField = (path, value) => {
@@ -103,10 +105,19 @@ const updateAreaField = (path, value) => {
   emit('update:modelValue', formData.value)
 }
 
-const handleFileChange = (propsName, index, event) => {
-  const file = event.target.files[0]
-  formData.value[index][propsName] = file
-  emit('update:modelValue', formData.value)
+const handleFileChange = async (propsName, index, event) => {
+  if (event.target.files && event.target.files[0]) {
+    const file = event.target.files[0]
+    const imgData = new FormData()
+    imgData.append('file', file)
+    try {
+      const result = await uploadImage(imgData)
+      updateField(propsName, index, result.fileLocation)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(`${propsName}：`, error)
+    }
+  }
 }
 
 const removeSession = (index) => {
@@ -165,6 +176,7 @@ const toggleDatePicker = () => {
 
 const updateDate = (fieldName, index, dateValue) => {
   updateField(fieldName, index, dateValue) // 更新至 props
+  formData.value[index][`${fieldName}Format`] = formatDateRange(dateValue)
 }
 const clearDate = (fieldName, index, msg) => {
   formData.value[index][fieldName] = ''

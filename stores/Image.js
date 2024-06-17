@@ -6,8 +6,8 @@ export const useImageStore = defineStore('image', () => {
   // 上傳圖片
   const uploadImage = async (params) => {
     const response = await api.postUploadImage(params)
-    image.value = response.data
-    return response.data
+    image.value = response
+    return response
   }
 
   return {
