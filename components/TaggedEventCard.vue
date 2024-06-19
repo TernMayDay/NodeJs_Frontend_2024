@@ -1,5 +1,5 @@
 <script setup>
-import dayjs from 'dayjs'
+/* import dayjs from 'dayjs' */
 
 defineProps({
   event: {
@@ -23,10 +23,9 @@ defineProps({
         </li>
         <li class="mt-auto d-flex justify-content-between align-items-end gap-1">
           <div class="text-s2 text-truncate d-flex align-items-center">
-            <span class="text-truncate">台東縣立體育場</span
-            ><span class="flex-shrink-0">
-              ｜{{ dayjs(event.eventDate).format('YYYY.MM.DD') }} ~
-              {{ dayjs(event.eventDate).format('MM.DD') }}</span
+            <span class="text-truncate">{{ event.eventPlace }}</span
+            ><span v-if="handleEventDate(event.eventDate)" class="flex-shrink-0"
+              >｜{{ handleEventDate(event.eventDate) }}</span
             >
           </div>
           <FavoriteBtn :event-id="event._id" />
@@ -45,11 +44,10 @@ defineProps({
       class="card-footer bg-transparent mt-2 mt-md-4 pt-2 pt-md-4 pb-0 px-0 d-flex justify-content-between align-items-center"
     >
       <ul class="list-unstyled mb-0 d-grid gap-1">
-        <!-- 若為 0 為免費 -->
-        <li class="text-btn1 text-color-primary">$450 起</li>
+        <li class="text-btn1 text-color-primary">{{ handleEventPrice(event.price) }}</li>
         <li class="d-flex align-items-center gap-1 text-s2 text-white">
-          <span>已售出</span>
-          <span>2345</span>
+          <span>{{ handleSalesStatus(event) }}</span>
+          <span v-if="event.ticketSales">{{ event.ticketSales }}</span>
         </li>
       </ul>
       <NuxtLink :to="`events/${event._id}`" role="button" class="btn check-btn text-btn1">
