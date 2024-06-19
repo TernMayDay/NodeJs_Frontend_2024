@@ -38,13 +38,15 @@ const validateEditorData = () => {
 
 <template>
   <div class="event-intro">
-    <ckeditor
-      v-model="editorData"
-      name="賽事介紹"
-      :editor="ClassicEditor"
-      :config="editorConfig"
-      @blur="validateEditorData"
-    ></ckeditor>
+    <label for="editorData">
+      <ckeditor
+        v-model="editorData"
+        name="賽事介紹"
+        :editor="ClassicEditor"
+        :config="editorConfig"
+        @blur="validateEditorData"
+      ></ckeditor>
+    </label>
     <span v-if="!editorData" class="text-s1 error-message" name="賽事介紹"
       >賽事介紹 內容需要填寫</span
     >
@@ -59,5 +61,13 @@ const validateEditorData = () => {
 
 .event-intro .error-message {
   color: $secondary;
+}
+.event-intro label {
+  width: 100%;
+}
+
+.ck.ck-editor__main > .ck-editor__editable:not(.ck-focused),
+.ck.ck-editor__main > .ck-editor__editable.ck-focused {
+  color: $gray_1;
 }
 </style>
