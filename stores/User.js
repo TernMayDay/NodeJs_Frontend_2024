@@ -7,7 +7,7 @@ export const useUserStore = defineStore('user', () => {
   const userInfo = ref({})
   const isLogin = ref(true)
   const getToken = ref(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NGI0YWI5ZTA4ZGI4NjNlZTEzMjc5MyIsImlhdCI6MTcxODE3NjE3NywiZXhwIjoxNzE4NzgwOTc3fQ.7H15q7L0bnmdtAbjfb2hFwfZ-m8DnrqyThMhFhOBeUY'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NGI0YWI5ZTA4ZGI4NjNlZTEzMjc5MyIsImlhdCI6MTcxODg3MjQ0NiwiZXhwIjoxNzE5NDc3MjQ2fQ.pL7xYmTgb6UYpYr_g9e-aeh63sTW4QaU2D-w9wF_76U'
   )
 
   const clearUserInfo = () => {

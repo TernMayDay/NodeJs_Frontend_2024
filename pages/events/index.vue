@@ -1,16 +1,11 @@
 <script setup>
-// const router = useRouter()
-
 const categoryStore = useCategoryStore()
 await categoryStore.getCategoriesAll()
 const { categoriesAll } = storeToRefs(categoryStore)
 
-// const eventStore = useEventStore()
-// const eventList = ref([])
-// const activeMode = ref('list')
-const route = useRoute()
+// const route = useRoute()
 const router = useRouter()
-const query = route.query.q
+// const currentQuery = route.query.q
 
 const eventStore = useEventStore()
 const eventList = ref([])
