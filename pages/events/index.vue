@@ -1,14 +1,21 @@
 <script setup>
-const router = useRouter()
+// const router = useRouter()
 
 const categoryStore = useCategoryStore()
 await categoryStore.getCategoriesAll()
 const { categoriesAll } = storeToRefs(categoryStore)
 
+// const eventStore = useEventStore()
+// const eventList = ref([])
+// const activeMode = ref('list')
+const route = useRoute()
+const router = useRouter()
+const query = route.query.q
+
 const eventStore = useEventStore()
 const eventList = ref([])
-
 const activeMode = ref('list')
+
 const navTabs = ref([
   {
     value: 'list',
@@ -26,31 +33,26 @@ const navTabs = ref([
 
 const handlerDisplayMode = async ({ mode, query }) => {
   activeMode.value = mode
-  try {
-    const paramsData =
-      query !== undefined
-        ? {
-            displayMode: mode,
-            q: query
-          }
-        : { displayMode: mode }
-    const data = await eventStore.getEvents(paramsData)
-    eventList.value = data
-    return data
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('API error:', error)
-    eventList.value = []
-  }
-}
+  const paramsData =
+    query !== undefined
+      ? {
+          displayMode: mode,
+          q: query
+        }
+      : { displayMode: mode }
+  await eventStore.fetchEventList(paramsData)
+  const { eventData } = storeToRefs(eventStore)
+  eventList.value = eventData.value
 
-const changeCategory = async (category) => {
-  const query = category.nameTC
   await router.push({
     query: {
       q: query
     }
   })
+}
+
+const changeCategory = async (category) => {
+  const query = category.nameTC
   await handlerDisplayMode({ mode: activeMode.value, query })
 }
 
@@ -67,6 +69,7 @@ onMounted(() => {
       </div>
     </div>
 
+    <!-- 分類 -->
     <ol class="list-unstyled gap-3 py-4 d-flex">
       <h1 class="text-btn1 mb-0 d-inline-flex align-items-center">分類：</h1>
       <ul class="list-unstyled d-inline-flex gap-3">
@@ -79,6 +82,7 @@ onMounted(() => {
       </ul>
     </ol>
 
+    <!-- 切換模式 -->
     <nav class="nav nav-border-bottom text-h3 mb-5 mb-md-9">
       <button
         v-for="navTab in navTabs"
@@ -92,11 +96,12 @@ onMounted(() => {
       </button>
     </nav>
 
-    <session class="row event-list__content">
-      <li v-for="event in eventList.events" :key="event._id" class="col-3">
-        <TaggedEventCard :event="event" />
+    <!-- 內容 -->
+    <section class="row event-list__content">
+      <li v-for="event in eventList.events" :key="event._id" class="col-md-3 col-sm-12">
+        <EventListCard :event="event" />
       </li>
-    </session>
+    </section>
 
     <NuxtPage />
   </div>

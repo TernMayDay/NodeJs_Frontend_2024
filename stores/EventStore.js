@@ -1,6 +1,8 @@
+const api = runApi()
 const apiRoom = '/event'
-
 export const useEventStore = defineStore('eventStore', () => {
+  const eventData = ref(null) // 取得賽事列表
+
   /**
    * 取得各種賽事
    * @param { 
@@ -24,7 +26,21 @@ export const useEventStore = defineStore('eventStore', () => {
     return data.data
   }
 
+  // 取得賽事列表
+  const fetchEventList = async (params) => {
+    try {
+      const response = await api.getEventList(params)
+      eventData.value = response.data
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error 取得賽事列表:', error)
+      eventData.value = { status: 'error', data: { events: [] } }
+    }
+  }
+
   return {
-    getEvents
+    getEvents,
+    fetchEventList,
+    eventData
   }
 })
