@@ -19,6 +19,7 @@
 * [nuxt-swiper](https://nuxt.com/modules/swiper)
 ＊[vee-validate](https://nuxt.com/modules/vee-validate)
 * [sweetalert2](https://sweetalert2.github.io)
+* dompurify
 * Vue-multiselect
 * vue3-tabs-component
 * ckeditor

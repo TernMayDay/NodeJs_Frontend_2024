@@ -5,31 +5,6 @@
 @import "./global-variables";
 @import "./bs-variables";
 
-
-// 字體大小
-$font-size-basic: 16px;
-$font-size-base: 1rem;
-$h1-font-size: $font-size-base * 3.5;
-$h2-font-size: $font-size-base * 2.45;
-$h3-font-size: $font-size-base * 1.5;
-$h4-font-size: $font-size-base * 1.125;
-
-$s1-font-size: $font-size-base * 0.875;
-$s2-font-size: $font-size-base * 0.75;
-
-$eng1-font-size: $font-size-base * 3;
-$eng2-font-size: $font-size-base * 2;
-$eng3-font-size: $font-size-base * 1.5;
-
-// 字體粗細
-$text-weight-bold: 700;
-$text-weight-medium: 500;
-$text-weight-light: 300;
-$text-weight-regular: normal;
-
-// 其他
-$icon-arrow-size: 40px;
-
 $black_gradient_lightToDark: linear-gradient(180deg, rgba($black, 0) 50%, rgba($black, 0.6) 100%);
 $card-hover-bg: linear-gradient(90deg, $primary_0 0%, $primary_1 100%);
 $card-hover-text: $gray_1;
@@ -50,3 +25,4 @@ $theme-colors: map-merge($theme-colors, $customize-theme-colors);
 @import "./helpers/text";
 
 @import "./customize-swiper";
+@import "./tabs";

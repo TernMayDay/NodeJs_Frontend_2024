@@ -54,46 +54,11 @@ const onSubmit = (value) => {
   </div>
 </template>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .add-event {
   background: $gray_2;
   padding: 12px 80px 40px 80px;
   border-radius: 8px;
   border: 1px solid #888;
-
-  .tabs-component-tabs {
-    display: inline-flex;
-    list-style: none;
-  }
-  .tabs-component-tab {
-    margin-right: 24px;
-    height: 53px;
-
-    & a {
-      text-decoration: none;
-      height: 100%;
-      align-items: center;
-      display: flex;
-      color: $gray_5;
-      @include font(1, $text-weight-medium, $s1-font-size, 1.5, 2);
-    }
-
-    & a:hover,
-    a.is-active {
-      color: white;
-    }
-
-    a:hover::after,
-    &.is-active::after {
-      content: '';
-      display: flex;
-      height: 2px;
-      margin-top: -2px;
-      background: linear-gradient(45deg, $primary_0, $primary_1);
-      transition:
-        width 0.3s ease,
-        left 0.3s ease;
-    }
-  }
 }
 </style>

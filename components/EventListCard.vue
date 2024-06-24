@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-  <NuxtLink :to="`events/${event._id}`" class="card bg-transparent h-100">
+  <NuxtLink :to="`/events/${event._id}`" class="card bg-transparent h-100">
     <div class="position-relative">
       <div class="event-img-mask">
         <img :src="event.eventPic" class="card-img-top object-fit" :alt="event.eventName" />
@@ -44,7 +44,7 @@ defineProps({
     <div
       class="card-footer bg-transparent mb-4 pb-0 px-0 d-flex justify-content-between align-items-center"
     >
-      <NuxtLink :to="`events/${event._id}`" role="button" class="btn check-btn text-btn1">
+      <NuxtLink :to="`/events/${event._id}`" role="button" class="btn check-btn text-btn1">
         <span>立即訂票</span>
       </NuxtLink>
     </div>

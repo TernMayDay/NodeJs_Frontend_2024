@@ -25,9 +25,15 @@ export const useCategoryStore = defineStore('categoryStore', () => {
   }
 
   const getCategoriesAll = async () => {
-    const response = await api.getCategoriesAll()
-    categoriesAll.value = response.data.categories
-    return response.data.categories
+    try {
+      const response = await api.getCategoriesAll()
+      categoriesAll.value = response.data.categories
+      return response.data.categories
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error 取得分類列表:', error)
+      categoriesAll.value = []
+    }
   }
 
   return {

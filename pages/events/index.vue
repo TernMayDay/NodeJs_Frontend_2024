@@ -5,7 +5,6 @@ const { categoriesAll } = storeToRefs(categoryStore)
 
 // const route = useRoute()
 const router = useRouter()
-// const currentQuery = route.query.q
 
 const eventStore = useEventStore()
 const eventList = ref([])
@@ -28,22 +27,28 @@ const navTabs = ref([
 
 const handlerDisplayMode = async ({ mode, query }) => {
   activeMode.value = mode
-  const paramsData =
-    query !== undefined
-      ? {
-          displayMode: mode,
-          q: query
-        }
-      : { displayMode: mode }
-  await eventStore.fetchEventList(paramsData)
-  const { eventData } = storeToRefs(eventStore)
-  eventList.value = eventData.value
+  try {
+    const paramsData =
+      query !== undefined
+        ? {
+            displayMode: mode,
+            q: query
+          }
+        : { displayMode: mode }
+    await eventStore.fetchEventList(paramsData)
+    const { eventData } = storeToRefs(eventStore)
+    eventList.value = eventData.value
 
-  await router.push({
-    query: {
-      q: query
-    }
-  })
+    await router.push({
+      query: {
+        q: query
+      }
+    })
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('API error:', error)
+    eventList.value = []
+  }
 }
 
 const changeCategory = async (category) => {
