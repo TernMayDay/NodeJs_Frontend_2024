@@ -893,19 +893,19 @@ $form-label-margin-bottom: .5rem !default;
 $form-label-font-size: null !default;
 $form-label-font-style: null !default;
 $form-label-font-weight: null !default;
-$form-label-color: null !default;
+$form-label-color: $gray_5 !default; // null !default;
 // scss-docs-end form-label-variables
 
 // scss-docs-start form-input-variables
-$input-padding-y: 0.5rem !default; // $input-btn-padding-y !default;
-$input-padding-x: 0.75rem !default; // $input-btn-padding-x !default;
+$input-padding-y: 0.75rem !default; // $input-btn-padding-y !default;
+$input-padding-x: 1rem !default; // $input-btn-padding-x !default;
 $input-font-family: $input-btn-font-family !default;
 $input-font-size: $input-btn-font-size !default;
 $input-font-weight: $font-weight-base !default;
 $input-line-height: $input-btn-line-height !default;
 
-$input-padding-y-sm: $input-btn-padding-y-sm !default;
-$input-padding-x-sm: $input-btn-padding-x-sm !default;
+$input-padding-y-sm: 0.5rem !default; // $input-btn-padding-y-sm !default;
+$input-padding-x-sm: 0.75rem !default; // $input-btn-padding-x-sm !default;
 $input-font-size-sm: $input-btn-font-size-sm !default;
 
 $input-padding-y-lg: $input-btn-padding-y-lg !default;
@@ -913,9 +913,9 @@ $input-padding-x-lg: $input-btn-padding-x-lg !default;
 $input-font-size-lg: $input-btn-font-size-lg !default;
 
 $input-bg: $gray_1 !default; //var(--#{$prefix}body-bg) !default;
-$input-disabled-color: null !default;
-$input-disabled-bg: var(--#{$prefix}secondary-bg) !default;
-$input-disabled-border-color: null !default;
+$input-disabled-color: $white !default; // null !default;
+$input-disabled-bg: #151515 !default; // var(--#{$prefix}secondary-bg) !default;
+$input-disabled-border-color: $gray_3 !default; // null !default;
 
 $input-color: $white !default; // var(--#{$prefix}body-color) !default;
 $input-border-color: $input-bg !default; // var(--#{$prefix}border-color) !default;
@@ -988,17 +988,17 @@ $form-check-inline-margin-end: 1rem !default;
 // scss-docs-end form-check-variables
 
 // scss-docs-start form-switch-variables
-$form-switch-color: rgba($black, .25) !default;
-$form-switch-width: 2em !default;
-$form-switch-padding-start: $form-switch-width + .5em !default;
+$form-switch-color: $gray_5 !default; // rgba($black, .25) !default;
+$form-switch-width: 34px !default; // 2em !default;
+$form-switch-padding-start: $form-switch-width + 8px !default; // $form-switch-width + .5em !default;
 $form-switch-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>") !default;
 $form-switch-border-radius: $form-switch-width !default;
 $form-switch-transition: background-position .15s ease-in-out !default;
 
-$form-switch-focus-color: $input-focus-border-color !default;
+$form-switch-focus-color: $form-switch-color; // $gray_5 !default; // $input-focus-border-color !default;
 $form-switch-focus-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-focus-color}'/></svg>") !default;
 
-$form-switch-checked-color: $component-active-color !default;
+$form-switch-checked-color: $secondary !default; // $component-active-color !default;
 $form-switch-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-checked-color}'/></svg>") !default;
 $form-switch-checked-bg-position: right center !default;
 // scss-docs-end form-switch-variables
@@ -1104,16 +1104,16 @@ $form-floating-transition: opacity .1s ease-in-out,
 // Form validation
 
 // scss-docs-start form-feedback-variables
-$form-feedback-margin-top: $form-text-margin-top !default;
+$form-feedback-margin-top: 0.5rem !default; // $form-text-margin-top !default;
 $form-feedback-font-size: $form-text-font-size !default;
 $form-feedback-font-style: $form-text-font-style !default;
 $form-feedback-valid-color: $success !default;
-$form-feedback-invalid-color: $danger !default;
+$form-feedback-invalid-color: $secondary !default; // $danger !default;
 
 $form-feedback-icon-valid-color: $form-feedback-valid-color !default;
 $form-feedback-icon-valid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path fill='#{$form-feedback-icon-valid-color}' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/></svg>") !default;
 $form-feedback-icon-invalid-color: $form-feedback-invalid-color !default;
-$form-feedback-icon-invalid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$form-feedback-icon-invalid-color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$form-feedback-icon-invalid-color}' stroke='none'/></svg>") !default;
+$form-feedback-icon-invalid: none !default; // url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$form-feedback-icon-invalid-color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$form-feedback-icon-invalid-color}' stroke='none'/></svg>") !default;
 // scss-docs-end form-feedback-variables
 
 // scss-docs-start form-validation-colors
@@ -1531,7 +1531,7 @@ $modal-dialog-margin-y-sm-up: 1.75rem !default;
 $modal-title-line-height: $line-height-base !default;
 
 $modal-content-color: null !default;
-$modal-content-bg: var(--#{$prefix}body-bg) !default;
+$modal-content-bg: $gray_2 !default; // var(--#{$prefix}body-bg) !default;
 $modal-content-border-color: var(--#{$prefix}border-color-translucent) !default;
 $modal-content-border-width: var(--#{$prefix}border-width) !default;
 $modal-content-border-radius: var(--#{$prefix}border-radius-lg) !default;
@@ -1553,7 +1553,7 @@ $modal-footer-border-color: $modal-header-border-color !default;
 $modal-footer-border-width: $modal-header-border-width !default;
 
 $modal-sm: 300px !default;
-$modal-md: 500px !default;
+$modal-md: 636px !default;
 $modal-lg: 800px !default;
 $modal-xl: 1140px !default;
 

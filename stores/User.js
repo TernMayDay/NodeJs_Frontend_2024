@@ -1,4 +1,6 @@
 const apiRoom = '/user'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const fakeApiRoom = `/api${apiRoom}`
 
 export const useUserStore = defineStore('user', () => {
   const authStore = useAuthStore()
@@ -7,7 +9,7 @@ export const useUserStore = defineStore('user', () => {
   const userInfo = ref({})
   const isLogin = ref(true)
   const getToken = ref(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NGI0YWI5ZTA4ZGI4NjNlZTEzMjc5MyIsImlhdCI6MTcxODU5MDAyMSwiZXhwIjoxNzE5MTk0ODIxfQ.w-H0doJqIqFvi2DTJNVvKJ3ZLDodu6vFJYkDkY5jWY8'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NGI0YWI5ZTA4ZGI4NjNlZTEzMjc5MyIsImlhdCI6MTcxOTM3ODE3NSwiZXhwIjoxNzE5OTgyOTc1fQ.DzL4THt4MyPbBQ5GZ4uP1TdHrXPnf9Y_VteZCkFidIQ'
   )
 
   const clearUserInfo = () => {
@@ -17,6 +19,11 @@ export const useUserStore = defineStore('user', () => {
   // 取得我的資料
   const getUserProfile = async () => {
     const data = await useHttp.get(`${apiRoom}/profile/${user.value?._id}`)
+
+    // 讀取 Fake API 方式
+    // const { data } = await useFetch(`${fakeApiRoom}/profile`)
+
+    // 若讀取 Fake API：data.data => data.value.data
     const { user: reslt } = data.data
     userProfile.value = reslt
     return reslt

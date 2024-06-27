@@ -25,3 +25,12 @@ $theme-colors: map-merge($theme-colors, $customize-theme-colors);
 @import "./helpers/text";
 
 @import "./customize-swiper";
+
+// 表格
+$customize-table-border-bottom: 1px solid $gray_3;
+$customize-thead-color: $gray_5;
+$customize-thead-bg: $gray_2;
+$customize-tbody-color: $white;
+
+// 表單
+$customize-input-box-shadow: 0px 0px 24px 0px rgba($black, 0.1);

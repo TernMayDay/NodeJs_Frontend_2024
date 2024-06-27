@@ -81,6 +81,7 @@ body {
     // 按鈕
     .swal2-actions {
         margin-top: 0;
+        gap: rem(12px);
 
         // 取消
         .swal2-cancel {

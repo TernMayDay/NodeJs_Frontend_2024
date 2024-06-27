@@ -14,11 +14,12 @@ interface SetSwalFireData {
 export const swalPopup = Swal.mixin({
   customClass: {
     confirmButton: 'btn login-btn text-btn1',
-    cancelButton: 'btn add_session-btn text-btn1'
+    cancelButton: 'btn delete-btn text-btn1'
   },
   buttonsStyling: false,
   showConfirmButton: false,
   showCancelButton: true,
+  confirmButtonText: '<span>確認</span>',
   cancelButtonText: '關閉',
   timer: 3000,
   timerProgressBar: true,
@@ -35,7 +36,12 @@ export const swalToast = Swal.mixin({
   showConfirmButton: false,
   position: 'bottom-end',
   timer: 3000,
-  timerProgressBar: true
+  timerProgressBar: true,
+  // 滑鼠滑入或滑出視窗 自動暫停或繼續進度條進度
+  didOpen: (el) => {
+    el.onmouseenter = Swal.stopTimer
+    el.onmouseleave = Swal.resumeTimer
+  }
 })
 
 /**

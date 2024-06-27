@@ -5,7 +5,7 @@ export const useAuthStore = defineStore('authStore', () => {
     email: 'player@gmail.com',
     password: '$2a$10$Hc3HBfCncyPiDMyzCqY/OuhNceAmjk93k/zloQJLe5vsOoPufIISe',
     phone: 12345678,
-    role: 1, // 0.管理者, 1.主辦方, 2.球迷
+    role: 2, // 0.管理者, 1.主辦方, 2.球迷
     active: true,
     nickname: 'pips',
     photo:
