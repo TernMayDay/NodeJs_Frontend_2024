@@ -83,8 +83,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      // apiBase: 'https://sportspass-backend.onrender.com/api/v1'
-      apiBase: 'https://sportspass-api-server.onrender.com/api/v1'
+      apiBase: ''
     }
   }
 })

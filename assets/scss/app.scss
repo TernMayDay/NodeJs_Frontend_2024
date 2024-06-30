@@ -280,6 +280,7 @@ body {
   &[disabled]{
     background: $gray_3;
     color: $gray_5;
+   
   }
 }
 
@@ -302,7 +303,7 @@ body {
   border: none;
 }
 
-.login-btn, .submit-btn, .save-btn, .qrcode-btn {
+.login-btn, .submit-btn, .save-btn, .qrcode-btn, .buy-intro-btn {
   height: rem(48px);
   border-radius: rem(40px);
   padding: rem(0px) rem(20px);
@@ -475,47 +476,6 @@ body {
     margin-left: rem(-4px);
   }
 
-}
-
-.tag-btn {
-  background: $gray_4;
-  height: rem(29px);
-  border-radius: rem(40px);
-  padding: rem(4px) rem(12px);
-  border: none;
-  border-radius: rem(40px);
-
-  &>span {
-    background: linear-gradient(45deg, $primary_0, $primary_1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  &:active,
-  &.active {
-    background: $gray_4;
-  }
-
-  &:hover {
-    background: linear-gradient(45deg, $primary_0, $primary_1);
-
-    &>span {
-      color: $gray_1;
-      -webkit-background-clip: unset;
-      -webkit-text-fill-color: unset;
-    }
-  }
-
-  &[disabled] {
-    background: $gray_4;
-  }
-
-  &[disabled] span {
-    color: $gray_5;
-    background: unset;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-  }
 }
 
 .category-btn {

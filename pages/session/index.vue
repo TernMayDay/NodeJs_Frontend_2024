@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>Page: sponsor/index <NuxtPage /></div>
+  <div>Page: session/index <NuxtPage /></div>
 </template>
 
 <style scoped></style>
