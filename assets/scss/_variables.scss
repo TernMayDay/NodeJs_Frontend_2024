@@ -25,3 +25,4 @@ $theme-colors: map-merge($theme-colors, $customize-theme-colors);
 @import "./helpers/text";
 
 @import "./customize-swiper";
+@import "./tabs";

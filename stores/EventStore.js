@@ -1,6 +1,10 @@
+const api = runApi()
 const apiRoom = '/event'
-
 export const useEventStore = defineStore('eventStore', () => {
+  const eventData = ref(null) // 取得賽事列表
+  const newEventData = ref([]) // 新增賽事
+  const eventDetail = ref([]) // 賽事詳情
+
   /**
    * 取得各種賽事
    * @param { 
@@ -23,8 +27,66 @@ export const useEventStore = defineStore('eventStore', () => {
     const data = await useHttp.get(`${apiRoom}/${displayMode}`, { categoryId, q, pageSize, page })
     return data.data
   }
+  /**
+   * 取得賽事列表 (list) 與 取得賽事列表 filter
+   * return 的資料皆為 eventData.value
+   */
+
+  // 取得賽事列表 (list)
+  const fetchEventList = async (params) => {
+    try {
+      const response = await api.getEventList(params)
+      eventData.value = response.data
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error 取得賽事列表:', error)
+      eventData.value = { status: 'error', data: { events: [] } }
+    }
+  }
+
+  // 取得賽事列表 filter
+  const filterEventList = async (params) => {
+    try {
+      const response = await api.getEventList(params)
+      eventData.value = response.data
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error 取得賽事列表:', error)
+      eventData.value = { status: 'error', data: { events: [] } }
+    }
+  }
+  // 新增賽事
+  const createdEvent = async (params) => {
+    try {
+      const response = await api.postAddEvent(params)
+      newEventData.value = response.data
+      return response.data
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error 新增賽事:', error)
+    }
+  }
+
+  // 取得賽事詳情
+  const fetchDetailEvent = async (params) => {
+    try {
+      const response = await api.getDetailEvent(params)
+      eventDetail.value = response.data
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error 取得賽事詳情:', error)
+      eventDetail.value = { status: 'error', data: { event: [] } }
+    }
+  }
 
   return {
-    getEvents
+    getEvents,
+    fetchEventList,
+    filterEventList,
+    eventData,
+    createdEvent,
+    newEventData,
+    fetchDetailEvent,
+    eventDetail
   }
 })
