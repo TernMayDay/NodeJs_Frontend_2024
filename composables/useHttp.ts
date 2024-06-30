@@ -73,9 +73,9 @@ const fetch = $fetch.create({
   },
   // onResponse
   onResponse({ response }) {
-    if (response.headers.get('content-disposition') || response.status === 200) return response
+    if (response.headers.get('content-disposition') || response.status === 200 || response.status === 201) return response
     // error
-    if (response._data.code !== 200) {
+    if (response._data.code !== 200 && response._data.code !== 201) {
       handleError(response)
       return Promise.reject(response._data)
     }
