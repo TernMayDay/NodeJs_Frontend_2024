@@ -7,13 +7,13 @@ const ticketList = data.value.ticket
   <div>
     <ol>
       <ul style="list-style-type: decimal">
-        <li v-for="item in ticketList.note" :key="item">{{ item }}</li>
+        <li v-for="(item, index) in ticketList.note" :key="index">{{ item }}</li>
       </ul>
     </ol>
     <ol>
       <p>【信用卡付款】</p>
       <ul>
-        <li v-for="item in ticketList.creditCard" :key="item">{{ item }}</li>
+        <li v-for="(item, index) in ticketList.creditCard" :key="index">{{ item }}</li>
       </ul>
     </ol>
   </div>

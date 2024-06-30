@@ -7,7 +7,7 @@ const noteList = data.value.noteData
   <div>
     <ol>
       <ul style="list-style-type: decimal">
-        <li v-for="item in noteList" :key="item">{{ item }}</li>
+        <li v-for="(item, index) in noteList" :key="index">{{ item }}</li>
       </ul>
     </ol>
   </div>

@@ -146,7 +146,7 @@ const removeAreaDetail = (index) => {
 const addTicketType = (index, subIdx) => {
   areaRowList.value[index].editArea[subIdx].areaTicketType.push({
     ticketName: '',
-    ticketDiscount: '原價'
+    ticketDiscount: 0
   })
   emit('update:modelValue', areaRowList.value)
 }
@@ -387,7 +387,21 @@ const clearDate = (fieldName, index, msg) => {
                             {{ ticket.ticketName }}
                             <span v-show="ticket.ticketName.length > 0">
                               <span class="ticket-discount d-inline-flex align-items-center ms-1">
-                                {{ ticket.ticketDiscount }}
+                                {{
+                                  ticket.ticketDiscount === '0'
+                                    ? '原價'
+                                    : ticket.ticketDiscount === '0.9'
+                                      ? '9折'
+                                      : ticket.ticketDiscount === '0.8'
+                                        ? '8折'
+                                        : ticket.ticketDiscount === '0.7'
+                                          ? '7折'
+                                          : ticket.ticketDiscount === '0.6'
+                                            ? '6折'
+                                            : ticket.ticketDiscount === '0.5'
+                                              ? '5折'
+                                              : '原價'
+                                }}
                               </span>
                             </span>
                           </div>
@@ -553,12 +567,12 @@ const clearDate = (fieldName, index, msg) => {
                                         )
                                       "
                                     >
-                                      <option value="原價">原價</option>
-                                      <option value="9折">9折</option>
-                                      <option value="8折">8折</option>
-                                      <option value="7折">7折</option>
-                                      <option value="6折">6折</option>
-                                      <option value="5折">5折</option>
+                                      <option value="0">原價</option>
+                                      <option value="0.9">9折</option>
+                                      <option value="0.8">8折</option>
+                                      <option value="0.7">7折</option>
+                                      <option value="0.6">6折</option>
+                                      <option value="0.5">5折</option>
                                     </VeeField>
                                     <VeeErrorMessage
                                       class="text-s1 error-message"

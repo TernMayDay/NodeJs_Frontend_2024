@@ -2,17 +2,61 @@
 import { format } from 'date-fns'
 import { zhTW } from 'date-fns/locale'
 
-// const route = useRoute()
 const router = useRouter()
+const route = useRoute()
+const eventStore = useEventStore()
 
 const isSession = ref(false)
-const { data } = await useFetch('/api/session')
-const eventData = data.value.eventData.data.event
+
 const sessionList = ref([])
+const eventData = ref({})
 const eventIntro = ref('')
 
-sessionList.value = eventData.sessionList
-eventIntro.value = eventData.eventIntro
+const saveSessionList = (list) => {
+  // 篩選
+  const filterSessions = list.map((session) => {
+    return {
+      sessionTime: formatDate(session.sessionTime),
+      sessionName: session.sessionName,
+      _id: session._id,
+      eventId: session.eventId
+    }
+  })
+
+  // 儲存到 localStorage 中
+  localStorage.setItem('filterSessions', JSON.stringify(filterSessions))
+}
+
+const getData = async () => {
+  try {
+    const eventId = route.params.eventId
+    const paramsId = { id: eventId }
+    await eventStore.fetchDetailEvent(paramsId)
+    const { eventDetail } = storeToRefs(eventStore)
+    eventData.value = eventDetail.value.event
+    sessionList.value = eventDetail.value.event.sessionList
+    eventIntro.value = eventDetail.value.event.eventIntro
+  } catch (error) {
+    // api 壞去改用
+    // eslint-disable-next-line no-console
+    console.error('API error:', error)
+    const { data } = await useFetch('/api/session')
+    eventData.value = data.value.eventData.data.event
+    sessionList.value = eventData.value.sessionList
+    eventIntro.value = eventData.eventIntro
+  } finally {
+    saveSessionList(sessionList.value)
+  }
+
+  // const { data } = await useFetch('/api/session')
+  // eventData.value = data.value.eventData.data.event
+  // sessionList.value = eventData.value.sessionList
+  // console.log('sessionList.value', sessionList.value)
+  // eventIntro.value = eventData.eventIntro
+}
+
+// 取資料
+getData()
 
 const formatDate = (dateValue) => {
   if (!dateValue || dateValue.length !== 2) {
@@ -63,8 +107,10 @@ const checkStatus = (session) => {
       }
     } else {
       return {
-        status: 'completely-sold-out',
-        message: '已售完'
+        // status: 'completely-sold-out',
+        // message: '已售完'
+        status: 'on-sale',
+        message: `立即購票 (剩餘 ${seatsRemaining} 張)` // 等ＡＰＩ好了再調整 測試按鈕使用
       }
     }
   } else {
@@ -91,7 +137,6 @@ const handlerSession = async (id) => {
 
 <template>
   <div class="event">
-    <!-- <div>Page: [eventId] {{ route.params.eventId }} 單一賽事</div> -->
     <section class="cover-pic">
       <div class="cover-pic__content">
         <h2 class="cover-pic__title">{{ eventData.eventName }}</h2>
@@ -173,11 +218,28 @@ const handlerSession = async (id) => {
         </transition>
         <p class="session-text">欲購票者，請先<NuxtLink to="/">加入會員</NuxtLink>方可開始購票。</p>
       </section>
+
       <section class="session-detail">
-        <tabs :options="{ disableScrollBehavior: true, defaultTabHash: 'second-tab' }">
+        <tabs :options="{ disableScrollBehavior: true, defaultTabHash: 'first-tab' }">
           <tab id="first-tab" name="賽事介紹">
             <sessionDetailIntro :intro="eventIntro" />
             <!-- 取得這個賽事的專屬標籤 -->
+            <div class="d-flex flex-wrap align-items-center gap-2 gap-lg-3">
+              <NuxtLink
+                v-for="tag in eventData.tagList"
+                :key="tag._id"
+                :to="{
+                  path: '/events',
+                  query: {
+                    q: tag.name
+                  }
+                }"
+                class="btn tag-btn text-s1"
+                role="button"
+              >
+                <span>{{ tag.name }}</span>
+              </NuxtLink>
+            </div>
           </tab>
           <tab id="second-tab" name="注意事項">
             <sessionDetailNote />
@@ -284,8 +346,10 @@ const handlerSession = async (id) => {
   border-radius: 20px;
   background: $gray_1;
   padding: 24px 24px 24px 24px;
+  margin-bottom: rem(24px);
   @include media-breakpoint-up(lg) {
     padding: 24px 110px 48px 110px;
+    margin-bottom: rem(60px);
   }
 }
 

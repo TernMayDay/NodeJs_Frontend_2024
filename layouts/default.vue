@@ -9,14 +9,11 @@ const addMarginTop = computed(() => {
 </script>
 
 <template>
-  <!-- <NuxtLoadingIndicator class="color-primary" :height="10" :throttle="0">
-    <h2>Loading...</h2>
-  </NuxtLoadingIndicator> -->
-
   <div class="d-flex flex-column min-vh-100">
-    <NuxtLoadingIndicator class="color-primary" :height="10" :throttle="0">
+    <CustomLoadingIndicator />
+    <!-- <NuxtLoadingIndicator class="color-primary" :height="10" :throttle="0">
       <h2>Loading...</h2>
-    </NuxtLoadingIndicator>
+    </NuxtLoadingIndicator> -->
 
     <Header />
     <div class="flex-grow-1" :class="{ 'main-margin-top': addMarginTop }">

@@ -280,10 +280,11 @@ body {
   &[disabled]{
     background: $gray_3;
     color: $gray_5;
+   
   }
 }
 
-.login-btn, .submit-btn, .save-btn, .qrcode-btn {
+.login-btn, .submit-btn, .save-btn, .qrcode-btn, .buy-intro-btn {
   background: $gray_1;
   height: rem(48px);
   border-radius: rem(40px);

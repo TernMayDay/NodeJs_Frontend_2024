@@ -5,7 +5,7 @@ const props = defineProps({
   // 標籤
   intro: {
     type: String,
-    default: ''
+    required: true
   }
 })
 

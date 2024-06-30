@@ -12,15 +12,32 @@ export default defineEventHandler(() => {
           'https://img.freepik.com/free-photo/young-women-playing-badminton-gym_155003-10719.jpg',
         smallBanner:
           'https://img.freepik.com/free-photo/young-women-playing-badminton-gym_155003-10719.jpg',
-        categoryId: '664ad7865236b99d59c7d1f2',
-        tagId: ['664ad7865236b99d59c7d1f3'],
+        // categoryId: '664ad7865236b99d59c7d1f2',
+        // tagId: ['664ad7865236b99d59c7d1f3'],
+        categoryId: {
+          _id: '6665887d5a18c84f02b02124',
+          nameTC: '羽球',
+          nameEN: 'Badminton',
+          photo: 'https://example.com/badminton.png'
+        },
+        tagList: [
+          {
+            _id: '666533ee67aa2092cbef3809',
+            name: '羽球'
+          },
+          {
+            _id: '6665340667aa2092cbef380b',
+            name: '戴姿穎'
+          }
+        ],
         releaseDate: '2024-06-09T16:00:00.000Z',
         eventIntro: '<p>賽事介紹的內容</p>',
         sponsorId: '6648aeb4ad951f8670f97a77',
-        favoriteIds: ['6648aeb4ad951f8670f97a78', '6648aeb4ad951f8670f97a79'],
+        // favoriteIds: ['6648aeb4ad951f8670f97a78', '6648aeb4ad951f8670f97a79'],
         createdAt: '2024-05-18T13:35:48.006Z',
         updatedAt: '2024-05-20T04:54:30.030Z',
-        __v: 5,
+        seatsAvailable: 21000,
+        __v: 1,
         status: 1,
         sessionList: [
           {
@@ -31,7 +48,7 @@ export default defineEventHandler(() => {
             sessionTime: '2024-08-01T08:00:00.000Z',
             sessionPlace: '台北大巨蛋',
             sessionSalesPeriod: ['2024-08-22T02:00:00.000Z', '2024-08-24T02:00:00.000Z'],
-            orderId: ['6648aeb4ad951f8670f97a7c'],
+            orderId: [],
             sessionState: '售票中', // 售票中、已開賽、強制下架
             bookTicket: 50, // 訂票人數
             enterVenue: 45, // 進場人數
@@ -63,13 +80,125 @@ export default defineEventHandler(() => {
             isSoldOut: false, // 是否皆已完成付款程序 (場次)(區域)
             createdAt: '2024-05-19T18:05:17.782Z',
             updatedAt: '2024-05-19T18:05:17.782Z',
-            sessionSetting: [],
-            areaSetting: [],
+            areaSetting: [
+              {
+                areaColor: '#FC1E00',
+                areaName: 'A區',
+                areaPrice: 2000,
+                areaNumber: 3000, // 移動
+                areaTicketType: [
+                  {
+                    ticketName: '全票',
+                    ticketDiscount: '原價'
+                  },
+                  {
+                    ticketName: '優待票',
+                    ticketDiscount: '5折'
+                  }
+                ]
+              },
+              {
+                areaColor: '#AFDB00',
+                areaName: 'B區',
+                areaPrice: 3500,
+                areaNumber: 600, // 移動
+                areaTicketType: [
+                  {
+                    ticketName: '全票',
+                    ticketDiscount: '原價'
+                  },
+                  {
+                    ticketName: '優待票',
+                    ticketDiscount: '5折'
+                  }
+                ]
+              },
+              {
+                areaColor: '#BA00FC',
+                areaName: 'C區',
+                areaPrice: 6000,
+                areaNumber: 600, // 移動
+                areaTicketType: [
+                  {
+                    ticketName: '全票',
+                    ticketDiscount: '原價'
+                  },
+                  {
+                    ticketName: '優待票',
+                    ticketDiscount: '5折'
+                  }
+                ]
+              },
+              {
+                areaColor: '#BA00FC',
+                areaName: 'C區',
+                areaPrice: 6000,
+                areaNumber: 600, // 移動
+                areaTicketType: [
+                  {
+                    ticketName: '全票',
+                    ticketDiscount: '原價'
+                  },
+                  {
+                    ticketName: '優待票',
+                    ticketDiscount: '5折'
+                  }
+                ]
+              },
+              {
+                areaColor: '#0083FC',
+                areaName: 'D區',
+                areaPrice: 640,
+                areaNumber: 1000, // 移動
+                areaTicketType: [
+                  {
+                    ticketName: '全票',
+                    ticketDiscount: '原價'
+                  },
+                  {
+                    ticketName: '優待票',
+                    ticketDiscount: '5折'
+                  }
+                ]
+              },
+              {
+                areaColor: '#1FC39C',
+                areaName: 'E區',
+                areaPrice: 500,
+                areaNumber: 800, // 移動
+                areaTicketType: [
+                  {
+                    ticketName: '全票',
+                    ticketDiscount: '原價'
+                  },
+                  {
+                    ticketName: '優待票',
+                    ticketDiscount: '5折'
+                  }
+                ]
+              },
+              {
+                areaColor: '#FCD300',
+                areaName: 'F區',
+                areaPrice: 500,
+                areaNumber: 500, // 移動
+                areaTicketType: [
+                  {
+                    ticketName: '全票',
+                    ticketDiscount: '原價'
+                  },
+                  {
+                    ticketName: '優待票',
+                    ticketDiscount: '5折'
+                  }
+                ]
+              }
+            ],
             __v: 0
           },
           {
             notifyId: [],
-            _id: '664a3f5d6e67990407ba0d4c',
+            _id: '667d0e65748a018e21b1df7a',
             eventId: '6648aeb4ad951f8670f97a7c',
             sessionName: '中華台北羽球公開賽-3',
             sessionTime: '2024-06-01T08:00:00.000Z',
@@ -91,7 +220,7 @@ export default defineEventHandler(() => {
           },
           {
             notifyId: [],
-            _id: '664a3f5d6e67990407ba0d4d',
+            _id: '667d0e65748a018e21b1df7a',
             eventId: '6648aeb4ad951f8670f97a7c',
             sessionName: '中華台北羽球公開賽-4',
             sessionTime: '2024-06-01T08:00:00.000Z',
