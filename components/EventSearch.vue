@@ -115,7 +115,7 @@ watch(searchInputVal, (newVal) => {
       <input
         id="searchInput"
         v-model.lazy.trim="searchInputVal"
-        class="form-control shadow"
+        class="form-control form-control-sm shadow"
         type="search"
         placeholder="搜尋運動項目、賽事名稱"
         aria-label="Search"
@@ -221,7 +221,7 @@ watch(searchInputVal, (newVal) => {
     transform: translateY(-50%);
 
     @include media-breakpoint-up(lg) {
-      right: $input-padding-x;
+      right: $input-padding-x-sm;
     }
   }
 

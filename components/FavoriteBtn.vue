@@ -1,6 +1,6 @@
 <script setup>
 const userStore = useUserStore()
-const { userProfile } = userStore
+const { userProfile } = storeToRefs(userStore)
 
 const props = defineProps({
   // 賽事 id
@@ -11,25 +11,39 @@ const props = defineProps({
 })
 
 // 尋找 eventId 的索引值
-const findIndex = computed(() => userProfile.favorites?.indexOf(props.eventId))
+const findIndex = computed(() => userProfile.value.favorites?.indexOf(props.eventId))
 
 const changeFavorite = async () => {
-  const favorites = userProfile.favorites
-  // eslint-disable-next-line no-console
-  console.log('收藏', favorites, findIndex.value)
+  const favorites = userProfile.value.favorites
+  let title = ''
   if (findIndex.value !== -1) {
     favorites.splice(findIndex.value, 1)
-    // eslint-disable-next-line no-console
-    console.log('移除收藏', favorites)
+    title = '移除收藏'
   } else {
     favorites.push(props.eventId)
-    // eslint-disable-next-line no-console
-    console.log('加入收藏', favorites)
+    title = '加入收藏'
   }
 
-  const data = await userStore.editUserProfile(favorites)
   // eslint-disable-next-line no-console
-  console.log(data)
+  console.log('待調整 API 錯誤回應')
+  const success = await userStore.editUserProfile({ favorites })
+  let text = ''
+  if (success) {
+    title += '成功'
+    text = `您已成功${title}`
+  } else {
+    title += '失敗'
+    text = `您無法成功${title}，請重新操作`
+  }
+
+  if (text) {
+    setSwalFire({
+      stype: 'toast',
+      icon: success ? 'success' : 'error',
+      title,
+      text
+    })
+  }
 }
 </script>
 

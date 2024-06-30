@@ -1,0 +1,93 @@
+/* 自訂 sweetalert2 樣式 */
+
+/* 自訂的 sweetalert2 變數(僅作為 自訂 sweetalert2 樣式 使用) */
+$customize-swal2-container-py: 2.5rem !default;
+$customize-swal2-background: $gray_2 !default;
+$customize-swal2-title-color: $white !default;
+$customize-swal2-text-color: $gray_5 !default;
+
+$customize-swal2-success: $primary_0 !default;
+$customize-swal2-error: $secondary !default;
+
+body {
+    .swal2-container {
+        &.swal2-backdrop-show {
+            background: rgba($modal-backdrop-bg, $modal-backdrop-opacity);
+        }
+
+        .swal2-timer-progress-bar {
+            background: rgba($white, .2);
+        }
+    }
+
+    // popup
+    .swal2-popup {
+        padding-bottom: $customize-swal2-container-py;
+        background: $customize-swal2-background;
+        border-radius: $card-border-radius;
+
+        .swal2-title {
+            padding-top: rem(24px);
+            color: $customize-swal2-title-color;
+            @include font(1, $text-weight-bold, $h3-font-size, 1.2, 2);
+
+        }
+
+        .swal2-html-container {
+            margin-block: rem(24px);
+            color: $customize-swal2-text-color;
+            @include font(1, $text-weight-regular, $font-size-base, 1.5, 2);
+        }
+
+        .swal2-icon {
+            margin-top: $customize-swal2-container-py;
+            margin-bottom: 0;
+            // success
+            &.swal2-success {
+                color: $customize-swal2-success;
+
+                [class^=swal2-success-line]{
+                    background-color: $customize-swal2-success;
+                }
+
+                .swal2-success-ring {
+                    border-color: $customize-swal2-success;
+                }
+
+                [class^=swal2-success-circular-line][class$=left],
+                [class^=swal2-success-circular-line][class$=right],
+                .swal2-success-fix {
+                    background-color: transparent !important;
+                }
+            }
+
+            // error
+            &.swal2-error {
+                border-color: $customize-swal2-error;
+                color: $customize-swal2-error;
+
+                [class^=swal2-x-mark-line] {
+                    background-color: $customize-swal2-error;
+                }
+            }
+        }
+    }
+
+    // toast
+    .swal2-popup.swal2-toast {
+        background: $customize-swal2-background;
+    }
+
+    // 按鈕
+    .swal2-actions {
+        margin-top: 0;
+        gap: rem(12px);
+
+        // 取消
+        .swal2-cancel {
+            &:hover::after {
+                display: none;
+            }
+        }
+    }
+}

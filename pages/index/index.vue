@@ -24,7 +24,7 @@ const navTabs = ref([
 ])
 
 // eslint-disable-next-line no-console
-console.error('focus 須限定為使用者本人之訂閱，沒有焦點賽事資料')
+console.error('focus 須限定為使用者本人之訂閱，焦點賽事部分欄位資料有誤')
 await userStore.getUserProfile()
 const fetchAllEvents = async () => {
   // eslint-disable-next-line no-console
@@ -121,8 +121,8 @@ const slideTo = (theme, currentSwiper, index) => {
       <template #title>
         <IndexTitle en="Focus" tc="關注焦點" />
       </template>
-      <template #eventCard="{ event, index, swiper }">
-        <TaggedEventCard :event="event" @mouseenter="slideTo('focus', swiper, index)" />
+      <template #eventCard="{ event }">
+        <TaggedEventCard :event="event" />
       </template>
     </SwiperCards>
     <!-- 最新 / 熱門 -->
