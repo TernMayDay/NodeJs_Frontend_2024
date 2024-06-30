@@ -18,14 +18,22 @@
 ## 使用套件
 * [nuxt-swiper](https://nuxt.com/modules/swiper)
 ＊[vee-validate](https://nuxt.com/modules/vee-validate)
-* [nuxt-sweetalert2](https://nuxt.com/modules/sweetalert2)
+* [sweetalert2](https://sweetalert2.github.io)
+* dompurify
+* Vue-multiselect
+* vue3-tabs-component
+* ckeditor
+* nuxt-lodash
+* lodash
 * dayjs
 * vite-plugin-svg-icons
 * Bootstrap 5
 * quasar
+* ohmyfetch
 * sass
 * eslint
 `npx eslint pages/xxx.vue`
+`pnpm run lint`
 
 ---
 

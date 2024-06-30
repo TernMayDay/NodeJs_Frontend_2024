@@ -4,10 +4,12 @@ import 'virtual:svg-icons-register'
 
 <template>
   <div>
-    <NuxtLoadingIndicator class="color-primary" :height="10" :throttle="0">
+    <!-- <NuxtLoadingIndicator class="color-primary" :height="10" :throttle="0">
       <h2>Loading...</h2>
-    </NuxtLoadingIndicator>
+    </NuxtLoadingIndicator> -->
+    <CustomLoadingIndicator />
     <AdminHeader />
+    <AdminSidebar />
     <slot />
   </div>
 </template>
