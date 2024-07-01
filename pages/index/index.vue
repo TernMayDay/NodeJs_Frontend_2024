@@ -1,4 +1,23 @@
 <script setup>
+import { useAuthProfileStore } from '~/stores/AuthProfile'
+
+const testStore = useAuthProfileStore()
+
+// 測試獲取用戶認證狀態
+console.log('User is Authenticated:', testStore.isAuthenticated)
+
+// 測試獲取用戶ID
+console.log('User ID:', testStore.userId)
+
+// 測試獲取用戶資料
+console.log('User Profile:', testStore.profile)
+
+// 測試獲取用戶身份（role）
+console.log('User Role:', testStore.role)
+
+// 測試獲取用戶token
+console.log('User Token:', testStore.token)
+
 import { indexWhyUs, bxSwim, entypoBell, iconParkSolidTicket, mdiSale } from '~/data/imagePaths.js'
 const swiperStore = useSwiperStore()
 const otherStore = useOtherStore()

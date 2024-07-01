@@ -43,74 +43,38 @@
 }
 </style>
 
-<script lang="ts" setup>
+<script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useApi } from '~/composables/useApi'
+import { useAuthProfileStore } from '~/stores/AuthProfile'
 
-// Define the structure of the user data and the login response
-
-interface LoginResponse {
-  token: string
-  data: {
-    user: {
-      _id: string
-      email: string
-      gender: string
-      phone: string
-      nickname: string
-      address: string
-    }
-  }
-}
-
-const $q = useQuasar()
 const router = useRouter()
 const { createData } = useApi()
-const email = ref<string>('')
-const password = ref<string>('')
-const error = ref<string | null>(null)
+const authProfileStore = useAuthProfileStore()
+const email = ref('')
+const password = ref('')
+const error = ref(null)
 
 async function onSubmit() {
   error.value = null
 
-  // Specify the expected data structure using the LoginResponse interface
-  const { data, error: loginError } = await createData<LoginResponse>('/user/login', {
+  const { data, error: loginError } = await createData('/user/login', {
     email: email.value,
     password: password.value
   })
 
   if (loginError) {
-    // eslint-disable-next-line no-console
     console.error('Login Error:', loginError)
-    $q.notify({
-      color: 'negative',
-      position: 'top',
-      message: '登入失敗，請稍後再試。',
-      icon: 'report_problem'
-    })
     error.value = '登入失敗，請稍後再試。'
     return
   }
-  // eslint-disable-next-line no-console
-  console.log(data)
+
   if (data && data.token) {
-    localStorage.setItem('authToken', data.token)
-
-    // Save the user details in local storage
-    if (data.data && data.data.user) {
-      localStorage.setItem('userData', JSON.stringify(data.data.user))
-      localStorage.setItem('userId', data.data.user._id)
-    }
-
+    authProfileStore.setUserData(data)
     router.push('/')
   } else {
     error.value = '登入失敗，請檢查您的用戶名或密碼。'
-    $q.notify({
-      color: 'negative',
-      position: 'top',
-      message: '登入失敗，請檢查您的用戶名或密碼。',
-      icon: 'report_problem'
-    })
   }
 }
 </script>
