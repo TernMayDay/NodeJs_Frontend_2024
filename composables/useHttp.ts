@@ -1,5 +1,4 @@
 import type { FetchResponse, SearchParameters } from 'ofetch'
-import Swal from 'sweetalert2'
 import cloneDeep from 'lodash/cloneDeep'
 import { useUserStore } from '~/stores/User'
 
@@ -11,17 +10,19 @@ export interface ResOptions<T> {
 }
 
 function handleError<T>(response: FetchResponse<ResOptions<T>> & FetchResponse<ResponseType>) {
+  const { _data, status } = response
   const err = (text: string) => {
-    Swal.fire({
-      position: 'top-end',
+    // eslint-disable-next-line no-console
+    console.error(_data?.message)
+
+    setSwalFire({
+      stype: 'popup',
       icon: 'error',
-      title: '',
-      text: response?._data?.message ?? text,
-      showConfirmButton: false,
-      timer: 1500
+      title: '系統錯誤',
+      text
     })
   }
-  if (!response._data) {
+  if (!_data) {
     err('請求超時，伺服器無響應！')
     return
   }
@@ -37,7 +38,8 @@ function handleError<T>(response: FetchResponse<ResOptions<T>> & FetchResponse<R
       navigateTo('/')
     }
   }
-  handleMap[response.status] ? handleMap[response.status]() : err('未知的錯誤！')
+
+  handleMap[status] ? handleMap[status]() : err('未知的錯誤！')
 }
 // get方法 参数
 function paramsSerializer(params?: SearchParameters) {
@@ -71,9 +73,9 @@ const fetch = $fetch.create({
   },
   // onResponse
   onResponse({ response }) {
-    if (response.headers.get('content-disposition') || response.status === 200) return response
+    if (response.headers.get('content-disposition') || response.status === 200 || response.status === 201) return response
     // error
-    if (response._data.code !== 200) {
+    if (response._data.code !== 200 && response._data.code !== 201) {
       handleError(response)
       return Promise.reject(response._data)
     }

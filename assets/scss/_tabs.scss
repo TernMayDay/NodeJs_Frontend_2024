@@ -1,0 +1,48 @@
+.add-event,
+.session-detail{
+
+  .tabs-component-tabs {
+    display: inline-flex;
+    list-style: none;
+  }
+  .tabs-component-tab {
+    margin-right: 24px;
+    height: 53px;
+  
+    & a {
+      text-decoration: none;
+      height: 100%;
+      align-items: center;
+      display: flex;
+      color: $gray_5;
+      @include font(1, $text-weight-medium, $s1-font-size, 1.5, 2);
+    }
+  
+    & a:hover,
+    a.is-active {
+      color: white;
+    }
+  
+    a:hover::after,
+    &.is-active::after {
+      content: '';
+      display: flex;
+      height: 2px;
+      margin-top: -2px;
+      background: linear-gradient(45deg, $primary_0, $primary_1);
+      transition:
+        width 0.3s ease,
+        left 0.3s ease;
+    }
+  }
+
+}
+
+.session-detail {
+  & .tabs-component-tabs{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
+}

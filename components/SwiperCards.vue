@@ -63,9 +63,12 @@ onMounted(() => {
 <style scoped lang="scss">
 $arrow-margin: 16px;
 $arrow-margin-1920up: calc(($icon-arrow-size + 12px) * -1);
-$focus-swiper-num: 3;
-$focus-swiper-slide-width: calc(
-  (100% - ($swiper-card-space-between-desktop * ($focus-swiper-num - 1))) / $focus-swiper-num
+$focus-swiper-num: 12;
+$focus-swiper-slide-col-width: calc(
+  ((100% - ($swiper-card-space-between-desktop * ($focus-swiper-num - 1)))) / $focus-swiper-num
+);
+$focus-swiper-slide-active-width: calc(
+  $focus-swiper-slide-col-width * 5 + $swiper-card-space-between-desktop * 4
 );
 
 :root {
@@ -77,11 +80,11 @@ $focus-swiper-slide-width: calc(
 .focus-swiper {
   @include media-breakpoint-up(xl) {
     .swiper-slide {
-      width: $focus-swiper-slide-width !important;
+      width: calc($focus-swiper-slide-col-width * 3.5 + $swiper-card-space-between-desktop * 2.5);
       transition: width 0.3s ease;
 
-      &:hover {
-        width: calc($focus-swiper-slide-width * 2 + $swiper-card-space-between-desktop) !important;
+      &.swiper-slide-active {
+        width: $focus-swiper-slide-active-width !important;
       }
     }
   }

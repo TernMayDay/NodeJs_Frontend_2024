@@ -1,7 +1,10 @@
-<script lang="ts" setup></script>
+<script setup>
+const orderStore = useOrderStore()
+await orderStore.getOrders()
+</script>
 
 <template>
-  <div>myTicket 我的票券</div>
+  <NuxtPage />
 </template>
 
 <style scoped></style>
