@@ -52,6 +52,7 @@ import { useAuthProfileStore } from '~/stores/AuthProfile'
 const router = useRouter()
 const { createData } = useApi()
 const authProfileStore = useAuthProfileStore()
+const userStore = useUserStore()
 const email = ref('')
 const password = ref('')
 const error = ref(null)
@@ -60,7 +61,7 @@ async function onSubmit() {
   error.value = null
 
   const { data, error: loginError } = await createData('/user/login', {
-    email: email.value,
+    account: email.value,
     password: password.value
   })
 
@@ -71,7 +72,9 @@ async function onSubmit() {
   }
 
   if (data && data.token) {
-    authProfileStore.setUserData(data)
+    console.log('data', data)
+    await authProfileStore.setUserData(data)
+    await userStore.getUserProfile()
     router.push('/')
   } else {
     error.value = '登入失敗，請檢查您的用戶名或密碼。'

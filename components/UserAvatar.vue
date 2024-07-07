@@ -1,7 +1,6 @@
-<script lang="ts" setup>
-import { useAuthStore } from '~/stores/AuthStore'
-const authStore = useAuthStore()
-const { user } = storeToRefs(authStore)
+<script setup>
+const authProfileStore = useAuthProfileStore()
+const { profile } = storeToRefs(authProfileStore)
 
 const props = defineProps({
   // 隱藏暱稱
@@ -19,31 +18,31 @@ const props = defineProps({
 
 <template>
   <div class="d-flex gap-1 align-items-center">
-    <button type="button" class="btn live-btn active p-0" :class="{ 'is-photo': user.photo }">
+    <button type="button" class="btn live-btn active p-0" :class="{ 'is-photo': profile.photo }">
       <img
-        v-if="user.photo"
-        :src="user.photo"
-        :alt="user.nickname"
+        v-if="profile.photo"
+        :src="profile.photo"
+        :alt="profile.nickname"
         class="object-fit rounded-circle"
       />
-      <div v-else class="icon icon-user-bold"></div>
+      <div v-else class="icon icon-profile-bold"></div>
     </button>
     <ul class="list-unstyled g-grid gap-1 text-start">
-      <li v-if="!props.isHideNickname" class="text-s2">{{ user.nickname }}</li>
-      <li v-if="!props.isHideRole && user.role !== 2" class="text-s2 text-gray5">
-        {{ user.role === 0 ? '平台管理者' : '主辦單位' }}
+      <li v-if="!props.isHideNickname" class="text-s2">{{ profile.nickname }}</li>
+      <li v-if="!props.isHideRole && profile.role !== '2'" class="text-s2 text-gray5">
+        {{ profile.role === '0' ? '平台管理者' : '主辦單位' }}
       </li>
     </ul>
   </div>
 </template>
 
 <style scoped lang="scss">
-$user-avatar-width: 2.25rem;
+$profile-avatar-width: 2.25rem;
 
 .live-btn {
   &::before {
-    width: $user-avatar-width;
-    height: $user-avatar-width;
+    width: $profile-avatar-width;
+    height: $profile-avatar-width;
   }
 
   // 有圖片
@@ -53,8 +52,8 @@ $user-avatar-width: 2.25rem;
     }
 
     img {
-      width: $user-avatar-width;
-      height: $user-avatar-width;
+      width: $profile-avatar-width;
+      height: $profile-avatar-width;
     }
   }
 }

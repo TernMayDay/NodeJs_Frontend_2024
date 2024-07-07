@@ -53,10 +53,14 @@ export function getEventList(params: eventListParams) {
 // [範例]： /event/filter/recent?nameTC=羽球&limit=8
 export function getFilterEvent(params: filterEventParams) {
   const { displayMode, nameTC, limit } = params
-  const queryParams: Record<string, string> = {
-    nameTC,
+  let queryParams: Record<string, string> = {
     limit: limit.toString()
   }
+
+  if (nameTC) {
+    queryParams.nameTC = nameTC
+  }
+  
   const queryString = new URLSearchParams(queryParams).toString()
   const url = `${Api.filterEvent}/${displayMode}?${queryString}`
   return useHttp.get<eventListModel>(url)

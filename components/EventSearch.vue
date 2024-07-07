@@ -59,7 +59,6 @@ watch(
 
     if (searchInputVal.value) {
       const { events: reslt } = await eventStore.getEvents({
-        displayMode: 'list',
         q: searchInputVal.value,
         pageSize: 5
       })

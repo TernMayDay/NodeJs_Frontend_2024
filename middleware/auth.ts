@@ -3,10 +3,9 @@ import { defineNuxtRouteMiddleware, useRuntimeConfig } from 'nuxt/app';
 // 攔截 router 變化
 export default defineNuxtRouteMiddleware((to, from) => {
   if (process.client) {
-    const token = localStorage.getItem('authToken');
+    const authProfileStore = useAuthProfileStore()
     const config = useRuntimeConfig();
-    console.log(token)
-    if (!token) {
+    if (!authProfileStore.token) {
       return navigateTo('/login');
     }
   }

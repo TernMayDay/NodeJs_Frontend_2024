@@ -11,13 +11,18 @@ export const useAuthProfileStore = defineStore('authProfile', {
     userId: (state) => state.profile ? state.profile._id : null
   },
   actions: {
-    setUserData(userData) {
-      this.token = userData.token
-      this.profile = userData.data.user
-      this.role = userData.data.user.role || 'user'
+    setUserData({ token, data }) {
+      if (token) { 
+        this.token = token
+        // Store in localStorage as well
+        localStorage.setItem('authToken', this.token)
+      }
+      
+      this.profile = data.user
+      this.role = data.user.role || 'user'
       
       // Store in localStorage as well
-      localStorage.setItem('authToken', this.token)
+      // localStorage.setItem('authToken', this.token)
       localStorage.setItem('userData', JSON.stringify(this.profile))
     },
     clearUserData() {
@@ -26,6 +31,7 @@ export const useAuthProfileStore = defineStore('authProfile', {
       this.role = null
       localStorage.removeItem('authToken')
       localStorage.removeItem('userData')
+      location.reload()
     }
   }
 })
