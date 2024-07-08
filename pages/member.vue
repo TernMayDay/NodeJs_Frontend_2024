@@ -1,11 +1,12 @@
 <script setup>
-// definePageMeta({
-//   middleware: ['auth']
-// })
+definePageMeta({
+  middleware: ['auth']
+})
 
 const route = useRoute()
 const userStore = useUserStore()
-const { userProfile, getToken } = storeToRefs(userStore)
+const authProfileStore = useAuthProfileStore()
+const { profile, token } = storeToRefs(authProfileStore)
 
 const navTabs = ref([
   {
@@ -26,13 +27,9 @@ const navTabs = ref([
   }
 ])
 
-// eslint-disable-next-line no-console
-console.error('有 middleware 後移除判斷，且主辦、平台方不能進入')
-if (getToken.value) {
+onMounted(async () => {
   await userStore.getUserProfile()
-  // eslint-disable-next-line no-console
-  console.log('userProfile', userProfile.value)
-}
+})
 
 // 是否為票券詳細頁面
 const isTicketDetailedPage = computed(() => {
@@ -47,23 +44,20 @@ const isTicketDetailedPage = computed(() => {
       <div class="row justify-content-center">
         <div class="col-6 col-md-2">
           <UploadUserAvatar />
-          <h6 class="text-h3 mb-0 text-truncate">{{ userProfile.nickname }}</h6>
+          <h6 class="text-h3 mb-0 text-truncate">{{ profile?.nickname }}</h6>
         </div>
       </div>
       <ul class="list-unstyled mb-0 text-s1 row justify-content-center py-5 py-md-8">
         <li class="col col-lg-2">
-          <span class="text-color-primary text-eng1 d-block">{{ userProfile.orders?.length }}</span
+          <span class="text-color-primary text-eng1 d-block">{{ profile?.orders?.length }}</span
           >票券
         </li>
         <li class="col col-lg-2 border-start border-end">
-          <span class="text-color-primary text-eng1 d-block">{{
-            userProfile.subscribes?.length
-          }}</span
+          <span class="text-color-primary text-eng1 d-block">{{ profile?.subscribes?.length }}</span
           >訂閱中
         </li>
         <li class="col col-lg-2">
-          <span class="text-color-primary text-eng1 d-block">
-            {{ userProfile.favorites?.length }}</span
+          <span class="text-color-primary text-eng1 d-block"> {{ profile?.favorites?.length }}</span
           >我的最愛
         </li>
       </ul>

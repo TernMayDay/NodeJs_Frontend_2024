@@ -5,22 +5,19 @@ import dayjs from 'dayjs'
  * @param eventDate 賽事日期
  * @returns 起始日 ~ 結束日 或 起始日
  */
-export const handleEventDate = (eventDate: string) => {
-  if (!eventDate) {
-    return eventDate
-  }
-
-  const eventDateArr = splitDate(eventDate)
-  const newEventDateArr = eventDateArr.map((date, index) => {
-    switch (index) {
-      case 0:
-        return dayjs(date).format('YYYY.MM.DD')
-      case 1:
-        return dayjs(date).format('MM.DD')
-      default:
-        return null
-    }
-  })
+export const handleEventDate = (eventDateArr: (string | null)[]) => {
+  const newEventDateArr = eventDateArr
+    .filter((data) => data)
+    .map((date, index) => {
+      switch (index) {
+        case 0:
+          return dayjs(date).format('YYYY.MM.DD')
+        case 1:
+          return dayjs(date).format('MM.DD')
+        default:
+          return null
+      }
+    })
 
   return newEventDateArr.join(' ~ ')
 }
@@ -32,7 +29,7 @@ export const handleEventDate = (eventDate: string) => {
  */
 export const handleSalesStatus = (event: any) => {
   const { ticketSales, eventDate } = event
-  const startDate = splitDate(eventDate)[0]
+  const startDate = eventDate[0]
   const today = new Date()
 
   if (today >= new Date(startDate)) {
@@ -50,13 +47,6 @@ export const handleSalesStatus = (event: any) => {
 export const handleEventPrice = (price: number) => {
   return price ? `$${price}起` : '免費'
 }
-
-/**
- * 裁切日期
- * @param date 日期
- * @returns [起始日, 結束日] 或 [起始日]
- */
-const splitDate = (date: string) => (date ? date.split(' - ') : [])
 
 /**
  * 處理票價

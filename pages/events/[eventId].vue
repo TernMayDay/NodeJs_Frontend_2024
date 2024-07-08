@@ -78,7 +78,6 @@ const formatDate = (dateValue) => {
 
 // 確認狀態
 const checkStatus = (session) => {
-  console.log('session', session)
   const now = new Date()
   const salesStart = new Date(session.sessionSalesPeriod[0])
   const salesEnd = new Date(session.sessionSalesPeriod[1])

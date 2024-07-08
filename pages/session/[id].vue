@@ -6,6 +6,8 @@ const route = useRoute()
 const sessionStore = useSessionStore()
 const cartStore = useCartStore()
 const orderStore = useOrderStore()
+const authProfileStore = useAuthProfileStore()
+const { profile } = storeToRefs(authProfileStore)
 const agreementChecked = ref(false)
 const isOpen = ref(false)
 const orderCart = ref([])
@@ -68,6 +70,10 @@ const removeSession = (index) => {
 const payCart = async () => {
   if (!agreementChecked.value) {
     Swal.fire('請同意會員服務條款及其公告')
+    return
+  }
+  if (!profile.value) {
+    Swal.fire('請先登入會員')
     return
   }
 

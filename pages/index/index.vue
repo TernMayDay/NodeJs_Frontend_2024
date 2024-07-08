@@ -1,5 +1,8 @@
 <script setup>
 import { indexWhyUs, bxSwim, entypoBell, iconParkSolidTicket, mdiSale } from '~/data/imagePaths.js'
+
+const authProfileStore = useAuthProfileStore()
+const { token, profile } = storeToRefs(authProfileStore)
 const swiperStore = useSwiperStore()
 const otherStore = useOtherStore()
 const userStore = useUserStore()
@@ -23,28 +26,23 @@ const navTabs = ref([
   }
 ])
 
-// eslint-disable-next-line no-console
-console.error('focus 須限定為使用者本人之訂閱，焦點賽事部分欄位資料有誤')
-await userStore.getUserProfile()
+if (token.value && profile.value) {
+  await userStore.getUserProfile()
+}
+
 const fetchAllEvents = async () => {
-  // eslint-disable-next-line no-console
-  console.log(events.value)
   const apis = []
   const eventKeys = Object.keys(events.value)
   eventKeys.forEach((displayMode) => {
-    // eslint-disable-next-line no-console
-    console.error('api displayMode 無效', displayMode)
     apis.push(
-      eventStore.getEvents({
-        displayMode: 'list',
-        pageSize: displayMode === 'upcoming' ? 9 : 4
+      eventStore.getFilterEvents({
+        displayMode,
+        limit: displayMode === 'upcoming' ? 9 : 4
       })
     )
   })
 
   const result = await Promise.all(apis)
-  // eslint-disable-next-line no-console
-  console.log(eventKeys, result)
   eventKeys.forEach((displayMode, index) => {
     events.value[displayMode] = result[index].events
   })
@@ -59,7 +57,7 @@ const hotCategories = computed(() => categoryStore.top9HotCategories.slice(0, 5)
 
 // 關注焦點
 const focusEvents = computed(() => {
-  const data = userStore.userProfile.focusedEvents || []
+  const data = authProfileStore.profile?.focusedEvents || []
   return data.sort((a, b) => (b.createdAt > a.createdAt ? -1 : 1)).slice(0, 9)
 })
 
@@ -113,18 +111,21 @@ const slideTo = (theme, currentSwiper, index) => {
 <template>
   <div>
     <!-- 關注焦點 -->
-    <SwiperCards
-      class="focus-swiper my-5 mt-md-11 mb-md-9"
-      :events="focusEvents"
-      :swiper-config="swiperStore.focusSwiperConfig"
-    >
-      <template #title>
-        <IndexTitle en="Focus" tc="關注焦點" />
-      </template>
-      <template #eventCard="{ event }">
-        <TaggedEventCard :event="event" />
-      </template>
-    </SwiperCards>
+    <div class="mb-5 mb-md-9">
+      <SwiperCards
+        class="focus-swiper mt-5 mt-md-11"
+        :events="focusEvents"
+        :swiper-config="swiperStore.focusSwiperConfig"
+        :class="{ 'd-none': !focusEvents.length }"
+      >
+        <template #title>
+          <IndexTitle en="Focus" tc="關注焦點" />
+        </template>
+        <template #eventCard="{ event }">
+          <TaggedEventCard :event="event" />
+        </template>
+      </SwiperCards>
+    </div>
     <!-- 最新 / 熱門 -->
     <div class="latest-hot-block bg-gray1 mx-xl-8 py-5 pt-md-9 pb-md-11">
       <nav class="nav justify-content-center nav-border-bottom text-h3 mb-5 mb-md-9">

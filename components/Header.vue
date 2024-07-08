@@ -1,8 +1,8 @@
 <script setup>
 import { logo } from '~/data/imagePaths.js'
 const route = useRoute()
-const authStore = useAuthStore()
-const { user } = storeToRefs(authStore)
+const authProfileStore = useAuthProfileStore()
+const { profile } = storeToRefs(authProfileStore)
 const navbarCollapseRef = ref(null)
 let navbarCollapse
 const isOpenSearchDropdown = ref(false)
@@ -61,7 +61,7 @@ onUnmounted(() => {
             :class="{ 'd-none-down-lg': isOpenSearchDropdown }"
           >
             <!-- 未登入 -->
-            <li v-if="!user" class="nav-item order-last">
+            <li v-if="!profile" class="nav-item order-last">
               <NuxtLink
                 role="button"
                 to="/login"
@@ -96,12 +96,12 @@ onUnmounted(() => {
                 <li>
                   <NuxtLink
                     class="dropdown-item"
-                    :to="`/${user.role === 2 ? 'member' : 'admin'}/editMyInfo`"
+                    :to="`/${profile?.role === '2' ? 'member' : 'admin'}/editMyInfo`"
                     @click="navbarCollapse.hide()"
                     >編輯我的資料
                   </NuxtLink>
                 </li>
-                <template v-if="user.role === 2">
+                <template v-if="profile?.role === '2'">
                   <li>
                     <NuxtLink
                       class="dropdown-item"
@@ -136,7 +136,7 @@ onUnmounted(() => {
                       >賽事管理
                     </NuxtLink>
                   </li>
-                  <li v-if="user.role === 1">
+                  <li v-if="profile?.role === '1'">
                     <NuxtLink
                       class="dropdown-item"
                       to="/admin/fanManagement"
@@ -152,7 +152,7 @@ onUnmounted(() => {
                       >營收管理
                     </NuxtLink>
                   </li>
-                  <li v-if="user.role === 1">
+                  <li v-if="profile?.role === '1'">
                     <NuxtLink
                       class="dropdown-item"
                       to="/admin/checkTickets"
@@ -165,7 +165,7 @@ onUnmounted(() => {
                   <button
                     type="button"
                     class="btn login-btn text-btn1 w-100"
-                    @click="authStore.logOut"
+                    @click="authProfileStore.clearUserData"
                   >
                     <span>登出</span>
                   </button>
@@ -185,15 +185,15 @@ onUnmounted(() => {
             <li class="nav-item d-none d-lg-block">
               <NuxtLink
                 class="nav-link"
-                :to="user.role === 2 ? '/member/myTicket' : '/admin/eventManagement'"
-                >{{ user.role === 2 ? '我的票券' : '後台管理' }}
+                :to="profile?.role === '2' ? '/member/myTicket' : '/admin/eventManagement'"
+                >{{ profile?.role === '2' ? '我的票券' : '後台管理' }}
               </NuxtLink>
             </li>
-            <li v-if="user" class="nav-item d-lg-none">
+            <li v-if="profile" class="nav-item d-lg-none">
               <button
                 type="button"
                 class="btn login-btn text-btn1 w-100"
-                @click="navbarCollapse.hide(), authStore.logOut()"
+                @click="navbarCollapse.hide(), authProfileStore.clearUserData()"
               >
                 <span>登出</span>
               </button>
