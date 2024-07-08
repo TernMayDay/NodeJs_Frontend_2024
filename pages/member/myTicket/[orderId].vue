@@ -106,7 +106,7 @@ watch(
               {{ firstTicket.sessionName }}
             </li>
             <li class="col-6 col-xl customize-td" data-th="品項">{{ ticket.ticketName }}</li>
-            <li class="col-6 col-xl customize-td" data-th="座位">K9</li>
+            <li class="col-6 col-xl customize-td" data-th="座位">{{ ticket.seats }}</li>
             <li class="col-6 col-xl customize-td border-0 pb-0 mb-0" data-th="票價">
               {{ handleFare(ticket.price) }}
             </li>

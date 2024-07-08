@@ -39,11 +39,11 @@ onMounted(() => {
       </SwiperSlide>
       <SwiperControls v-model="swiper" />
     </Swiper>
-    <!-- 上一頁 -->
     <div v-if="hasPagination && showNavigation && events.length" class="d-none d-md-block">
+      <!-- 上一頁 -->
       <button
         type="button"
-        class="btn arrow-btn arrow-btn--left text-btn1 position-absolute top-50 start-0 translate-middle"
+        class="btn arrow-btn arrow-btn--left text-btn1 position-absolute top-50 start-0"
         @click="swiper.slidePrev()"
       >
         <i class="icon-arrow"></i>
@@ -51,7 +51,7 @@ onMounted(() => {
       <!-- 下一頁 -->
       <button
         type="button"
-        class="btn arrow-btn arrow-btn--right text-btn1 position-absolute top-50 end-0 translate-middle"
+        class="btn arrow-btn arrow-btn--right text-btn1 position-absolute top-50 end-0"
         @click="swiper.slideNext()"
       >
         <i class="icon-arrow"></i>

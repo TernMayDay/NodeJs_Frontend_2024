@@ -1,6 +1,6 @@
 import type { FetchResponse, SearchParameters } from 'ofetch'
 import cloneDeep from 'lodash/cloneDeep'
-import { useUserStore } from '~/stores/User'
+import { useAuthProfileStore } from '~/stores/AuthProfile'
 
 export interface ResOptions<T> {
   data: T
@@ -26,14 +26,14 @@ function handleError<T>(response: FetchResponse<ResOptions<T>> & FetchResponse<R
     err('請求超時，伺服器無響應！')
     return
   }
-  const userStore = useUserStore()
+  const authProfileStore = useAuthProfileStore()
   const handleMap: { [key: number]: () => void } = {
     404: () => err('你要找的頁面不存在'),
     500: () => err('伺服器出錯'),
     403: () => err('沒有權限訪問該資源'),
     401: () => {
       err('登入狀態已過期，需要重新登入')
-      userStore.clearUserInfo()
+      authProfileStore.clearUserData()
       // TODO 跳到實際登入頁面
       navigateTo('/')
     }
@@ -66,16 +66,21 @@ const fetch = $fetch.create({
     } = useRuntimeConfig()
     options.baseURL = apiBase
     // header,没登入就不帶 token
-    const userStore = useUserStore()
-    if (!userStore.isLogin) return
+    const authProfileStore = useAuthProfileStore()
+    if (!authProfileStore.token) return
     options.headers = new Headers(options.headers)
-    options.headers.set('Authorization', `Bearer ${userStore.getToken}`)
+    options.headers.set('Authorization', `Bearer ${authProfileStore.token}`)
   },
   // onResponse
   onResponse({ response }) {
-    if (response.headers.get('content-disposition') || response.status === 200 || response.status === 201) return response
+    if (
+      response.headers.get('content-disposition') ||
+      response.status === 200 ||
+      response.status === 201
+    )
+      return response
     // error
-    if (response._data.code !== 200 && response._data.code !== 201) {
+    if (response._data.code !== 200 || response._data.code !== 201) {
       handleError(response)
       return Promise.reject(response._data)
     }

@@ -59,7 +59,6 @@ watch(
 
     if (searchInputVal.value) {
       const { events: reslt } = await eventStore.getEvents({
-        displayMode: 'list',
         q: searchInputVal.value,
         pageSize: 5
       })
@@ -150,7 +149,9 @@ watch(searchInputVal, (newVal) => {
               <img :src="event.eventPic" :alt="event.eventName" class="rounded rounded-1" />
               <div class="d-grid gap-1">
                 <h6 class="text-btn2 mb-0 text-truncate">{{ event.eventName }}</h6>
-                <h4 class="text-s2 mb-0 text-gray5 category-hover">{{ event.categorysNameTC }}</h4>
+                <h4 class="text-s2 mb-0 text-gray5 category-hover">
+                  {{ event.categoryId?.nameTC }}
+                </h4>
               </div>
             </NuxtLink>
           </div>
@@ -172,7 +173,7 @@ watch(searchInputVal, (newVal) => {
             <li v-for="category in top9HotCategories" :key="category._id" class="g-col-4">
               <NuxtLink
                 role="button"
-                class="btn category-btn"
+                class="btn category-btn justify-content-start"
                 :to="{
                   path: '/events',
                   query: {
