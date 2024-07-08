@@ -1,7 +1,9 @@
 <script setup>
 const imageStore = useImageStore()
 const userStore = useUserStore()
-const { userProfile } = storeToRefs(userStore)
+const authProfileStore = useAuthProfileStore()
+const { profile } = storeToRefs(authProfileStore)
+
 const { errors } = useForm()
 const isFormSending = ref(false)
 
@@ -53,11 +55,11 @@ const handleUploadResult = (state, text) => {
       <div class="dots dots-gray5"></div>
       <div class="dots dots-secondary"></div>
       <div class="border border-2 border-gray4 w-100 h-100 rounded-circle">
-        <img :src="userProfile.photo" :alt="userProfile.nickname" class="object-fit" />
+        <img :src="profile.photo" :alt="profile.nickname" class="object-fit" v-if="profile" />
       </div>
       <div
         v-if="isFormSending"
-        class="w-100 h-100 position-absolute top-50 start-50 translate-middle bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
+        class="rounded-circle w-100 h-100 position-absolute top-50 start-50 translate-middle bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
       >
         <div class="d-flex justify-content-center align-items-center text-white gap-1">
           <div

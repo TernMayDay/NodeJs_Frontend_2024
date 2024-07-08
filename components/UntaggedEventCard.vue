@@ -1,6 +1,4 @@
 <script setup>
-/* import dayjs from 'dayjs' */
-
 defineProps({
   event: {
     type: Object,
@@ -33,7 +31,9 @@ defineProps({
         <li class="text-truncate-row-2">
           <h5 class="card-title mb-0 text-h4">{{ event.eventName }}</h5>
         </li>
-        <li class="text-s1 text-gray5">2024.03.14 ~ 03.17</li>
+        <li class="text-s1 text-gray5" v-if="handleEventDate(event.eventDate)">
+        {{ handleEventDate(event.eventDate) }}
+        </li>
       </ul>
       <ul
         class="list-unstyled mt-auto mb-0 bg-gray1 px-3 py-2 d-flex justify-content-between align-items-center"

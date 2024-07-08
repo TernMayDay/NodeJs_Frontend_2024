@@ -1,5 +1,8 @@
 <script setup>
 import { indexWhyUs, bxSwim, entypoBell, iconParkSolidTicket, mdiSale } from '~/data/imagePaths.js'
+
+const authProfileStore = useAuthProfileStore()
+const { token, profile } = storeToRefs(authProfileStore)
 const swiperStore = useSwiperStore()
 const otherStore = useOtherStore()
 const userStore = useUserStore()
@@ -23,28 +26,23 @@ const navTabs = ref([
   }
 ])
 
-// eslint-disable-next-line no-console
-console.error('focus 須限定為使用者本人之訂閱，焦點賽事部分欄位資料有誤')
-await userStore.getUserProfile()
+if (token.value && profile.value) {
+  await userStore.getUserProfile()
+}
+
 const fetchAllEvents = async () => {
-  // eslint-disable-next-line no-console
-  console.log(events.value)
   const apis = []
   const eventKeys = Object.keys(events.value)
   eventKeys.forEach((displayMode) => {
-    // eslint-disable-next-line no-console
-    console.error('api displayMode 無效', displayMode)
     apis.push(
-      eventStore.getEvents({
-        displayMode: 'list',
-        pageSize: displayMode === 'upcoming' ? 9 : 4
+      eventStore.getFilterEvents({
+        displayMode,
+        limit: displayMode === 'upcoming' ? 9 : 4
       })
     )
   })
 
   const result = await Promise.all(apis)
-  // eslint-disable-next-line no-console
-  console.log(eventKeys, result)
   eventKeys.forEach((displayMode, index) => {
     events.value[displayMode] = result[index].events
   })
@@ -59,7 +57,7 @@ const hotCategories = computed(() => categoryStore.top9HotCategories.slice(0, 5)
 
 // 關注焦點
 const focusEvents = computed(() => {
-  const data = userStore.userProfile.focusedEvents || []
+  const data = authProfileStore.profile?.focusedEvents || []
   return data.sort((a, b) => (b.createdAt > a.createdAt ? -1 : 1)).slice(0, 9)
 })
 
@@ -113,11 +111,9 @@ const slideTo = (theme, currentSwiper, index) => {
 <template>
   <div>
     <!-- 關注焦點 -->
-    <SwiperCards
-      class="focus-swiper my-5 mt-md-11 mb-md-9"
-      :events="focusEvents"
-      :swiper-config="swiperStore.focusSwiperConfig"
-    >
+    <div class="mb-5 mb-md-9">
+    <SwiperCards class="focus-swiper mt-5 mt-md-11" :events="focusEvents"
+      :swiper-config="swiperStore.focusSwiperConfig" :class="{ 'd-none': !focusEvents.length }">
       <template #title>
         <IndexTitle en="Focus" tc="關注焦點" />
       </template>
@@ -125,36 +121,23 @@ const slideTo = (theme, currentSwiper, index) => {
         <TaggedEventCard :event="event" />
       </template>
     </SwiperCards>
+    </div>
     <!-- 最新 / 熱門 -->
     <div class="latest-hot-block bg-gray1 mx-xl-8 py-5 pt-md-9 pb-md-11">
       <nav class="nav justify-content-center nav-border-bottom text-h3 mb-5 mb-md-9">
-        <button
-          v-for="navTab in navTabs"
-          :key="navTab.value"
-          class="nav-link"
-          :class="{ active: activeNavTab === navTab.value }"
-          type="button"
-          @click="changActiveNavTab(navTab.value)"
-        >
+        <button v-for="navTab in navTabs" :key="navTab.value" class="nav-link"
+          :class="{ active: activeNavTab === navTab.value }" type="button" @click="changActiveNavTab(navTab.value)">
           {{ navTab.label }}
         </button>
       </nav>
-      <SwiperCards
-        v-if="activeNavTab === 'latest'"
-        :events="events.latest"
-        :swiper-config="swiperStore.latestOrHotSwiperConfig"
-        :show-navigation="false"
-      >
+      <SwiperCards v-if="activeNavTab === 'latest'" :events="events.latest"
+        :swiper-config="swiperStore.latestOrHotSwiperConfig" :show-navigation="false">
         <template #eventCard="{ event }">
           <UntaggedEventCard :event="event" />
         </template>
       </SwiperCards>
-      <SwiperCards
-        v-else
-        :events="events.hot"
-        :swiper-config="swiperStore.latestOrHotSwiperConfig"
-        :show-navigation="false"
-      >
+      <SwiperCards v-else :events="events.hot" :swiper-config="swiperStore.latestOrHotSwiperConfig"
+        :show-navigation="false">
         <template #eventCard="{ event }">
           <UntaggedEventCard :event="event" />
         </template>
@@ -172,44 +155,18 @@ const slideTo = (theme, currentSwiper, index) => {
             <h6 class="mb-0 text-h2">選擇我們的理由</h6>
           </div>
           <ul class="list-unstyled mb-0 row g-5 g-md-8">
-            <li
-              v-for="item in whyUsList"
-              :key="item.title"
-              class="col-md-6 d-flex align-items-start gap-3"
-            >
-              <img
-                v-if="item.icon === 'bxSwim'"
-                class="why-us-icon"
-                :src="bxSwim"
-                :alt="getWhyUsIconAlt(item)"
-              />
-              <img
-                v-if="item.icon === 'entypoBell'"
-                class="why-us-icon"
-                :src="entypoBell"
-                :alt="getWhyUsIconAlt(item)"
-              />
-              <img
-                v-if="item.icon === 'iconParkSolidTicket'"
-                class="why-us-icon"
-                :src="iconParkSolidTicket"
-                :alt="getWhyUsIconAlt(item)"
-              />
-              <img
-                v-if="item.icon === 'mdiSale'"
-                class="why-us-icon"
-                :src="mdiSale"
-                :alt="getWhyUsIconAlt(item)"
-              />
+            <li v-for="item in whyUsList" :key="item.title" class="col-md-6 d-flex align-items-start gap-3">
+              <img v-if="item.icon === 'bxSwim'" class="why-us-icon" :src="bxSwim" :alt="getWhyUsIconAlt(item)" />
+              <img v-if="item.icon === 'entypoBell'" class="why-us-icon" :src="entypoBell"
+                :alt="getWhyUsIconAlt(item)" />
+              <img v-if="item.icon === 'iconParkSolidTicket'" class="why-us-icon" :src="iconParkSolidTicket"
+                :alt="getWhyUsIconAlt(item)" />
+              <img v-if="item.icon === 'mdiSale'" class="why-us-icon" :src="mdiSale" :alt="getWhyUsIconAlt(item)" />
               <div class="d-grid gap-1 gap-md-3">
                 <h5 class="mb-0 d-flex align-items-center text-h4 gap-1">
-                  <span
-                    class="text-secondary"
-                    :class="{
-                      'order-last': item.icon === 'iconParkSolidTicket' || item.icon === 'mdiSale'
-                    }"
-                    >{{ item.focusTitle }}</span
-                  >{{ item.title }}
+                  <span class="text-secondary" :class="{
+                    'order-last': item.icon === 'iconParkSolidTicket' || item.icon === 'mdiSale'
+                  }">{{ item.focusTitle }}</span>{{ item.title }}
                 </h5>
                 <p class="mb-0 text-s1 text-gray5">{{ item.describe }}</p>
               </div>
@@ -220,11 +177,7 @@ const slideTo = (theme, currentSwiper, index) => {
     </div>
     <!-- 即將開賽 -->
     <div class="border-top mx-3 mx-md-0"></div>
-    <SwiperCards
-      class="my-5 my-md-9"
-      :events="events.upcoming"
-      :swiper-config="swiperStore.cardSwiperConfig"
-    >
+    <SwiperCards class="my-5 my-md-9" :events="events.upcoming" :swiper-config="swiperStore.cardSwiperConfig">
       <template #title>
         <IndexTitle en="Coming Soon" tc="即將開賽" />
       </template>
@@ -234,28 +187,16 @@ const slideTo = (theme, currentSwiper, index) => {
     </SwiperCards>
     <!-- 熱門賽事項目 -->
     <div class="bg-gray1 py-5 py-md-11">
-      <SwiperCards
-        class="hot-categories-swiper my-5 mt-md-11 mb-md-9"
-        :events="hotCategories"
-        :swiper-config="swiperStore.hotCategoriesSwiperConfig"
-        :show-navigation="false"
-      >
+      <SwiperCards class="hot-categories-swiper my-5 mt-md-11 mb-md-9" :events="hotCategories"
+        :swiper-config="swiperStore.hotCategoriesSwiperConfig" :show-navigation="false">
         <template #eventCard="{ event, index, swiper }">
-          <NuxtLink
-            :to="{
-              path: '/events',
-              query: {
-                q: event.nameTC
-              }
-            }"
-            class="card bg-transparent text-white"
-            @mouseenter="slideTo('hotCategories', swiper, index)"
-          >
-            <img
-              :src="event.photo"
-              class="card-img object-fit"
-              :alt="`${event.nameTC}(${event.nameEN})`"
-            />
+          <NuxtLink :to="{
+            path: '/events',
+            query: {
+              q: event.nameTC
+            }
+          }" class="card bg-transparent text-white" @mouseenter="slideTo('hotCategories', swiper, index)">
+            <img :src="event.photo" class="card-img object-fit" :alt="`${event.nameTC}(${event.nameEN})`" />
             <div class="card-img-overlay d-grid gap-1 gap-md-2 p-4 p-md-5">
               <h5 class="card-title text-h3 mb-0">{{ event.nameTC }}</h5>
               <h6 class="text-eng3 mb-0">{{ index }}-{{ event.nameEN }}</h6>

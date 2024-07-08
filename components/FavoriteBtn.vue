@@ -1,6 +1,7 @@
 <script setup>
 const userStore = useUserStore()
-const { userProfile } = storeToRefs(userStore)
+const authProfileStore = useAuthProfileStore()
+const { profile } = storeToRefs(authProfileStore)
 
 const props = defineProps({
   // 賽事 id
@@ -11,10 +12,10 @@ const props = defineProps({
 })
 
 // 尋找 eventId 的索引值
-const findIndex = computed(() => userProfile.value.favorites?.indexOf(props.eventId))
+const findIndex = computed(() => profile.value?.favorites?.indexOf(props.eventId))
 
 const changeFavorite = async () => {
-  const favorites = userProfile.value.favorites
+  const favorites = profile.value.favorites
   let title = ''
   if (findIndex.value !== -1) {
     favorites.splice(findIndex.value, 1)

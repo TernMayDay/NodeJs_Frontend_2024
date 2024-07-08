@@ -2,9 +2,20 @@
 import dayjs from 'dayjs'
 
 const router = useRouter()
+const authProfileStore = useAuthProfileStore()
+const { token, profile } = storeToRefs(authProfileStore)
 const notificationStore = useNotificationStore()
 const { notifications } = storeToRefs(notificationStore)
-await notificationStore.getNotifications()
+
+watch(
+  () => token.value, 
+  async  (newVal) => {
+    if (token.value && profile.value) {
+      await notificationStore.getNotifications()
+    }
+  },
+  { immediate: true }
+)
 
 // 通知未讀數量
 const notificationNotIsReadNum = computed(() => {
