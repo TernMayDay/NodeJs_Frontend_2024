@@ -5,11 +5,12 @@ const fakeApiRoom = `/api${apiRoom}`
 export const useUserStore = defineStore('user', () => {
   const authStore = useAuthStore()
   const { user } = storeToRefs(authStore)
+
   const userProfile = ref({})
   const userInfo = ref({})
   const isLogin = ref(true)
   const getToken = ref(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NGI0YWI5ZTA4ZGI4NjNlZTEzMjc5MyIsImlhdCI6MTcxOTM3ODE3NSwiZXhwIjoxNzE5OTgyOTc1fQ.DzL4THt4MyPbBQ5GZ4uP1TdHrXPnf9Y_VteZCkFidIQ'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NGI0YWI5ZTA4ZGI4NjNlZTEzMjc5MyIsImlhdCI6MTcyMDMzODY1NSwiZXhwIjoxNzIwOTQzNDU1fQ.8-8nNAKrbLxonUb4qw-0KvtSGVawE-CTZD8Qdu6Jt20'
   )
 
   const clearUserInfo = () => {

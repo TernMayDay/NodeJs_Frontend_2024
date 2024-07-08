@@ -1,4 +1,5 @@
 <script setup>
+const router = useRouter()
 const eventStore = useEventStore()
 const { createdEvent } = eventStore
 const formData = ref({
@@ -60,14 +61,23 @@ const onSubmit = async (value) => {
     return newSession
   })
 
-  // console.log('formData =>', formData.value)
   const eventData = {
     eventSetting: filteredEventSetting,
     sessionSetting: filteredArea
   }
   // eslint-disable-next-line no-console
   console.log('eventData', eventData)
-  await addEvent(JSON.stringify(eventData))
+  let res = ''
+  try {
+    res = await addEvent(JSON.stringify(eventData))
+    if (res.data.status === 'success') {
+      await router.push('/admin/eventManagement')
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(res.data.status)
+    await router.push('/admin/eventManagement')
+  }
 }
 </script>
 

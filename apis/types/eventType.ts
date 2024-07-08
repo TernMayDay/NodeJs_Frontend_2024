@@ -23,15 +23,15 @@ export interface addTagModel {
 // DisplayMode 顯示模式的類型
 export type displayMode =
   | 'all'
-  | 'list'
   | 'recent'
   | 'latestSell'
   | 'latest'
   | 'hot'
   | 'upcoming'
   | 'other'
+  | 'list'
 
-// 賽事列表 API 回應的接口
+// 賽事列表 API 回應的接口 （改用 filter）
 export interface eventListModel {
   status: string
   data: {
@@ -57,8 +57,9 @@ export interface eventListParams {
 // filter 查詢參數的接口
 export interface filterEventParams {
   displayMode: displayMode
-  nameTC: string
-  limit: number
+  nameTC?: string // 分類 categoryId
+  q?: string // tagList
+  limit?: number
 }
 
 // 新增賽事
@@ -97,4 +98,15 @@ export interface OrderData {
 export interface addOrderModel {
   status: string
   data: OrderData
+}
+
+// 綠界 ecPay
+export interface ecPayParams {
+  itemName: string
+  itemPrice: number
+  orderID: string
+}
+
+export interface ecPayModel {
+  formHtml: string
 }

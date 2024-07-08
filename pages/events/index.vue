@@ -3,16 +3,18 @@ const categoryStore = useCategoryStore()
 await categoryStore.getCategoriesAll()
 const { categoriesAll } = storeToRefs(categoryStore)
 
-// const route = useRoute()
+const route = useRoute()
 const router = useRouter()
 
+// console.log('params =>', route, route.path)
 const eventStore = useEventStore()
 const eventList = ref([])
-const activeMode = ref('list')
+const activeMode = ref('all')
+const activeCategory = ref({ nameTC: '全部' })
 
 const navTabs = ref([
   {
-    value: 'list',
+    value: 'all',
     label: '全部'
   },
   {
@@ -25,51 +27,24 @@ const navTabs = ref([
   }
 ])
 
-// const handlerDisplayMode = async ({ mode, query }) => {
-//   activeMode.value = mode
-//   try {
-//     const paramsData =
-//       query !== undefined
-//         ? {
-//             displayMode: mode,
-//             q: query
-//           }
-//         : { displayMode: mode }
-//     await eventStore.fetchEventList(paramsData)
-//     const { eventData } = storeToRefs(eventStore)
-//     eventList.value = eventData.value
-
-//     await router.push({
-//       query: {
-//         q: query
-//       }
-//     })
-//   } catch (error) {
-//     // eslint-disable-next-line no-console
-//     console.error('API error:', error)
-//     eventList.value = []
-//   }
-// }
-
 const handlerDisplayMode = async ({ mode, query }) => {
   activeMode.value = mode
-  // console.log('activeMode.value', activeMode.value, '\n query', query, '\n mode', mode)
-  // if( activeMode.value === '全部')
+  const nameTC = activeCategory.value.nameTC
   try {
-    const paramsData =
-      query !== undefined
-        ? {
-            displayMode: mode,
-            q: query
-          }
-        : { displayMode: mode, pageSize: 30 }
-    await eventStore.fetchEventList(paramsData)
+    const paramsData = {
+      displayMode: mode,
+      nameTC: nameTC !== '全部' ? nameTC : '',
+      q: query || ''
+    }
+    await eventStore.filterEventList(paramsData)
     const { eventData } = storeToRefs(eventStore)
     eventList.value = eventData.value
 
     await router.push({
       query: {
-        q: query
+        displayMode: mode,
+        nameTC: nameTC !== '全部' ? nameTC : '',
+        q: query || ''
       }
     })
   } catch (error) {
@@ -80,12 +55,15 @@ const handlerDisplayMode = async ({ mode, query }) => {
 }
 
 const changeCategory = async (category) => {
-  const query = category.nameTC
+  activeCategory.value = category // 更新 activeCategory
+  const query = route.query.q
   await handlerDisplayMode({ mode: activeMode.value, query })
 }
 
 onMounted(() => {
-  handlerDisplayMode({ mode: 'list' })
+  const { displayMode, nameTC, q } = route.query
+  activeCategory.value.nameTC = nameTC || '全部'
+  handlerDisplayMode({ mode: displayMode || 'all', nameTC: nameTC || '全部', query: q })
 })
 </script>
 
@@ -105,6 +83,7 @@ onMounted(() => {
           <button
             role="button"
             class="btn category-btn"
+            :class="{ active: activeCategory.nameTC === '全部' }"
             @click="changeCategory((category = { nameTC: '全部' }))"
           >
             <img src="" alt="全部" />
@@ -112,7 +91,12 @@ onMounted(() => {
           </button>
         </li>
         <li v-for="category in categoriesAll" :key="category._id" class="g-col-4 me-2">
-          <button role="button" class="btn category-btn" @click="changeCategory(category)">
+          <button
+            role="button"
+            class="btn category-btn"
+            :class="{ active: activeCategory.nameTC === category.nameTC }"
+            @click="changeCategory(category)"
+          >
             <img :src="category.photo" :alt="`${category.nameTC}(${category.nameEN})`" />
             <span class="text-s2">{{ category.nameTC }}</span>
           </button>
@@ -128,7 +112,7 @@ onMounted(() => {
         class="nav-link"
         :class="{ active: activeMode === navTab.value }"
         type="button"
-        @click="handlerDisplayMode({ mode: navTab.value, query: '全部' })"
+        @click="handlerDisplayMode({ mode: navTab.value })"
       >
         {{ navTab.label }}
       </button>

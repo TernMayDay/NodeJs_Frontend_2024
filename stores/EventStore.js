@@ -47,11 +47,11 @@ export const useEventStore = defineStore('eventStore', () => {
   // 取得賽事列表 filter
   const filterEventList = async (params) => {
     try {
-      const response = await api.getEventList(params)
+      const response = await api.getFilterEvent(params)
       eventData.value = response.data
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error 取得賽事列表:', error)
+      console.error('Error 取得 Filter 列表:', error)
       eventData.value = { status: 'error', data: { events: [] } }
     }
   }

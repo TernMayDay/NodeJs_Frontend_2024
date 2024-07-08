@@ -47,12 +47,6 @@ const getData = async () => {
   } finally {
     saveSessionList(sessionList.value)
   }
-
-  // const { data } = await useFetch('/api/session')
-  // eventData.value = data.value.eventData.data.event
-  // sessionList.value = eventData.value.sessionList
-  // console.log('sessionList.value', sessionList.value)
-  // eventIntro.value = eventData.eventIntro
 }
 
 // 取資料
@@ -84,6 +78,7 @@ const formatDate = (dateValue) => {
 
 // 確認狀態
 const checkStatus = (session) => {
+  console.log('session', session)
   const now = new Date()
   const salesStart = new Date(session.sessionSalesPeriod[0])
   const salesEnd = new Date(session.sessionSalesPeriod[1])
@@ -107,10 +102,8 @@ const checkStatus = (session) => {
       }
     } else {
       return {
-        // status: 'completely-sold-out',
-        // message: '已售完'
-        status: 'on-sale',
-        message: `立即購票 (剩餘 ${seatsRemaining} 張)` // 等ＡＰＩ好了再調整 測試按鈕使用
+        status: 'completely-sold-out',
+        message: '已售完'
       }
     }
   } else {
