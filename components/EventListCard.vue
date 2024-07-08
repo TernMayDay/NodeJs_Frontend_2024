@@ -1,6 +1,6 @@
 <script setup>
 import dayjs from 'dayjs'
-const router = useRouter()
+// const router = useRouter()
 
 const props = defineProps({
   event: {

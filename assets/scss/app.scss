@@ -495,7 +495,7 @@ body {
     background: $gray_4;
   }
 
-  &:hover {
+  &:hover,  &.active {
     img {
       background: linear-gradient(45deg, $primary_0, $primary_1);
     }

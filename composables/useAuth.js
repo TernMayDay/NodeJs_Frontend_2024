@@ -1,7 +1,7 @@
-import { useUserStoreAuth } from '~/stores/AuthProfile'
+import { useAuthProfileStore } from '~/stores/AuthProfile'
 
 export function useAuth() {
-  const userStore = useUserStoreAuth()
+  const userStore = useAuthProfileStore()
 
   const getToken = () => userStore.token
   const getProfile = () => userStore.profile

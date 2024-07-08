@@ -55,7 +55,7 @@ const handleUploadResult = (state, text) => {
       <div class="dots dots-gray5"></div>
       <div class="dots dots-secondary"></div>
       <div class="border border-2 border-gray4 w-100 h-100 rounded-circle">
-        <img :src="profile.photo" :alt="profile.nickname" class="object-fit" v-if="profile" />
+        <img v-if="profile" :src="profile.photo" :alt="profile.nickname" class="object-fit" />
       </div>
       <div
         v-if="isFormSending"

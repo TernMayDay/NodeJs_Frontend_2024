@@ -7,17 +7,17 @@ import dayjs from 'dayjs'
  */
 export const handleEventDate = (eventDateArr: (string | null)[]) => {
   const newEventDateArr = eventDateArr
-  .filter(data => data)
-  .map((date, index) => {
-    switch (index) {
-      case 0:
-        return dayjs(date).format('YYYY.MM.DD')
-      case 1:
-        return dayjs(date).format('MM.DD')
-      default:
-        return null
-    }
-  })
+    .filter((data) => data)
+    .map((date, index) => {
+      switch (index) {
+        case 0:
+          return dayjs(date).format('YYYY.MM.DD')
+        case 1:
+          return dayjs(date).format('MM.DD')
+        default:
+          return null
+      }
+    })
 
   return newEventDateArr.join(' ~ ')
 }

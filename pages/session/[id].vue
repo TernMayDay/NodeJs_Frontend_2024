@@ -6,9 +6,12 @@ const route = useRoute()
 const sessionStore = useSessionStore()
 const cartStore = useCartStore()
 const orderStore = useOrderStore()
+const authProfileStore = useAuthProfileStore()
+const { profile } = storeToRefs(authProfileStore)
 const agreementChecked = ref(false)
 const isOpen = ref(false)
 const orderCart = ref([])
+const formHtml = ref('')
 
 const optionList = JSON.parse(localStorage.getItem('filterSessions'))
 const selectedOption = ref(route.params.id)
@@ -69,6 +72,10 @@ const payCart = async () => {
     Swal.fire('請同意會員服務條款及其公告')
     return
   }
+  if (!profile.value) {
+    Swal.fire('請先登入會員')
+    return
+  }
 
   const cart = cartStore.cartItems.map((item) => {
     return {
@@ -87,7 +94,32 @@ const payCart = async () => {
     cart,
     total
   }
-  await orderStore.createdOrder(JSON.stringify(data))
+
+  try {
+    const response = await orderStore.createdOrder(JSON.stringify(data))
+    const time = dayjs().isAfter(dayjs(sessionList.value.sessionTime))
+    const itemName = `${time}_${sessionList.value.sessionName}`
+
+    const ecPayParams = {
+      itemName,
+      itemPrice: total,
+      orderID: response.order._id
+    }
+    const ecPayRes = await orderStore.createdEcPay(ecPayParams)
+
+    formHtml.value = ecPayRes
+
+    nextTick(() => {
+      const formElement = document.querySelector('.hidden.ec-pay form')
+      if (formElement) {
+        formElement.submit()
+      }
+    })
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Order creation error:', error)
+    Swal.fire('訂單建立失敗，請稍後再試')
+  }
 }
 </script>
 
@@ -147,7 +179,7 @@ const payCart = async () => {
               <span class="area-price">{{ area.areaPrice }}</span>
             </div>
             <div class="area-seats-remaining text-s1">
-              <span class="text-secondary">剩餘 33 張</span>
+              <span class="text-secondary">剩餘 {{ area.areaNumber }} 張</span>
             </div>
           </li>
         </ul>
@@ -214,6 +246,7 @@ const payCart = async () => {
         </button>
       </div>
     </section>
+    <div class="hidden ec-pay" v-html="formHtml"></div>
   </div>
 </template>
 

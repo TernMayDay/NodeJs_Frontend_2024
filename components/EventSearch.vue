@@ -149,7 +149,9 @@ watch(searchInputVal, (newVal) => {
               <img :src="event.eventPic" :alt="event.eventName" class="rounded rounded-1" />
               <div class="d-grid gap-1">
                 <h6 class="text-btn2 mb-0 text-truncate">{{ event.eventName }}</h6>
-                <h4 class="text-s2 mb-0 text-gray5 category-hover">{{ event.categoryId?.nameTC }}</h4>
+                <h4 class="text-s2 mb-0 text-gray5 category-hover">
+                  {{ event.categoryId?.nameTC }}
+                </h4>
               </div>
             </NuxtLink>
           </div>
