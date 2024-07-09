@@ -1,7 +1,17 @@
-<script lang="ts" setup></script>
+<!-- pages/admin/eventManagement.vue -->
+<script setup>
+definePageMeta({
+  layout: 'admin'
+})
+</script>
 
 <template>
-  <div>Page: admin/eventManagement 賽事管理</div>
+  <div>
+    <h2>賽事管理</h2>
+    <!-- 這裡放置賽事管理的具體內容 -->
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* 頁面特定樣式 */
+</style>

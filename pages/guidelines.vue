@@ -84,7 +84,7 @@ const { data } = await useFetch('/api/guidelines')
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in data?.fontData" :key="item.name">
+            <!-- <tr v-for="item in data?.fontData" :key="item.name">
               <th scope="row">
                 <span :class="item.class">{{ item.name }}</span>
               </th>
@@ -92,7 +92,7 @@ const { data } = await useFetch('/api/guidelines')
               <th class="text-center">{{ item.size }}</th>
               <th class="text-center">{{ item.lineHeight }}</th>
               <th class="text-center">{{ item.letterSpacing }}</th>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -116,7 +116,7 @@ const { data } = await useFetch('/api/guidelines')
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in data?.engData" :key="item.name">
+            <!-- <tr v-for="item in data?.engData" :key="item.name">
               <th scope="row">
                 <span :class="item.class">{{ item.name }}</span>
               </th>
@@ -124,7 +124,7 @@ const { data } = await useFetch('/api/guidelines')
               <th class="text-center">{{ item.size }}</th>
               <th class="text-center">{{ item.lineHeight }}</th>
               <th class="text-center">{{ item.letterSpacing }}</th>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -379,36 +379,36 @@ h2 {
   }
 }
 
-thead > tr,
-tbody > tr {
+thead>tr,
+tbody>tr {
   line-height: rem(62px);
 }
 
-thead > tr > th {
+thead>tr>th {
   background: $gray_4;
   color: white;
 }
 
-tbody > tr > th {
+tbody>tr>th {
   background-color: transparent;
   color: white;
 }
 
-.font-table tbody > tr {
+.font-table tbody>tr {
   &:hover {
-    & > th {
+    &>th {
       background-color: $gray_3;
       color: $gray_5;
     }
   }
 }
 
-.btn-table thead > tr > th {
+.btn-table thead>tr>th {
   background: transparent;
   color: white;
 }
 
-.btn-table tbody > tr {
+.btn-table tbody>tr {
   background-color: #151515;
 }
 
