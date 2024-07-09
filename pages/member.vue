@@ -72,7 +72,7 @@ const isTicketDetailedPage = computed(() => {
             v-for="navTab in navTabs"
             :key="navTab.value"
             class="nav-link"
-            :class="{ active: isTicketDetailedPage && navTab.value === 'myTicket' }"
+            :class="{ active: isTicketDetailedPage && navTab.value === 'myTicket', disabled: navTab.value !== 'myTicket' }"
             aria-current="page"
             :to="`/member/${navTab.value}`"
             >{{ navTab.label }}</NuxtLink
@@ -96,5 +96,7 @@ nav.nav {
   @include media-breakpoint-down(md) {
     @include font(1, $text-weight-medium, $s1-font-size, 1.5, 2);
   }
+
+  --bs-nav-link-disabled-color: var(--bs-nav-link-color);
 }
 </style>

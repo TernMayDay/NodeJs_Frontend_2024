@@ -14,10 +14,7 @@ export const useOrderStore = defineStore('orderStore', () => {
 
   // 取得使用者訂單
   const getOrders = async () => {
-    const data = await useHttp.get(`${apiRoom}/list`)
-
-    console.error('getOrders 更換 API URL', userId.value)
-    // const data = await useHttp.get(`/user/${userId.value}${apiRoom}`)
+    const data = await useHttp.get(`/user/${userId.value}${apiRoom}`)
 
     // 讀取 Fake API 方式
     // const { data } = await useFetch(`${fakeApiRoom}/user`)
@@ -25,8 +22,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     // 若讀取 Fake API：data.data => data.value.data
     const { orders } = data.data
     myOrder.value = orders
-    // eslint-disable-next-line no-console
-    console.log('orders', orders)
     return orders
   }
 

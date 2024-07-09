@@ -45,6 +45,7 @@ const submitRefundForm = (values, { resetForm }) => {
 <template>
   <div>
     <button
+      disabled
       type="button"
       class="btn check-btn text-btn1"
       data-bs-toggle="modal"
