@@ -17,16 +17,18 @@ watch(
     orderDetail.value = myOrder.value.find((order) => order._id === newOrderId)
 
     if (!orderDetail.value) {
-      setSwalFire({
-        stype: 'popup',
-        icon: 'error',
-        title: '系統錯誤',
-        text: '找不到該筆票券'
-      }).then(({ isDismissed }) => {
-        if (isDismissed) {
-          router.push('/member/myTicket')
-        }
-      })
+      setTimeout(() => {
+        setSwalFire({
+          stype: 'popup',
+          icon: 'error',
+          title: '系統錯誤',
+          text: '找不到該筆票券'
+        }).then(({ isDismissed }) => {
+          if (isDismissed) {
+            router.push('/member/myTicket')
+          }
+        })
+      }, 0)
     } else {
       const { eventName, sessionName } = firstTicket.value
       useHead({

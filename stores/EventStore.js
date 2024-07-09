@@ -41,7 +41,8 @@ export const useEventStore = defineStore('eventStore', () => {
    */
   const getFilterEvents = async ({ displayMode, limit ,nameTC, q }) => {
     const data = await useHttp.get(`${apiRoom}/filter/${displayMode}`, { nameTC, q, limit })
-    return data.data
+    const { events } = data.data
+    return events
   }
   /**
    * 取得賽事列表 (list) 與 取得賽事列表 filter

@@ -22,8 +22,7 @@ defineProps({
           {{ handleEventDate(event.eventDate) }}
           </span>
         </li>
-        <!-- 若為 0 為免費 -->
-        <li class="border-top mt-2 pt-2 mt-mb-3 pt-mb-3 text-btn1 text-color-primary">$450 起</li>
+        <li class="border-top mt-2 pt-2 mt-mb-3 pt-mb-3 text-btn1 text-color-primary">{{ handleEventPrice(event.price) }}</li>
       </ul>
     </div>
   </NuxtLink>

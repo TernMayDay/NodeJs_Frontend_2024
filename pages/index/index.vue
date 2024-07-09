@@ -44,7 +44,7 @@ const fetchAllEvents = async () => {
 
   const result = await Promise.all(apis)
   eventKeys.forEach((displayMode, index) => {
-    events.value[displayMode] = result[index].events
+    events.value[displayMode] = result[index]
   })
 }
 fetchAllEvents()
@@ -199,7 +199,7 @@ const slideTo = (theme, currentSwiper, index) => {
             <img :src="event.photo" class="card-img object-fit" :alt="`${event.nameTC}(${event.nameEN})`" />
             <div class="card-img-overlay d-grid gap-1 gap-md-2 p-4 p-md-5">
               <h5 class="card-title text-h3 mb-0">{{ event.nameTC }}</h5>
-              <h6 class="text-eng3 mb-0">{{ index }}-{{ event.nameEN }}</h6>
+              <h6 class="text-eng3 mb-0">{{ event.nameEN }}</h6>
             </div>
           </NuxtLink>
         </template>
