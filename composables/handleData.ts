@@ -53,7 +53,8 @@ export const handleEventPrice = (price: number) => {
  * @param price 賽事價格
  * @returns EX. NT$ 1000 起 或 免費
  */
-export const handleFare = (price: number) => {
+export const handleFare = (price: number | string) => {
+  if (typeof price === 'string') { price = +price}
   const formatter = new Intl.NumberFormat('zh-TW', {
     style: 'decimal',
     minimumFractionDigits: 0
