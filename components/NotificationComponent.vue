@@ -8,8 +8,8 @@ const notificationStore = useNotificationStore()
 const { notifications } = storeToRefs(notificationStore)
 
 watch(
-  () => token.value, 
-  async  (newVal) => {
+  () => token.value,
+  async (newVal) => {
     if (token.value && profile.value) {
       await notificationStore.getNotifications()
     }

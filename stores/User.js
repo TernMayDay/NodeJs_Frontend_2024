@@ -8,6 +8,7 @@ export const useUserStore = defineStore('user', () => {
 
   // 取得我的資料
   const getUserProfile = async () => {
+    // eslint-disable-next-line no-console
     console.log('getUserProfile')
     const data = await useHttp.get(`${apiRoom}/profile/${userId.value}`)
 
@@ -15,7 +16,7 @@ export const useUserStore = defineStore('user', () => {
     // const { data } = await useFetch(`${fakeApiRoom}/profile`)
 
     // 若讀取 Fake API：data.data => data.value.data
-    let { user } = data.data
+    const { user } = data.data
     await authProfileStore.setUserData({ data: { user } })
     return user
   }

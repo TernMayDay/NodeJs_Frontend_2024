@@ -7,15 +7,17 @@
           <form @submit.prevent="onSubmit">
             <div class="mb-3">
               <label for="username" class="form-label">信箱</label>
-              <input type="text" id="username" v-model="email" class="form-control" />
+              <input id="username" v-model="email" type="text" class="form-control" />
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">密碼</label>
-              <input type="password" id="password" v-model="password" class="form-control" />
+              <input id="password" v-model="password" type="password" class="form-control" />
             </div>
             <!-- <button type="submit" class="btn login-btn text-btn1 w-100">忘記密碼</button> -->
             <div class="flex flex-center">
-              <button type="submit" class="btn login-btn text-btn1 w-50 flex justify-center">登入</button>
+              <button type="submit" class="btn login-btn text-btn1 w-50 flex justify-center">
+                登入
+              </button>
             </div>
             <!-- <button type="submit" class="btn login-btn text-btn1 w-100">註冊</button> -->
           </form>
@@ -24,24 +26,6 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-.card {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 0.25rem;
-}
-
-.card-header {
-  background-color: #343a40;
-  color: #ffffff;
-}
-
-.card-body {
-  background-color: #ffffff;
-  color: #212529;
-}
-</style>
 
 <script setup>
 import { ref } from 'vue'
@@ -66,12 +50,14 @@ async function onSubmit() {
   })
 
   if (loginError) {
+    // eslint-disable-next-line no-console
     console.error('Login Error:', loginError)
     error.value = '登入失敗，請稍後再試。'
     return
   }
 
   if (data && data.token) {
+    // eslint-disable-next-line no-console
     console.log('data', data)
     await authProfileStore.setUserData(data)
     await userStore.getUserProfile()
@@ -81,3 +67,21 @@ async function onSubmit() {
   }
 }
 </script>
+
+<style scoped>
+.card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.25rem;
+}
+
+.card-header {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.card-body {
+  background-color: #ffffff;
+  color: #212529;
+}
+</style>

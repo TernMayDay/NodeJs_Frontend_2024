@@ -31,8 +31,8 @@ defineProps({
         <li class="text-truncate-row-2">
           <h5 class="card-title mb-0 text-h4">{{ event.eventName }}</h5>
         </li>
-        <li class="text-s1 text-gray5" v-if="handleEventDate(event.eventDate)">
-        {{ handleEventDate(event.eventDate) }}
+        <li v-if="handleEventDate(event.eventDate)" class="text-s1 text-gray5">
+          {{ handleEventDate(event.eventDate) }}
         </li>
       </ul>
       <ul

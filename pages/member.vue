@@ -53,14 +53,11 @@ const isTicketDetailedPage = computed(() => {
           >票券
         </li>
         <li class="col col-lg-2 border-start border-end">
-          <span class="text-color-primary text-eng1 d-block">{{
-            profile?.subscribes?.length
-          }}</span
+          <span class="text-color-primary text-eng1 d-block">{{ profile?.subscribes?.length }}</span
           >訂閱中
         </li>
         <li class="col col-lg-2">
-          <span class="text-color-primary text-eng1 d-block">
-            {{ profile?.favorites?.length }}</span
+          <span class="text-color-primary text-eng1 d-block"> {{ profile?.favorites?.length }}</span
           >我的最愛
         </li>
       </ul>

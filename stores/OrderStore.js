@@ -8,6 +8,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const { userId } = storeToRefs(authProfileStore)
   const orderData = ref({})
   const myOrder = ref([])
+  const ecPayForm = ref('')
   // 我的票券頁面 僅顯示未取票 switch
   const uncollectedTicketSwitchChecked = ref(true)
 
@@ -42,11 +43,26 @@ export const useOrderStore = defineStore('orderStore', () => {
     }
   }
 
+  // 綠界
+  const createdEcPay = async (params) => {
+    try {
+      const response = await api.postEcPay(params)
+      ecPayForm.value = response
+      return response
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error ecPay:', error)
+      ecPayForm.value = ''
+    }
+  }
+
   return {
     myOrder,
     uncollectedTicketSwitchChecked,
     getOrders,
     createdOrder,
-    orderData
+    orderData,
+    createdEcPay,
+    ecPayForm
   }
 })

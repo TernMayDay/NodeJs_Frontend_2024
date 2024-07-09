@@ -9,7 +9,9 @@ import type {
   idParams,
   detailModel,
   addOrderParams,
-  addOrderModel
+  addOrderModel,
+  ecPayParams,
+  ecPayModel
 } from '@/apis/types/eventType'
 
 enum Api {
@@ -20,7 +22,8 @@ enum Api {
   filterEvent = '/event/filter',
   detailEvent = '/event/detail',
   session = '/session',
-  order = '/order'
+  order = '/order',
+  ecPay = '/green/checkout'
 }
 
 // 取得所有 tag
@@ -50,19 +53,14 @@ export function getEventList(params: eventListParams) {
 }
 
 // 取得 eventList - filter
-// [範例]： /event/filter/recent?nameTC=羽球&limit=8
+// [範例]： /event/filter/recent?nameTC=羽球
+// [範例]：  ?q=戴姿穎&nameTC=羽球
 export function getFilterEvent(params: filterEventParams) {
-  const { displayMode, nameTC, limit } = params
-  let queryParams: Record<string, string> = {
-    limit: limit.toString()
-  }
-
-  if (nameTC) {
-    queryParams.nameTC = nameTC
-  }
-  
-  const queryString = new URLSearchParams(queryParams).toString()
-  const url = `${Api.filterEvent}/${displayMode}?${queryString}`
+  const { displayMode, ...queryParams } = params
+  const queryString = new URLSearchParams(queryParams as Record<string, string>).toString()
+  const url = queryString
+    ? `${Api.filterEvent}/${displayMode}?${queryString}`
+    : `${Api.filterEvent}/${displayMode}`
   return useHttp.get<eventListModel>(url)
 }
 
@@ -88,4 +86,9 @@ export function getDetailSession(params: idParams) {
 // 新增訂單
 export function postAddOrder(body: addOrderParams) {
   return useHttp.post<addOrderModel>(Api.order, body)
+}
+
+// 綠界
+export function postEcPay(body: ecPayParams) {
+  return useHttp.post<ecPayModel>(Api.ecPay, body)
 }

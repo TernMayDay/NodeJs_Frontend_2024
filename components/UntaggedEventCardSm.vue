@@ -18,8 +18,8 @@ defineProps({
       <ul class="list-unstyled gap-1 gap-md-2 mb-0 card-text flex-fill d-flex flex-column">
         <li class="d-grid gap-2 mb-auto">
           <h5 class="card-title mb-0 text-h4 text-truncate-row-2">{{ event.eventName }}</h5>
-          <span class="text-s1 text-gray5" v-if="handleEventDate(event.eventDate)">
-          {{ handleEventDate(event.eventDate) }}
+          <span v-if="handleEventDate(event.eventDate)" class="text-s1 text-gray5">
+            {{ handleEventDate(event.eventDate) }}
           </span>
         </li>
         <li class="border-top mt-2 pt-2 mt-mb-3 pt-mb-3 text-btn1 text-color-primary">{{ handleEventPrice(event.price) }}</li>

@@ -8,19 +8,19 @@ export const useAuthProfileStore = defineStore('authProfile', {
   }),
   getters: {
     isAuthenticated: (state) => !!state.token,
-    userId: (state) => state.profile ? state.profile._id : null
+    userId: (state) => (state.profile ? state.profile._id : null)
   },
   actions: {
     setUserData({ token, data }) {
-      if (token) { 
+      if (token) {
         this.token = token
         // Store in localStorage as well
         localStorage.setItem('authToken', this.token)
       }
-      
+
       this.profile = data.user
       this.role = data.user.role || 'user'
-      
+
       // Store in localStorage as well
       // localStorage.setItem('authToken', this.token)
       localStorage.setItem('userData', JSON.stringify(this.profile))
