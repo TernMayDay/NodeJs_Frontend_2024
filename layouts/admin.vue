@@ -21,7 +21,7 @@ watch(profile, checkAdminAccess)
 </script>
 
 <template>
-  <div class="admin-layout">
+  <div v-if="checkAdminAccess" class="admin-layout">
     <Header />
     <div class="admin-content">
       <aside class="admin-sidebar">
@@ -54,6 +54,8 @@ watch(profile, checkAdminAccess)
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #050505; // Gary1
+  color: #fff;
 }
 
 .admin-content {
@@ -64,7 +66,7 @@ watch(profile, checkAdminAccess)
 
 .admin-sidebar {
   width: 250px;
-  background-color: #f0f0f0;
+  background-color: #1E1E1E; // Gary2
   padding: 1rem;
   height: calc(100vh - $front-header-height); // 減去 Header 的高度
   overflow-y: auto; // 允許側邊欄滾動
@@ -77,18 +79,58 @@ watch(profile, checkAdminAccess)
   flex-grow: 1;
   padding: 1rem;
   margin-left: 250px; // 為側邊欄留出空間
+  background-color: #282828; // Gary3
 }
 
 .admin-nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #333;
+  color: #fff;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px;
 
   &:hover,
   &.router-link-active {
-    background-color: #e0e0e0;
+    background-color: #373737; // Gary4
+    color: #00FFA3; // Primary color
+  }
+}
+
+// 使用 guidelines 中的字體樣式
+.admin-nav-link,
+.admin-main {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+// 為主要按鈕添加樣式
+.btn-primary {
+  background: linear-gradient(to right, #00FFA3, #00EFFF);
+  color: #050505; // Gary1
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// 為次要按鈕添加樣式
+.btn-secondary {
+  background-color: #FC6A00; // Secondary color
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.8;
   }
 }
 </style>
