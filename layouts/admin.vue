@@ -28,16 +28,19 @@ watch(profile, checkAdminAccess)
         <nav>
           <ul class="list-unstyled">
             <li>
-              <NuxtLink to="/admin/eventManagement" class="admin-nav-link">賽事管理</NuxtLink>
+              <NuxtLink to="/sponsor/admin/eventManagement" class="admin-nav-link">賽事管理</NuxtLink>
             </li>
             <li v-if="profile?.role === '1'">
-              <NuxtLink to="/admin/fanManagement" class="admin-nav-link">粉絲管理</NuxtLink>
+              <NuxtLink to="/sponsor/admin/fanManagement" class="admin-nav-link">粉絲管理</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/admin/revenueManagement" class="admin-nav-link">營收管理</NuxtLink>
+              <NuxtLink to="/sponsor/admin/revenueManagement" class="admin-nav-link">營收管理</NuxtLink>
             </li>
             <li v-if="profile?.role === '1'">
-              <NuxtLink to="/admin/checkTickets" class="admin-nav-link">驗票功能</NuxtLink>
+              <NuxtLink to="/sponsor/admin/checkTickets" class="admin-nav-link">驗票功能</NuxtLink>
+            </li>
+            <li>
+              <nuxt-link class="admin-nav-link" to="/sponsor/event">sponsorEvent</nuxt-link>
             </li>
           </ul>
         </nav>
