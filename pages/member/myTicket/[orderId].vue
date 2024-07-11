@@ -1,15 +1,102 @@
 <script setup>
 import dayjs from 'dayjs'
+import QRCode from 'qrcode'
+import Swal from 'sweetalert2'
+import logo from '@/assets/images/logo.svg'
 
 const route = useRoute()
 const router = useRouter()
 const orderStore = useOrderStore()
+const { singleOrder, getOrders } = orderStore
 const { myOrder, uncollectedTicketSwitchChecked } = storeToRefs(orderStore)
 const orderDetail = ref(null)
+let ticketTimer
 usePageTitle()
 
 // 第一筆 ticket
 const firstTicket = computed(() => orderDetail.value.ticketList[0])
+
+// 開啟 ＱrCode
+const openQrcode = async (ticket) => {
+  // isOpenQrcode.value = true
+  const ticketUrl = process.env.HOST + '/member/ticketStatus'
+  const ticketData = JSON.stringify(`${ticketUrl}?ticketId=${ticket._id}`)
+  // eslint-disable-next-line no-console
+  console.log('ticketData', ticketData)
+
+  // 創建臨時的 canvas
+  const canvas = document.createElement('canvas')
+
+  try {
+    await QRCode.toCanvas(canvas, ticketData, { width: 200 })
+    const qrCodeDataUrl = canvas.toDataURL()
+
+    Swal.fire({
+      html: `
+        <h2 class="text-h2 text-white mb-6">
+          <img src="${logo}" alt="SportsPass LOGO" class="logo" />
+          <p class="text-h4 text-white-50">QR Code</p>
+        </h2>
+        <img src="${qrCodeDataUrl}" alt="QR Code">
+        <dl class="mt-6 row">
+          <dt class="col-4 text-end">訂票序號</dt>
+          <dd class="col-8 text-base text-start">${ticket._id}</dd>
+          <dt class="col-4 text-end">場次名稱</dt>
+          <dd class="col-8 text-base text-start">${ticket.sessionName}</dd>
+          <dt class="col-4 text-end">時間</dt>
+          <dd class="col-8 text-base text-start">${dayjs(ticket.sessionTime).format('YYYY.MM.DD HH:mm')}</dd>
+          <dt class="col-4 text-end">地點</dt>
+          <dd class="col-8 text-base text-start">${ticket.sessionPlace}</dd>
+          <dt class="col-4 text-end">座位</dt>
+          <dd class="col-8 text-base text-start">${ticket.seats}</dd>
+        </dl>
+        <hr/>
+        <div class="col-10 m-auto">
+          <p class="text-start text-s1 mb-0">注意事項</p>
+          <p class="text-start text-s2 mt-1 mb-0">
+            請以此QRcode電子驗票直接免紙票入場。<br>訂票紀錄已寄到您的電子信箱,現場請出示此票券給工作人員入場。<br>如您使用優待票券訂票,取票時請務必攜帶您優待證件。</p>
+        </div>
+      `,
+      showCloseButton: false,
+      showCancelButton: false,
+      showConfirmButton: false,
+      customClass: {
+        popup: 'qrcode-popup'
+      }
+    }).then(() => {
+      clearInterval(ticketTimer)
+    })
+
+    // 每 5 秒檢查一次 ticket 狀態
+    ticketTimer = setInterval(async () => {
+      try {
+        const data = await singleOrder({ id: route.params.orderId })
+        const tickets = await data.order.ticketId
+        const updatedTicket = tickets.find((t) => t._id === ticket._id)
+
+        if (updatedTicket && updatedTicket.status === 1) {
+          Swal.close() // 關閉彈窗
+          const orderData = await getOrders() // 重新渲染資料
+          orderDetail.value = await orderData.find((order) => order._id === route.params.orderId)
+          clearInterval(ticketTimer) // 停止計時器
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error ticket status:', error)
+      }
+    }, 5000)
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error QR code:', error)
+    Swal.fire({
+      icon: 'error',
+      title: '錯誤',
+      text: '無法生成 QR Code，請稍後再試。'
+    }).then(() => {
+      clearInterval(ticketTimer)
+    })
+  }
+}
 
 watch(
   () => route.params.orderId,
@@ -114,7 +201,12 @@ watch(
               {{ handleTicketStatus(ticket.status) }}
             </li>
             <li class="col-xl customize-td border-0 pt-4 pt-xl-0">
-              <button type="button" class="btn qrcode-btn text-btn1">
+              <button
+                type="button"
+                class="btn qrcode-btn text-btn1"
+                :class="{ disabled: ticket.status === 1 }"
+                @click="openQrcode(ticket)"
+              >
                 <span>QRCode入場</span>
               </button>
             </li>
