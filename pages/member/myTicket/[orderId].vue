@@ -19,7 +19,8 @@ const firstTicket = computed(() => orderDetail.value.ticketList[0])
 // 開啟 ＱrCode
 const openQrcode = async (ticket) => {
   // isOpenQrcode.value = true
-  const ticketUrl = process.env.HOST + '/member/ticketStatus'
+  const baseUrl = window.location.origin
+  const ticketUrl = baseUrl + '/member/ticketStatus'
   const ticketData = JSON.stringify(`${ticketUrl}?ticketId=${ticket._id}`)
   // eslint-disable-next-line no-console
   console.log('ticketData', ticketData)
