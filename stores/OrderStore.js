@@ -9,6 +9,8 @@ export const useOrderStore = defineStore('orderStore', () => {
   const orderData = ref({})
   const myOrder = ref([])
   const ecPayForm = ref('')
+  const singleOrderData = ref({})
+  const ticketList = ref([])
   // 我的票券頁面 僅顯示未取票 switch
   const uncollectedTicketSwitchChecked = ref(true)
 
@@ -51,6 +53,14 @@ export const useOrderStore = defineStore('orderStore', () => {
     }
   }
 
+  // 取得單筆訂單 票券的內容
+  const singleOrder = async (params) => {
+    const response = await api.getSingleOrder(params)
+    singleOrderData.value = response.data
+    ticketList.value = response.data.order.ticketId
+    return response.data
+  }
+
   return {
     myOrder,
     uncollectedTicketSwitchChecked,
@@ -58,6 +68,9 @@ export const useOrderStore = defineStore('orderStore', () => {
     createdOrder,
     orderData,
     createdEcPay,
-    ecPayForm
+    ecPayForm,
+    singleOrder,
+    singleOrderData,
+    ticketList
   }
 })

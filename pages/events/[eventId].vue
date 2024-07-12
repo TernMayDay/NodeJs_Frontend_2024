@@ -216,16 +216,10 @@ const handlerSession = async (id) => {
           <tab id="first-tab" name="賽事介紹">
             <sessionDetailIntro :intro="eventIntro" />
             <!-- 取得這個賽事的專屬標籤 -->
-            <div class="d-flex flex-wrap align-items-center gap-2 gap-lg-3">
+            <div class="d-flex flex-wrap align-items-center gap-2 gap-lg-3 pt-4">
               <NuxtLink
                 v-for="tag in eventData.tagList"
                 :key="tag._id"
-                :to="{
-                  path: '/events',
-                  query: {
-                    q: tag.name
-                  }
-                }"
                 class="btn tag-btn text-s1"
                 role="button"
               >
@@ -290,10 +284,11 @@ const handlerSession = async (id) => {
 
 .favorite {
   margin: 12px 0;
+  text-align: right;
   @include font(1, $text-weight-regular, $s2-font-size, 1.5, 1);
   @include media-breakpoint-up(lg) {
     @include font(1, $text-weight-medium, $s1-font-size, 1.5, 2);
-    margin-top: -65px;
+    margin: -65px auto 0 auto;
   }
 }
 
