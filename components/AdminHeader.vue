@@ -7,7 +7,7 @@ const { profile } = storeToRefs(authProfileStore)
 </script>
 
 <template>
-  <nav class="navbar navbar-dark fixed-top admin-navbar">
+  <nav v-if="profile" class="navbar navbar-dark fixed-top admin-navbar">
     <div class="container-fluid px-4">
       <NuxtLink class="navbar-brand" to="/">
         <img :src="logo" alt="SportsPass LOGO" class="logo" />
