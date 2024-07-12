@@ -1,12 +1,5 @@
 <template>
   <div class="event-management">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>賽事管理</h2>
-      <NuxtLink to="/sponsor/event" class="btn btn-add-event">
-        <i class="icon-add"></i>
-        <span>新增賽事</span>
-      </NuxtLink>
-    </div>
     <ul class="list-unstyled mb-0 customize-table">
       <li class="customize-thead">
         <ul class="list-unstyled mb-0 row customize-tr">
