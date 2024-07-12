@@ -8,6 +8,9 @@ const cartStore = useCartStore()
 const orderStore = useOrderStore()
 const authProfileStore = useAuthProfileStore()
 const { profile } = storeToRefs(authProfileStore)
+const loadingStore = useLoadingStore()
+const { hide, show } = loadingStore
+
 const agreementChecked = ref(false)
 const isOpen = ref(false)
 const orderCart = ref([])
@@ -19,8 +22,10 @@ const selectedOption = ref(route.params.id)
 const eventData = ref({})
 const sessionList = ref([])
 const areaList = ref([])
+show() // open loading
 
 const getData = async () => {
+  show() // open loading
   try {
     const sessionId = route.params.id
     const paramsId = { id: sessionId }
@@ -40,6 +45,7 @@ const getData = async () => {
   } finally {
     // 清空購物車
     cartStore.clearCart()
+    hide() // 關閉 loading
   }
 }
 // 取資料
@@ -69,13 +75,19 @@ const removeSession = (index) => {
 
 const payCart = async () => {
   if (!agreementChecked.value) {
-    Swal.fire('請同意會員服務條款及其公告')
+    Swal.fire({
+      html: `<h3 class="text-light">請同意會員服務條款及其公告</h3>`
+    })
     return
   }
   if (!profile.value) {
-    Swal.fire('請先登入會員')
+    Swal.fire({
+      html: `<h3 class="text-light">請先登入會員</h3>`
+    })
     return
   }
+
+  show() // open loading
 
   const cart = cartStore.cartItems.map((item) => {
     return {
@@ -114,8 +126,10 @@ const payCart = async () => {
       if (formElement) {
         formElement.submit()
       }
+      hide() // 關閉 loading
     })
   } catch (error) {
+    hide() // 關閉 loading
     // eslint-disable-next-line no-console
     console.error('Order creation error:', error)
     Swal.fire('訂單建立失敗，請稍後再試')
