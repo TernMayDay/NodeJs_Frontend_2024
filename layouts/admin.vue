@@ -8,18 +8,13 @@ const { profile } = storeToRefs(authProfileStore)
 // 檢查用戶是否有權限訪問後台
 const checkAdminAccess = () => {
   if (!profile.value || (profile.value.role !== '1' && profile.value.role !== '0')) {
-    // 如果用戶不是主辦方（role '1'）或平台方（role '0'），重定向到首頁
     return navigateTo('/')
   }
 }
 
-// 在組件掛載時檢查權限
 onMounted(checkAdminAccess)
-
-// 監聽 profile 變化，以便在用戶登出時重新檢查權限
 watch(profile, checkAdminAccess)
 
-// 防止 disabled 鏈接的點擊事件
 const preventClick = (event) => {
   event.preventDefault()
 }
@@ -27,7 +22,7 @@ const preventClick = (event) => {
 
 <template>
   <div v-if="checkAdminAccess" class="admin-layout">
-    <Header />
+    <AdminHeader />
     <div class="admin-content">
       <aside class="admin-sidebar">
         <nav>
@@ -46,6 +41,11 @@ const preventClick = (event) => {
             </li>
           </ul>
         </nav>
+        <div class="mt-auto">
+          <NuxtLink to="/" class="admin-nav-link return-link">
+            <i class="icon-return"></i> 返回前台
+          </NuxtLink>
+        </div>
       </aside>
       <main class="admin-main">
         <slot />
@@ -59,30 +59,32 @@ const preventClick = (event) => {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #050505; // Gary1
+  background-color: #050505;
   color: #fff;
 }
 
 .admin-content {
   display: flex;
   flex-grow: 1;
-  padding-top: $front-header-height; // 確保內容不被 Header 覆蓋
+  padding-top: $front-header-height;
 }
 
 .admin-sidebar {
   width: 250px;
-  background-color: #1e1e1e; // Gary2
+  background-color: #1e1e1e;
   padding: 1rem;
-  height: calc(100vh - $front-header-height); // 減去 Header 的高度
-  overflow-y: auto; // 允許側邊欄滾動
-  position: fixed; // 固定側邊欄
+  height: calc(100vh - $front-header-height);
+  overflow-y: auto;
+  position: fixed;
   left: 0;
   top: $front-header-height;
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-main {
   flex-grow: 1;
-  padding: 1rem;
+  padding: 3rem;
   margin-left: 250px; // 為側邊欄留出空間
   background-color: #282828; // Gary3
 }
@@ -98,20 +100,26 @@ const preventClick = (event) => {
 
   &:hover,
   &.router-link-active {
-    background-color: #373737; // Gary4
-    color: #00ffa3; // Primary color
+    background-color: #373737;
+    color: #00ffa3;
   }
 
   &.disabled {
-    color: #848484; // Gary5
+    color: #848484;
     cursor: not-allowed;
     pointer-events: none;
 
     &:hover {
       background-color: transparent;
-      color: #848484; // Gary5
+      color: #848484;
     }
   }
+}
+
+.return-link {
+  margin-top: auto;
+  border-top: 1px solid #373737;
+  padding-top: 1rem;
 }
 
 // 使用 guidelines 中的字體樣式
@@ -123,4 +131,8 @@ const preventClick = (event) => {
   letter-spacing: 1px;
 }
 
-// 其他樣式保持不變...</style>
+.icon-return::before {
+  content: '←';
+  margin-right: 0.5rem;
+}
+</style>

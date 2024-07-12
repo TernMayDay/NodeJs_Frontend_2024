@@ -1,12 +1,5 @@
 <template>
   <div class="event-management">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>賽事管理</h2>
-      <NuxtLink to="/sponsor/event" class="btn btn-add-event">
-        <i class="icon-add"></i>
-        <span>新增賽事</span>
-      </NuxtLink>
-    </div>
     <ul class="list-unstyled mb-0 customize-table">
       <li class="customize-thead">
         <ul class="list-unstyled mb-0 row customize-tr">
@@ -14,15 +7,15 @@
           <li class="col">場次名稱</li>
           <li class="col">時間</li>
           <li class="col">地點</li>
-          <li class="col">售票期間</li>
+          <li class="col-xl-2">售票期間</li>
           <li class="col">訂票人數</li>
           <li class="col">座位總數</li>
           <li class="col">狀態</li>
-          <li class="col">操作</li>
         </ul>
       </li>
       <li class="customize-tbody">
-        <ul v-for="event in events" :key="event._id" class="list-unstyled mb-0 row align-items-stretch customize-tr">
+        <ul v-for="event in filteredEvents" :key="event._id"
+          class="list-unstyled mb-0 row align-items-stretch customize-tr">
           <li class="col-xl-3 customize-td text-break" data-th="賽事名稱">
             <div class="d-flex align-items-center gap-2">
               <img :src="event.eventPic" class="object-fit img-size rounded-3" />{{ event.eventName }}
@@ -37,7 +30,7 @@
           <li class="col-6 col-xl customize-td" data-th="地點">
             {{ event.sessionList[0].sessionPlace }}
           </li>
-          <li class="col-6 col-xl customize-td" data-th="售票期間">
+          <li class="col-6 col-xl-2 customize-td" data-th="售票期間">
             {{ formatDateRange(event.sessionList[0].sessionSalesPeriod) }}
           </li>
           <li class="col-6 col-xl customize-td" data-th="訂票人數">
@@ -49,15 +42,9 @@
           <li class="col-6 col-xl customize-td" data-th="狀態">
             {{ getEventStatus(event.status) }}
           </li>
-          <li class="col-xl customize-td">
-            <button class="btn qrcode-btn text-btn1" disabled>
-              <span>詳情</span>
-            </button>
-          </li>
         </ul>
       </li>
     </ul>
-
     <!-- 分頁控制 -->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center custom-pagination">
@@ -129,6 +116,11 @@ const formatDateRange = (dateRange) => {
   return `${formatDate(dateRange[0])} - ${formatDate(dateRange[1])}`;
 };
 
+// 过滤掉状态为0的事件
+const filteredEvents = computed(() => {
+  return events.value.filter(event => event.status !== 0);
+});
+
 const getEventStatus = (status) => {
   const statusMap = {
     0: '草稿',
@@ -139,10 +131,6 @@ const getEventStatus = (status) => {
 </script>
 
 <style scoped lang="scss">
-.event-management {
-  padding: 20px;
-}
-
 .btn-add-event {
   display: inline-flex;
   align-items: center;
@@ -169,6 +157,22 @@ const getEventStatus = (status) => {
 .img-size {
   width: rem(70px);
   height: rem(70px);
+}
+
+.customize-table {
+  .customize-thead {
+    background-color: #282828;
+    color: #fff;
+  }
+
+  .customize-tr {
+    border-bottom: 1px solid #373737;
+  }
+
+  .customize-td {
+    padding: 0.75rem;
+    vertical-align: middle;
+  }
 }
 
 .custom-pagination {
@@ -198,15 +202,35 @@ const getEventStatus = (status) => {
   }
 }
 
-.qrcode-btn {
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
 /* 假设你有一个通用的 icon 类 */
 .icon-add::before {
   content: '+'; // 或使用您的图标系统
+}
+
+// 响应式调整
+@media (max-width: 1199px) {
+  .customize-table {
+    .customize-tr {
+      display: block;
+      margin-bottom: 1rem;
+      border: 1px solid #373737;
+    }
+
+    .customize-td {
+      display: block;
+      text-align: right;
+      padding-left: 50%;
+      position: relative;
+
+      &::before {
+        content: attr(data-th);
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        text-align: left;
+        font-weight: bold;
+      }
+    }
+  }
 }
 </style>
