@@ -22,7 +22,7 @@ const firstTicket = computed(() => orderDetail.value.ticketList[0])
 const openQrcode = async (ticket) => {
   // isOpenQrcode.value = true
   const baseUrl = window.location.origin
-  const ticketUrl = baseUrl + '/member/ticketStatus'
+  const ticketUrl = baseUrl + '/ticketStatus'
   const ticketData = JSON.stringify(`${ticketUrl}?ticketId=${ticket._id}`)
   // eslint-disable-next-line no-console
   console.log('ticketData', ticketData)
