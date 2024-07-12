@@ -104,7 +104,7 @@ const openQrcode = async (ticket) => {
 watch(
   () => route.params.orderId,
   async (newOrderId) => {
-    if(!myOrder.value.length && token.value) {
+    if (!myOrder.value.length && token.value) {
       await orderStore.getOrders()
     }
 

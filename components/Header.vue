@@ -185,7 +185,7 @@ onUnmounted(() => {
             <li class="nav-item d-none d-lg-block">
               <NuxtLink
                 class="nav-link"
-                :to="profile?.role === '2' ? '/member/myTicket' : '/admin/eventManagement'"
+                :to="profile?.role === '2' ? '/member/myTicket' : '/sponsor/admin/eventManagement'"
                 >{{ profile?.role === '2' ? '我的票券' : '後台管理' }}
               </NuxtLink>
             </li>

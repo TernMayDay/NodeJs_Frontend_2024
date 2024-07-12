@@ -22,7 +22,9 @@ defineProps({
             {{ handleEventDate(event.eventDate) }}
           </span>
         </li>
-        <li class="border-top mt-2 pt-2 mt-mb-3 pt-mb-3 text-btn1 text-color-primary">{{ handleEventPrice(event.price) }}</li>
+        <li class="border-top mt-2 pt-2 mt-mb-3 pt-mb-3 text-btn1 text-color-primary">
+          {{ handleEventPrice(event.price) }}
+        </li>
       </ul>
     </div>
   </NuxtLink>
