@@ -8,6 +8,7 @@ const otherStore = useOtherStore()
 const userStore = useUserStore()
 const categoryStore = useCategoryStore()
 const eventStore = useEventStore()
+const loadingStore = useLoadingStore()
 const whyUsList = ref([])
 const events = ref({
   latest: [],
@@ -25,6 +26,8 @@ const navTabs = ref([
     label: '熱門'
   }
 ])
+
+loadingStore.show()
 
 if (token.value && profile.value) {
   await userStore.getUserProfile()
@@ -51,6 +54,7 @@ fetchAllEvents()
 
 // 選擇我們的理由
 whyUsList.value = await otherStore.getWhyUsList()
+loadingStore.hide() 
 
 /* 熱門賽事項目 */
 const hotCategories = computed(() => categoryStore.top9HotCategories.slice(0, 5))

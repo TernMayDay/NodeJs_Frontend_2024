@@ -3,10 +3,10 @@
     <div class="col-md-6">
       <h2 class="flex justify-center">登入</h2>
       <div class="card">
-        <div class="card-body px-14 py-10 rounded">
+        <div class="card-body rounded">
           <form @submit.prevent="onSubmit">
             <div class="mb-3">
-              <label for="username" class="form-label">信箱</label>
+              <label for="username" class="form-label">帳號</label>
               <input id="username" v-model="email" type="text" class="form-control" />
             </div>
             <div class="mb-3">
@@ -14,8 +14,8 @@
               <input id="password" v-model="password" type="password" class="form-control" />
             </div>
             <!-- <button type="submit" class="btn login-btn text-btn1 w-100">忘記密碼</button> -->
-            <div class="flex flex-center">
-              <button type="submit" class="btn login-btn text-btn1 w-50 flex justify-center">
+            <div class="justify-center flex">
+              <button type="submit" class="btn login-btn text-btn1 w-50 flex justify-center align-center">
                 登入
               </button>
             </div>
@@ -68,7 +68,7 @@ async function onSubmit() {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .card {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
@@ -81,7 +81,23 @@ async function onSubmit() {
 }
 
 .card-body {
-  background-color: #ffffff;
+  background: $gray_2;
   color: #212529;
+  padding-left: 8.5rem;
+  padding-right: 8.5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
 }
 </style>

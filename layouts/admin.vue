@@ -8,46 +8,44 @@ const { profile } = storeToRefs(authProfileStore)
 // 檢查用戶是否有權限訪問後台
 const checkAdminAccess = () => {
   if (!profile.value || (profile.value.role !== '1' && profile.value.role !== '0')) {
-    // 如果用戶不是主辦方（role '1'）或平台方（role '0'），重定向到首頁
     return navigateTo('/')
   }
 }
 
-// 在組件掛載時檢查權限
 onMounted(checkAdminAccess)
-
-// 監聽 profile 變化，以便在用戶登出時重新檢查權限
 watch(profile, checkAdminAccess)
+
+const preventClick = (event) => {
+  event.preventDefault()
+}
 </script>
 
 <template>
   <div v-if="checkAdminAccess" class="admin-layout">
-    <Header />
+    <AdminHeader />
     <div class="admin-content">
       <aside class="admin-sidebar">
         <nav>
           <ul class="list-unstyled">
             <li>
-              <NuxtLink to="/sponsor/admin/eventManagement" class="admin-nav-link"
-                >賽事管理</NuxtLink
-              >
-            </li>
-            <li v-if="profile?.role === '1'">
-              <NuxtLink to="/sponsor/admin/fanManagement" class="admin-nav-link">粉絲管理</NuxtLink>
+              <NuxtLink to="/sponsor/admin/eventManagement" class="admin-nav-link">賽事管理</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/sponsor/admin/revenueManagement" class="admin-nav-link"
-                >營收管理</NuxtLink
-              >
-            </li>
-            <li v-if="profile?.role === '1'">
-              <NuxtLink to="/sponsor/admin/checkTickets" class="admin-nav-link">驗票功能</NuxtLink>
+              <span class="admin-nav-link disabled" @click="preventClick">粉絲管理</span>
             </li>
             <li>
-              <nuxt-link class="admin-nav-link" to="/sponsor/event">sponsorEvent</nuxt-link>
+              <span class="admin-nav-link disabled" @click="preventClick">營收管理</span>
+            </li>
+            <li>
+              <span class="admin-nav-link disabled" @click="preventClick">驗票功能</span>
             </li>
           </ul>
         </nav>
+        <div class="mt-auto">
+          <NuxtLink to="/" class="admin-nav-link return-link">
+            <i class="icon-return"></i> 返回前台
+          </NuxtLink>
+        </div>
       </aside>
       <main class="admin-main">
         <slot />
@@ -61,30 +59,32 @@ watch(profile, checkAdminAccess)
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #050505; // Gary1
+  background-color: #050505;
   color: #fff;
 }
 
 .admin-content {
   display: flex;
   flex-grow: 1;
-  padding-top: $front-header-height; // 確保內容不被 Header 覆蓋
+  padding-top: $front-header-height;
 }
 
 .admin-sidebar {
   width: 250px;
-  background-color: #1e1e1e; // Gary2
+  background-color: #1e1e1e;
   padding: 1rem;
-  height: calc(100vh - $front-header-height); // 減去 Header 的高度
-  overflow-y: auto; // 允許側邊欄滾動
-  position: fixed; // 固定側邊欄
+  height: calc(100vh - $front-header-height);
+  overflow-y: auto;
+  position: fixed;
   left: 0;
   top: $front-header-height;
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-main {
   flex-grow: 1;
-  padding: 1rem;
+  padding: 3rem;
   margin-left: 250px; // 為側邊欄留出空間
   background-color: #282828; // Gary3
 }
@@ -94,16 +94,32 @@ watch(profile, checkAdminAccess)
   padding: 0.5rem 1rem;
   color: #fff;
   text-decoration: none;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   border-radius: 4px;
+  cursor: pointer;
 
   &:hover,
   &.router-link-active {
-    background-color: #373737; // Gary4
-    color: #00ffa3; // Primary color
+    background-color: #373737;
+    color: #00ffa3;
   }
+
+  &.disabled {
+    color: #848484;
+    cursor: not-allowed;
+    pointer-events: none;
+
+    &:hover {
+      background-color: transparent;
+      color: #848484;
+    }
+  }
+}
+
+.return-link {
+  margin-top: auto;
+  border-top: 1px solid #373737;
+  padding-top: 1rem;
 }
 
 // 使用 guidelines 中的字體樣式
@@ -115,31 +131,8 @@ watch(profile, checkAdminAccess)
   letter-spacing: 1px;
 }
 
-// 為主要按鈕添加樣式
-.btn-primary {
-  background: linear-gradient(to right, #00ffa3, #00efff);
-  color: #050505; // Gary1
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
-// 為次要按鈕添加樣式
-.btn-secondary {
-  background-color: #fc6a00; // Secondary color
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 0.8;
-  }
+.icon-return::before {
+  content: '←';
+  margin-right: 0.5rem;
 }
 </style>

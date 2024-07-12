@@ -6,6 +6,10 @@ import dayjs from 'dayjs'
  * @returns 起始日 ~ 結束日 或 起始日
  */
 export const handleEventDate = (eventDateArr: (string | null)[]) => {
+  if(!eventDateArr) {
+    return ''
+  }
+
   const newEventDateArr = eventDateArr
     .filter((data) => data)
     .map((date, index) => {
@@ -28,6 +32,10 @@ export const handleEventDate = (eventDateArr: (string | null)[]) => {
  * @returns 已售出、未開賣、開賣中
  */
 export const handleSalesStatus = (event: any) => {
+  if(!event.ticketSales) {
+    return ''
+  }
+
   const { ticketSales, eventDate } = event
   const startDate = eventDate[0]
   const today = new Date()
