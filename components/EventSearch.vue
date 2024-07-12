@@ -61,18 +61,23 @@ watch(
 )
 
 /* 取得所有賽事列表 */
-events.value = await eventStore.getFilterEvents({displayMode: 'all'})
+events.value = await eventStore.getFilterEvents({ displayMode: 'all' })
 /* 過濾賽事 */
 const filterEvents = computed(() => {
-  return events.value.filter(event => {
+  return events.value.filter((event) => {
     const { eventName, categoryId, tagList } = event
     const { nameTC, nameEN } = categoryId
-    const someTagList = tagList.some(tag => {
+    const someTagList = tagList.some((tag) => {
       const { name, isDeleted } = tag
       return name.includes(searchInputVal.value) && !isDeleted
     })
 
-    return eventName.includes(searchInputVal.value) || nameTC.includes(searchInputVal.value) || nameEN.includes(searchInputVal.value) || someTagList
+    return (
+      eventName.includes(searchInputVal.value) ||
+      nameTC.includes(searchInputVal.value) ||
+      nameEN.includes(searchInputVal.value) ||
+      someTagList
+    )
   })
 })
 

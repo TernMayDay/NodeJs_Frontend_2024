@@ -20,7 +20,7 @@ const event = ref(props.event)
       <ul class="list-unstyled mb-0 card-img-overlay p-3 d-flex flex-column">
         <li>
           <span class="badge badge-category rounded-pill text-s1">{{
-            event.categoryId.nameTC
+            event.categoryId?.nameTC
           }}</span>
         </li>
         <li class="mt-auto d-flex justify-content-between align-items-end gap-1">
