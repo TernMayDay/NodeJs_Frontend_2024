@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <h2 class="flex justify-center">登入</h2>
       <div class="card">
-        <div class="card-body px-14 py-10 rounded">
+        <div class="card-body rounded">
           <form @submit.prevent="onSubmit">
             <div class="mb-3">
               <label for="username" class="form-label">帳號</label>
@@ -68,7 +68,7 @@ async function onSubmit() {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .card {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
@@ -81,8 +81,12 @@ async function onSubmit() {
 }
 
 .card-body {
-  background-color: #ffffff;
+  background: $gray_2;
   color: #212529;
+  padding-left: 8.5rem;
+  padding-right: 8.5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
 }
 
 .flex {

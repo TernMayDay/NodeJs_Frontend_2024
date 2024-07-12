@@ -82,7 +82,7 @@ const preventClick = (event) => {
 
 .admin-main {
   flex-grow: 1;
-  padding: 1rem;
+  padding: 3rem;
   margin-left: 250px; // 為側邊欄留出空間
   background-color: #282828; // Gary3
 }
