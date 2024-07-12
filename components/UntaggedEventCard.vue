@@ -39,7 +39,10 @@ defineProps({
         class="list-unstyled mt-auto mb-0 bg-gray1 px-3 py-2 d-flex justify-content-between align-items-center"
       >
         <li class="text-btn1 text-color-primary">{{ handleEventPrice(event.price) }}</li>
-        <li class="d-flex align-items-center gap-1 text-s2" :class="handleSalesStatus(event) === '未開賣' ? 'text-gray5' : 'text-white'">
+        <li
+          class="d-flex align-items-center gap-1 text-s2"
+          :class="handleSalesStatus(event) === '未開賣' ? 'text-gray5' : 'text-white'"
+        >
           <span>{{ handleSalesStatus(event) }}</span>
           <span v-if="event.ticketSales">{{ event.ticketSales }}</span>
         </li>

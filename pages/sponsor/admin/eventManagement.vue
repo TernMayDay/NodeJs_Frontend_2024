@@ -29,14 +29,16 @@ definePageMeta({
 .btn-add-event {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(to right, #00FFA3, #00EFFF);
+  background: linear-gradient(to right, #00ffa3, #00efff);
   color: #050505; // Gary1 for contrast
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   font-weight: bold;
   text-decoration: none;
-  transition: opacity 0.3s, transform 0.3s;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 
   &:hover {
     opacity: 0.9;

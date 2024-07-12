@@ -72,7 +72,10 @@ const isTicketDetailedPage = computed(() => {
             v-for="navTab in navTabs"
             :key="navTab.value"
             class="nav-link"
-            :class="{ active: isTicketDetailedPage && navTab.value === 'myTicket', disabled: navTab.value !== 'myTicket' }"
+            :class="{
+              active: isTicketDetailedPage && navTab.value === 'myTicket',
+              disabled: navTab.value !== 'myTicket'
+            }"
             aria-current="page"
             :to="`/member/${navTab.value}`"
             >{{ navTab.label }}</NuxtLink

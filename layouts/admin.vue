@@ -28,13 +28,17 @@ watch(profile, checkAdminAccess)
         <nav>
           <ul class="list-unstyled">
             <li>
-              <NuxtLink to="/sponsor/admin/eventManagement" class="admin-nav-link">賽事管理</NuxtLink>
+              <NuxtLink to="/sponsor/admin/eventManagement" class="admin-nav-link"
+                >賽事管理</NuxtLink
+              >
             </li>
             <li v-if="profile?.role === '1'">
               <NuxtLink to="/sponsor/admin/fanManagement" class="admin-nav-link">粉絲管理</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/sponsor/admin/revenueManagement" class="admin-nav-link">營收管理</NuxtLink>
+              <NuxtLink to="/sponsor/admin/revenueManagement" class="admin-nav-link"
+                >營收管理</NuxtLink
+              >
             </li>
             <li v-if="profile?.role === '1'">
               <NuxtLink to="/sponsor/admin/checkTickets" class="admin-nav-link">驗票功能</NuxtLink>
@@ -69,7 +73,7 @@ watch(profile, checkAdminAccess)
 
 .admin-sidebar {
   width: 250px;
-  background-color: #1E1E1E; // Gary2
+  background-color: #1e1e1e; // Gary2
   padding: 1rem;
   height: calc(100vh - $front-header-height); // 減去 Header 的高度
   overflow-y: auto; // 允許側邊欄滾動
@@ -90,13 +94,15 @@ watch(profile, checkAdminAccess)
   padding: 0.5rem 1rem;
   color: #fff;
   text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   border-radius: 4px;
 
   &:hover,
   &.router-link-active {
     background-color: #373737; // Gary4
-    color: #00FFA3; // Primary color
+    color: #00ffa3; // Primary color
   }
 }
 
@@ -111,7 +117,7 @@ watch(profile, checkAdminAccess)
 
 // 為主要按鈕添加樣式
 .btn-primary {
-  background: linear-gradient(to right, #00FFA3, #00EFFF);
+  background: linear-gradient(to right, #00ffa3, #00efff);
   color: #050505; // Gary1
   border: none;
   padding: 0.5rem 1rem;
@@ -125,7 +131,7 @@ watch(profile, checkAdminAccess)
 
 // 為次要按鈕添加樣式
 .btn-secondary {
-  background-color: #FC6A00; // Secondary color
+  background-color: #fc6a00; // Secondary color
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
