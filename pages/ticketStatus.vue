@@ -1,6 +1,10 @@
 <script setup>
 const route = useRoute()
 const ticketStore = useTicketStore()
+const loadingStore = useLoadingStore()
+const { hide } = loadingStore
+
+hide() // 關閉 loading
 const ticketId = computed(() => route.query.ticketId)
 const message = ref('票券確認中...')
 const ticketStatus = ref(0)
