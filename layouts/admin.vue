@@ -22,6 +22,7 @@ const preventClick = (event) => {
 
 <template>
   <div v-if="checkAdminAccess" class="admin-layout">
+    <CustomLoadingIndicator />
     <AdminHeader />
     <div class="admin-content">
       <aside class="admin-sidebar">

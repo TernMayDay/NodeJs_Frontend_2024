@@ -76,14 +76,18 @@ const events = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(1);
 const pageSize = ref(10);
+const loadingStore = useLoadingStore()
 
 const getEvents = async (page = 1) => {
   try {
+    loadingStore.show()
     const data = await useHttp.get(`/event/sponsor/${userId.value}?page=${page}&pageSize=${pageSize.value}`);
     events.value = data.data.events;
     currentPage.value = data.data.pagination.currentPage;
     totalPages.value = data.data.pagination.totalPages;
+    loadingStore.hide()
   } catch (error) {
+    loadingStore.hide()
     console.error('Error fetching events:', error);
   }
 };
