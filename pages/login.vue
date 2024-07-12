@@ -6,7 +6,7 @@
         <div class="card-body px-14 py-10 rounded">
           <form @submit.prevent="onSubmit">
             <div class="mb-3">
-              <label for="username" class="form-label">信箱</label>
+              <label for="username" class="form-label">帳號</label>
               <input id="username" v-model="email" type="text" class="form-control" />
             </div>
             <div class="mb-3">
@@ -14,8 +14,8 @@
               <input id="password" v-model="password" type="password" class="form-control" />
             </div>
             <!-- <button type="submit" class="btn login-btn text-btn1 w-100">忘記密碼</button> -->
-            <div class="flex flex-center">
-              <button type="submit" class="btn login-btn text-btn1 w-50 flex justify-center">
+            <div class="justify-center flex">
+              <button type="submit" class="btn login-btn text-btn1 w-50 flex justify-center align-center">
                 登入
               </button>
             </div>
@@ -83,5 +83,17 @@ async function onSubmit() {
 .card-body {
   background-color: #ffffff;
   color: #212529;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
 }
 </style>
