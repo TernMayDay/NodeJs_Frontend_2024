@@ -87,12 +87,12 @@ onUnmounted(() => {
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink class="dropdown-item" to="/member/mySubscription" @click="navbarCollapse.hide()">我的訂閱
-                    </NuxtLink>
+                    <span class="dropdown-item disabled" @click.prevent>我的訂閱
+                    </span>
                   </li>
                   <li>
-                    <NuxtLink class="dropdown-item" to="/member/myFavorite" @click="navbarCollapse.hide()">我的最愛
-                    </NuxtLink>
+                    <span class="dropdown-item disabled" @click.prevent>我的最愛
+                    </span>
                   </li>
                 </template>
                 <template v-else>
