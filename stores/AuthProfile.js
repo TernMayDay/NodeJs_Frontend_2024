@@ -31,7 +31,9 @@ export const useAuthProfileStore = defineStore('authProfile', {
       this.role = null
       localStorage.removeItem('authToken')
       localStorage.removeItem('userData')
-      location.reload()
+      
+      const router = useRouter()
+      router.push('/')
     }
   }
 })
