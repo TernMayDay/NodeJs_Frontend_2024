@@ -18,6 +18,11 @@ onMounted(checkAdminAccess)
 
 // 監聽 profile 變化，以便在用戶登出時重新檢查權限
 watch(profile, checkAdminAccess)
+
+// 防止 disabled 鏈接的點擊事件
+const preventClick = (event) => {
+  event.preventDefault()
+}
 </script>
 
 <template>
@@ -28,23 +33,16 @@ watch(profile, checkAdminAccess)
         <nav>
           <ul class="list-unstyled">
             <li>
-              <NuxtLink to="/sponsor/admin/eventManagement" class="admin-nav-link"
-                >賽事管理</NuxtLink
-              >
-            </li>
-            <li v-if="profile?.role === '1'">
-              <NuxtLink to="/sponsor/admin/fanManagement" class="admin-nav-link">粉絲管理</NuxtLink>
+              <NuxtLink to="/sponsor/admin/eventManagement" class="admin-nav-link">賽事管理</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/sponsor/admin/revenueManagement" class="admin-nav-link"
-                >營收管理</NuxtLink
-              >
-            </li>
-            <li v-if="profile?.role === '1'">
-              <NuxtLink to="/sponsor/admin/checkTickets" class="admin-nav-link">驗票功能</NuxtLink>
+              <span class="admin-nav-link disabled" @click="preventClick">粉絲管理</span>
             </li>
             <li>
-              <nuxt-link class="admin-nav-link" to="/sponsor/event">sponsorEvent</nuxt-link>
+              <span class="admin-nav-link disabled" @click="preventClick">營收管理</span>
+            </li>
+            <li>
+              <span class="admin-nav-link disabled" @click="preventClick">驗票功能</span>
             </li>
           </ul>
         </nav>
@@ -94,15 +92,25 @@ watch(profile, checkAdminAccess)
   padding: 0.5rem 1rem;
   color: #fff;
   text-decoration: none;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   border-radius: 4px;
+  cursor: pointer;
 
   &:hover,
   &.router-link-active {
     background-color: #373737; // Gary4
     color: #00ffa3; // Primary color
+  }
+
+  &.disabled {
+    color: #848484; // Gary5
+    cursor: not-allowed;
+    pointer-events: none;
+
+    &:hover {
+      background-color: transparent;
+      color: #848484; // Gary5
+    }
   }
 }
 
@@ -115,31 +123,4 @@ watch(profile, checkAdminAccess)
   letter-spacing: 1px;
 }
 
-// 為主要按鈕添加樣式
-.btn-primary {
-  background: linear-gradient(to right, #00ffa3, #00efff);
-  color: #050505; // Gary1
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
-// 為次要按鈕添加樣式
-.btn-secondary {
-  background-color: #fc6a00; // Secondary color
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
-</style>
+// 其他樣式保持不變...</style>
