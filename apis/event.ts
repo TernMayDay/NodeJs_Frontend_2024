@@ -7,11 +7,7 @@ import type {
   addEventModel,
   filterEventParams,
   idParams,
-  detailModel,
-  addOrderParams,
-  addOrderModel,
-  ecPayParams,
-  ecPayModel
+  detailModel
 } from '@/apis/types/eventType'
 
 enum Api {
@@ -21,9 +17,9 @@ enum Api {
   eventList = '/event',
   filterEvent = '/event/filter',
   detailEvent = '/event/detail',
-  session = '/session',
-  order = '/order',
-  ecPay = '/green/checkout'
+  session = '/session'
+  // order = '/order',
+  // ecPay = '/green/checkout'
 }
 
 // 取得所有 tag
@@ -81,14 +77,4 @@ export function getDetailSession(params: idParams) {
   const { id } = params
   const url = `${Api.session}/${id}`
   return useHttp.get<detailModel>(url)
-}
-
-// 新增訂單
-export function postAddOrder(body: addOrderParams) {
-  return useHttp.post<addOrderModel>(Api.order, body)
-}
-
-// 綠界
-export function postEcPay(body: ecPayParams) {
-  return useHttp.post<ecPayModel>(Api.ecPay, body)
 }

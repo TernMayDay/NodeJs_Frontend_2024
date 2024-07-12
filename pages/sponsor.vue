@@ -6,7 +6,6 @@ definePageMeta({
 
 <template>
   <div>
-    Page: sponsor
     <NuxtPage />
   </div>
 </template>

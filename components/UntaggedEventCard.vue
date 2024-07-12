@@ -15,7 +15,7 @@ defineProps({
         <ul class="list-unstyled mb-0 card-img-overlay p-2 d-flex flex-column">
           <li>
             <span class="badge badge-category rounded-pill text-s1">{{
-              event.categoryId?.name
+              event.categoryId?.nameTC
             }}</span>
           </li>
           <li class="mt-auto text-end">
@@ -26,7 +26,7 @@ defineProps({
       <ul class="list-unstyled d-grid gap-2 mt-4 mb-3 card-text">
         <li class="d-flex align-items-center gap-1 text-s2">
           <div class="icon icon-location icon-size-sm bg-gray5 text-truncate"></div>
-          台東縣立體育場
+          {{ event.eventPlace }}
         </li>
         <li class="text-truncate-row-2">
           <h5 class="card-title mb-0 text-h4">{{ event.eventName }}</h5>
@@ -38,11 +38,13 @@ defineProps({
       <ul
         class="list-unstyled mt-auto mb-0 bg-gray1 px-3 py-2 d-flex justify-content-between align-items-center"
       >
-        <!-- 若為 0 為免費 -->
-        <li class="text-btn1 text-color-primary">$450 起</li>
-        <li class="d-flex align-items-center gap-1 text-s2 text-white">
-          <span>已售出</span>
-          <span>2345</span>
+        <li class="text-btn1 text-color-primary">{{ handleEventPrice(event.price) }}</li>
+        <li
+          class="d-flex align-items-center gap-1 text-s2"
+          :class="handleSalesStatus(event) === '未開賣' ? 'text-gray5' : 'text-white'"
+        >
+          <span>{{ handleSalesStatus(event) }}</span>
+          <span v-if="event.ticketSales">{{ event.ticketSales }}</span>
         </li>
       </ul>
     </div>

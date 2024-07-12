@@ -56,7 +56,10 @@ const filterTagList = computed(() => {
     >
       <ul class="list-unstyled mb-0 d-grid gap-1">
         <li class="text-btn1 text-color-primary">{{ handleEventPrice(event.price) }}</li>
-        <li class="d-flex align-items-center gap-1 text-s2 text-white">
+        <li
+          class="d-flex align-items-center gap-1 text-s2"
+          :class="handleSalesStatus(event) === '未開賣' ? 'text-gray5' : 'text-white'"
+        >
           <span>{{ handleSalesStatus(event) }}</span>
           <span v-if="event.ticketSales">{{ event.ticketSales }}</span>
         </li>

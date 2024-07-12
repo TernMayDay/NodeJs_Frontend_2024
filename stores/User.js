@@ -8,8 +8,6 @@ export const useUserStore = defineStore('user', () => {
 
   // 取得我的資料
   const getUserProfile = async () => {
-    // eslint-disable-next-line no-console
-    console.log('getUserProfile')
     const data = await useHttp.get(`${apiRoom}/profile/${userId.value}`)
 
     // 讀取 Fake API 方式

@@ -1,6 +1,8 @@
 <script setup>
 const orderStore = useOrderStore()
-await orderStore.getOrders()
+onMounted(async () => {
+  await orderStore.getOrders()
+})
 </script>
 
 <template>

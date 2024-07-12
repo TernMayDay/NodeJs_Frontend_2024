@@ -102,7 +102,7 @@ const payCart = async () => {
 
     const ecPayParams = {
       itemName,
-      itemPrice: total,
+      itemPrice: String(total),
       orderID: response.order._id
     }
     const ecPayRes = await orderStore.createdEcPay(ecPayParams)

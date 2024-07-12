@@ -56,17 +56,30 @@ watch(
     const { query, path } = route
     const { q } = query
     searchInputVal.value = q && path === '/events' ? q : ''
-
-    if (searchInputVal.value) {
-      const { events: reslt } = await eventStore.getEvents({
-        q: searchInputVal.value,
-        pageSize: 5
-      })
-      events.value = reslt
-    }
   },
   { immediate: true }
 )
+
+/* 取得所有賽事列表 */
+events.value = await eventStore.getFilterEvents({ displayMode: 'all' })
+/* 過濾賽事 */
+const filterEvents = computed(() => {
+  return events.value.filter((event) => {
+    const { eventName, categoryId, tagList } = event
+    const { nameTC, nameEN } = categoryId
+    const someTagList = tagList.some((tag) => {
+      const { name, isDeleted } = tag
+      return name.includes(searchInputVal.value) && !isDeleted
+    })
+
+    return (
+      eventName.includes(searchInputVal.value) ||
+      nameTC.includes(searchInputVal.value) ||
+      nameEN.includes(searchInputVal.value) ||
+      someTagList
+    )
+  })
+})
 
 /* 取得熱門標籤 */
 const hotTags = computed(() => tagStore.top20Tags.slice(0, 5))
@@ -138,10 +151,10 @@ watch(searchInputVal, (newVal) => {
     >
       <!-- 有關鍵字 -->
       <template v-if="searchInputVal">
-        <template v-if="events.length">
+        <template v-if="filterEvents.length">
           <div class="list-group list-group-flush overflow-y-auto">
             <NuxtLink
-              v-for="event in events"
+              v-for="event in filterEvents"
               :key="event._id"
               class="list-group-item event-list-item d-flex align-items-center gap-2"
               :to="`/events/${event._id}`"

@@ -34,6 +34,7 @@
     "nuxt-swiper": "^1.2.2",
     "ohmyfetch": "^0.4.21",
     "pinia": "^2.1.7",
+    "qrcode": "^1.5.3",
     "quasar": "^2.16.4",
     "sass": "^1.77.6",
     "sweetalert2": "^11.12.0",

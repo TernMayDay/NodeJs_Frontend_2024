@@ -1,7 +1,13 @@
-<script lang="ts" setup></script>
+<script setup>
+definePageMeta({
+  layout: 'admin'
+})
+</script>
 
 <template>
-  <div>Page: sponsor/index <NuxtPage /></div>
+  <div>
+    <NuxtPage />
+  </div>
 </template>
 
 <style scoped></style>
