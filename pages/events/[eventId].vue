@@ -6,11 +6,16 @@ const router = useRouter()
 const route = useRoute()
 const eventStore = useEventStore()
 
+const loadingStore = useLoadingStore()
+const { hide, show } = loadingStore
+
 const isSession = ref(false)
 
 const sessionList = ref([])
 const eventData = ref({})
 const eventIntro = ref('')
+
+show() // open loading
 
 const saveSessionList = (list) => {
   // 篩選
@@ -28,6 +33,7 @@ const saveSessionList = (list) => {
 }
 
 const getData = async () => {
+  show() // open loading
   try {
     const eventId = route.params.eventId
     const paramsId = { id: eventId }
@@ -46,6 +52,7 @@ const getData = async () => {
     eventIntro.value = eventData.eventIntro
   } finally {
     saveSessionList(sessionList.value)
+    hide() // 關閉 loading
   }
 }
 

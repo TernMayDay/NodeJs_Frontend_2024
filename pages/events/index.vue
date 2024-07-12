@@ -2,6 +2,8 @@
 const categoryStore = useCategoryStore()
 await categoryStore.getCategoriesAll()
 const { categoriesAll } = storeToRefs(categoryStore)
+const loadingStore = useLoadingStore()
+const { hide, show } = loadingStore
 
 const route = useRoute()
 const router = useRouter()
@@ -27,7 +29,10 @@ const navTabs = ref([
   }
 ])
 
+show() // open loading
+
 const handlerDisplayMode = async ({ mode, query }) => {
+  show() // open loading
   activeMode.value = mode
   const nameTC = activeCategory.value.nameTC
   try {
@@ -47,10 +52,14 @@ const handlerDisplayMode = async ({ mode, query }) => {
         q: query || ''
       }
     })
+
+    hide() // 關閉 loading
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('API error:', error)
     eventList.value = []
+
+    hide() // 關閉 loading
   }
 }
 
@@ -60,10 +69,15 @@ const changeCategory = async (category) => {
   await handlerDisplayMode({ mode: activeMode.value, query })
 }
 
+// show()
+
 onMounted(() => {
   const { displayMode, nameTC, q } = route.query
   activeCategory.value.nameTC = nameTC || '全部'
   handlerDisplayMode({ mode: displayMode || 'all', nameTC: nameTC || '全部', query: q })
+
+  // isLoading.value = true
+  // isLoading.value = false
 })
 </script>
 
