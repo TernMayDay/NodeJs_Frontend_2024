@@ -15,7 +15,7 @@ defineProps({
         <ul class="list-unstyled mb-0 card-img-overlay p-2 d-flex flex-column">
           <li>
             <span class="badge badge-category rounded-pill text-s1">{{
-              event.categoryId?.name
+              event.categoryId?.nameTC
             }}</span>
           </li>
           <li class="mt-auto text-end">
