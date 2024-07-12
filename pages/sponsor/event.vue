@@ -71,12 +71,12 @@ const onSubmit = async (value) => {
   try {
     res = await addEvent(JSON.stringify(eventData))
     if (res.data.status === 'success') {
-      await router.push('/admin/eventManagement')
+      await router.push('/sponsor/admin/eventManagement')
     }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(res.data.status)
-    await router.push('/admin/eventManagement')
+    await router.push('/sponsor/admin/eventManagement')
   }
 }
 </script>
