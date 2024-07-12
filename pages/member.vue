@@ -4,6 +4,7 @@ definePageMeta({
 })
 
 const route = useRoute()
+const loadingStore = useLoadingStore()
 const userStore = useUserStore()
 const authProfileStore = useAuthProfileStore()
 const { profile, token } = storeToRefs(authProfileStore)
@@ -28,6 +29,7 @@ const navTabs = ref([
 ])
 
 onMounted(async () => {
+  loadingStore.show()
   await userStore.getUserProfile()
 })
 

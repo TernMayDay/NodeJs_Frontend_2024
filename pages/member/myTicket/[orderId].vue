@@ -6,6 +6,7 @@ import logo from '@/assets/images/logo.svg'
 
 const route = useRoute()
 const router = useRouter()
+const loadingStore = useLoadingStore()
 const authProfileStore = useAuthProfileStore()
 const { token } = storeToRefs(authProfileStore)
 const orderStore = useOrderStore()
@@ -109,6 +110,7 @@ watch(
     }
 
     orderDetail.value = myOrder.value.find((order) => order._id === newOrderId)
+    setTimeout(() => loadingStore.hide(), 0)
 
     if (!orderDetail.value) {
       setTimeout(() => {
