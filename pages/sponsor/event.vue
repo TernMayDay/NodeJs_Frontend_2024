@@ -21,7 +21,8 @@ const formData = ref({
 })
 
 const addEvent = async (newValue) => {
-  await createdEvent(newValue)
+  const data = await createdEvent(newValue)
+  return data
 }
 
 const onSubmit = async (value) => {
@@ -65,17 +66,17 @@ const onSubmit = async (value) => {
     eventSetting: filteredEventSetting,
     sessionSetting: filteredArea
   }
-  // eslint-disable-next-line no-console
-  console.log('eventData', eventData)
-  let res = ''
+
+  // console.log('eventData', eventData)
+
   try {
-    res = await addEvent(JSON.stringify(eventData))
-    if (res.data.status === 'success') {
+    const res = await addEvent(JSON.stringify(eventData))
+    if (res.status === 'success') {
       await router.push('/sponsor/admin/eventManagement')
     }
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(res.data.status)
+    console.error(error)
     await router.push('/sponsor/admin/eventManagement')
   }
 }
