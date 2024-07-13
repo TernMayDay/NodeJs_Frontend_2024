@@ -75,8 +75,8 @@ export const useEventStore = defineStore('eventStore', () => {
   const createdEvent = async (params) => {
     try {
       const response = await api.postAddEvent(params)
-      newEventData.value = response.data
-      return response.data
+      newEventData.value = response
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error 新增賽事:', error)
